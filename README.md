@@ -2,6 +2,40 @@
 
 The simple Flutter project
 
+## Test Coverage
+
+Including Unit Tests, Widget Tests, Golden Tests, and Integration Tests
+
+<img width="1311" alt="coverage" src="https://github.com/ntminhdn/Flutter-Riverpod-Lean-Architecture/assets/93504649/74bcd31a-20fd-4727-bf35-c1e699394bff">
+
+
+## Screenshots
+
+### Chat Page
+
+|           Light           |           Dark            |
+| :------------------------: | :------------------------: |
+| <img src="https://github.com/ntminhdn/Flutter-Riverpod-Lean-Architecture/assets/93504649/f02803ad-497b-4331-90ae-c4df7b52e7d5" /> | <img src="https://github.com/ntminhdn/Flutter-Riverpod-Lean-Architecture/assets/93504649/782531ca-bb39-4f7f-a106-ac59cb4ad8a2" /> |
+
+### Contact List Page
+
+|           Light           |           Dark            |
+| :------------------------: | :------------------------: |
+| <img src="https://github.com/ntminhdn/Flutter-Riverpod-Lean-Architecture/assets/93504649/85a857b9-d6b4-4129-8408-50cfbfd0c437" /> | <img src="https://github.com/ntminhdn/Flutter-Riverpod-Lean-Architecture/assets/93504649/30bb26db-9e83-422c-ad6c-98e92199834c" /> |
+
+### Register Page
+
+|           Light           |           Dark            |
+| :------------------------: | :------------------------: |
+| <img src="https://github.com/ntminhdn/Flutter-Riverpod-Lean-Architecture/assets/93504649/726e29a2-b055-4827-83b5-aab21c7eba7b" /> | <img src="https://github.com/ntminhdn/Flutter-Riverpod-Lean-Architecture/assets/93504649/f1bcab26-d734-4601-a3a9-cbdca46a597d" /> |
+
+### My Page
+
+|           Light           |           Dark            |
+| :------------------------: | :------------------------: |
+| <img src="https://github.com/ntminhdn/Flutter-Riverpod-Lean-Architecture/assets/93504649/b409e4ab-6fb6-4c85-a136-16989689995a" /> | <img src="https://github.com/ntminhdn/Flutter-Riverpod-Lean-Architecture/assets/93504649/d1f37287-121d-447d-af87-2093e3056655" /> |
+
+
 ## Getting Started
 
 ### Requirements
