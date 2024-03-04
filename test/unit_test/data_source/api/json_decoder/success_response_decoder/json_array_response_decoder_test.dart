@@ -1,0 +1,118 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:nalsflutter/index.dart';
+
+void main() {
+  group('map', () {
+    test('should return correct List<MockData2> when response is List<MockData2>', () async {
+      // arrange
+      final validResponse = [
+        {
+          'mock_data': {
+            'uid': 1,
+            'email': 'email',
+          },
+        },
+        {
+          'mock_data': {
+            'uid': 2,
+            'email': 'email',
+          },
+        },
+      ];
+      const expected = [
+        MockData2(
+          mockData: MockData(
+            id: 1,
+            email: 'email',
+          ),
+        ),
+        MockData2(
+          mockData: MockData(
+            id: 2,
+            email: 'email',
+          ),
+        ),
+      ];
+      // act
+      final result = JsonArrayResponseDecoder<MockData2>().map(
+        response: validResponse,
+        decoder: (json) => MockData2.fromJson(json as Map<String, dynamic>),
+      );
+      // assert
+      expect(result, expected);
+    });
+
+    test('should return correct List<MockData> when response is List<MockData>', () {
+      // arrange
+      final validResponse = [
+        {
+          'uid': 1,
+          'email': 'email',
+        },
+        {
+          'uid': 2,
+          'email': 'email',
+        },
+      ];
+      const expected = [
+        MockData(
+          id: 1,
+          email: 'email',
+        ),
+        MockData(
+          id: 2,
+          email: 'email',
+        ),
+      ];
+      // act
+      final result = JsonArrayResponseDecoder<MockData>().map(
+        response: validResponse,
+        decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+      );
+      // assert
+      expect(result, expected);
+    });
+
+    test('should throw AssertionError when response is null', () {
+      expect(
+        () => JsonArrayResponseDecoder<MockData>().map(
+          response: null,
+          decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+        ),
+        throwsAssertionError,
+      );
+    });
+
+    test('should return empty List<MockData> when response is empty List', () {
+      // arrange
+      const validResponse = [];
+      const expected = <MockData>[];
+      // act
+      final result = JsonArrayResponseDecoder<MockData>().map(
+        response: validResponse,
+        decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+      );
+      // assert
+      expect(result, expected);
+    });
+
+    test(
+      'should return null when response is not JSONArray',
+      () {
+        // arrange
+        const response = {
+          'uid': 2,
+          'email': 'email',
+        };
+
+        final result = JsonArrayResponseDecoder<MockData>().map(
+          response: response,
+          decoder: (json) => MockData.fromJson(json as Map<String, dynamic>),
+        );
+
+        // assert
+        expect(result, null);
+      },
+    );
+  });
+}

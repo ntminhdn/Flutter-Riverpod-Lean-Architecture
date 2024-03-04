@@ -1,0 +1,141 @@
+name: nalsflutter
+description: A new Flutter project.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependency_overrides:
+  analyzer: 6.2.0
+  http: 1.1.0
+
+dependencies:
+  android_id: 0.3.6
+  animations: 2.0.10
+  app_links: 3.5.0
+  # artemis: 7.12.0-beta.1
+  async: 2.11.0
+  auto_route: 7.8.4
+  cached_network_image: 3.3.0
+  chatview:
+    git:
+      url: https://github.com/minhnt3/flutter_chatview.git
+      ref: improve
+  clock: 1.1.1
+  cloud_firestore: 4.14.0
+  connectivity_plus: 5.0.2
+  dartx: 1.2.0
+  decimal: 2.3.3
+  device_info_plus: 9.1.1
+  device_preview: 1.1.0
+  dio: 5.4.0
+  # dio_cookie_manager: 3.1.0
+  encrypted_shared_preferences: 3.0.1
+  firebase_analytics: 10.8.0
+  firebase_auth: 4.15.3
+  firebase_core: 2.24.2
+  firebase_crashlytics: 3.4.8
+  firebase_messaging: 14.7.9
+  flutter:
+    sdk: flutter
+  flutter_cache_manager: 3.3.1
+  flutter_hooks: 0.20.3
+  flutter_linkify: 6.0.0
+  flutter_local_notifications: 16.2.0
+  flutter_localizations:
+    sdk: flutter
+  flutter_screenutil: 5.9.0
+  flutter_secure_storage: 9.0.0
+  flutter_svg: 2.0.9
+  flutter_udid: 2.0.1
+  freezed_annotation: 2.4.1
+  golden_toolkit: 0.15.0
+  # geolocator: 10.1.0
+  # get_it: 7.6.0
+  # gql: 0.14.0
+  # gql_dio_link: 0.3.0
+  # graphql_flutter: 5.1.2
+  hooks_riverpod: 2.4.9
+  infinite_scroll_pagination: 4.0.0
+  injectable: 2.3.2
+  intl: 0.18.1
+  isar: 3.1.0+1
+  isar_flutter_libs: 3.1.0+1
+  json_annotation: 4.8.1
+  meta: 1.11.0
+  mime: 1.0.4
+  package_info_plus: 5.0.1
+  path_provider: 2.1.1
+  popup_menu: 2.0.0
+  rxdart: 0.27.7
+  url_launcher: 6.2.2
+dev_dependencies:
+  auto_route_generator: 7.3.2
+  build_runner: 2.4.7
+  custom_lint: 0.5.7
+  # dart_code_metrics: 5.7.6
+  flutter_driver:
+    sdk: flutter
+  flutter_gen_runner: 5.4.0
+  flutter_launcher_icons: 0.13.1
+  flutter_lints: 3.0.1
+  flutter_native_splash: 2.3.8
+  flutter_test:
+    sdk: flutter
+  freezed: 2.4.6
+  injectable_generator: 2.4.1
+  integration_test:
+    sdk: flutter
+  intl_utils: 2.8.6
+  isar_generator: 3.1.0+1
+  json_serializable: 6.7.1
+  mocktail: 1.0.2
+  mocktail_image_network: 1.1.0
+  nock: 1.2.3
+  state_notifier_test: 0.0.10
+  super_lint:
+    path: super_lint
+
+flutter_gen:
+  output: lib/generated
+  line_lenght: 160
+  null_safety: true
+
+  integrations:
+    flutter_svg: true
+    # flare_flutter: true
+
+  assets:
+    enabled: true
+
+  fonts:
+    enabled: true
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+  fonts:
+    - family: Cupertino
+      fonts:
+        - asset: assets/fonts/Cupertino/CupertinoIcons.ttf
+    - family: Noto_Sans_JP
+      fonts:
+        - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Noto_Sans_JP/static/NotoSansJP-Black.ttf
+          weight: 900

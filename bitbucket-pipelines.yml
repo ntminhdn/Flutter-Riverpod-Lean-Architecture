@@ -1,0 +1,29 @@
+image: cirrusci/flutter:3.19.1
+
+definitions:
+  steps:
+    - step: &running-ci
+        name: CI.
+        script:
+          - flutter doctor -v
+          - echo "Run pub get and gen files"
+          - make sync
+          - echo "Run check pubs"
+          - make check_pubs
+          - echo "Run Tests"
+          - make te
+          - echo "Check format"
+          - make fm
+          - echo "Run lint"
+          - make lint
+
+pipelines:
+  pull-requests:
+    'feature/NFT-*':
+      - step: *running-ci
+    'bugfix/NFT-*':
+      - step: *running-ci
+    'hotfix/NFT-*':
+      - step: *running-ci
+    'release/NFT-*':
+      - step: *running-ci

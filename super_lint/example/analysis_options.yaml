@@ -1,0 +1,36 @@
+analyzer:
+  plugins:
+    - custom_lint
+
+custom_lint:
+  rules:
+    - prefer_named_parameters:
+      threshold: 2
+      severity: warning
+    - incorrect_todo_comment:
+      excludes:
+      - "lib/excluded_test/incorrect_todo_comment_excluded_test.dart"
+      severity: error
+    - prefer_is_empty_string:
+      severity: warning
+    - prefer_is_not_empty_string:
+      severity: warning
+    - avoid_unnecessary_async_function:
+      severity: warning
+    - prefer_async_await:
+      excludes:
+      - "**excluded_test.dart"
+      severity: warning
+    - prefer_lower_case_test_description:
+      severity: warning
+      test_methods:
+        - method_name: 'test'
+          param_name: 'description'
+        - method_name: 'blocTest'
+          param_name: 'desc'
+    - test_folder_must_mirror_lib_folder:
+      severity: warning
+      lib_folder_path: "lib/test_folder_must_mirror_lib_folder_test/lib"
+      test_folder_paths:
+        - "lib/test_folder_must_mirror_lib_folder_test/test/ut"
+        - "lib/test_folder_must_mirror_lib_folder_test/it"

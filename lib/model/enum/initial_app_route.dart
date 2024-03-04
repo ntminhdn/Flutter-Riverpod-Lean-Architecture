@@ -1,0 +1,4 @@
+enum InitialAppRoute {
+  login,
+  main,
+}

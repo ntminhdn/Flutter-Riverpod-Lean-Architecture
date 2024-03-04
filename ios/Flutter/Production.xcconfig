@@ -1,0 +1,5 @@
+#include "Generated.xcconfig"
+FLUTTER_BUILD_NAME=1.0.0
+FLUTTER_BUILD_NUMBER=1
+PRODUCT_BUNDLE_IDENTIFIER=jp.flutter.app
+APP_DISPLAY_NAME=Production

@@ -1,0 +1,17 @@
+name: super_lint_example
+description: Demonstrates how to use the super_lint plugin.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+environment:
+  sdk: ">=3.1.5 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  custom_lint: ^0.5.7
+  super_lint:
+    path: ../
+flutter:
+  uses-material-design: true

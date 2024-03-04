@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "458527024484",
+    "project_id": "nals-flutter-qa",
+    "storage_bucket": "nals-flutter-qa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:458527024484:android:422540b7cf2b694f288671",
+        "android_client_info": {
+          "package_name": "jp.flutter.app.qa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "458527024484-epctmos6m3ls7mao1s2h0iq4fdh4c293.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvxxE2H7SOPtWJeeDmxTzWQC6etkXCoio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "458527024484-epctmos6m3ls7mao1s2h0iq4fdh4c293.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

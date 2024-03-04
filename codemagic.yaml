@@ -1,0 +1,267 @@
+# Env variables:
+# - GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+# - DART_DEFINES_DEVELOP
+# - DART_DEFINES_QA
+# - DART_DEFINES_STAGING
+# - DART_DEFINES_PRODUCTION
+# - IOS_FIREBASE_JSON_PRODUCTION
+# - ANDROID_FIREBASE_JSON_STAGING
+# - ANDROID_FIREBASE_JSON_PRODUCTION
+# - IOS_FIREBASE_JSON_STAGING
+# - EMAIL_1 - EMAIL_10
+definitions:
+  instance_mac_os: &instance_mac_os
+    instance_type: mac_mini_m1
+    max_build_duration: 60
+  env_config: &env_config
+    flutter: 3.19.1
+    xcode: 14.2
+    cocoapods: 1.14.3
+    groups:
+      - secrets
+  scripts:
+    - &sync
+      name: Run pub get and gen files
+      script: make sync
+    - &install_pods
+      name: Install pods
+      script: cd ios && pod install
+    - &set_up_code_signing_settings_on_xcode_project
+      name: Set up code signing settings on Xcode project
+      script: xcode-project use-profiles
+    - &upload_debug_symbols_to_crashlytics
+      name: Upload debug symbols to Firebase Crashlytics
+      script: |
+        echo "Find build artifacts"
+        dsymPath=$(find $CM_BUILD_DIR/build/ios/archive/Runner.xcarchive -name "*.dSYM" | head -1)
+        if [[ -z ${dsymPath} ]]
+        then
+          echo "No debug symbols were found, skip publishing to Firebase Crashlytics"
+        else
+          echo "Publishing debug symbols from $dsymPath to Firebase Crashlytics"
+          ls -d -- ios/Pods/*
+          $CM_BUILD_DIR/ios/Pods/FirebaseCrashlytics/upload-symbols \
+            -gsp ios/Runner/GoogleService-Info.plist -p ios $dsymPath
+        fi
+    - &decode_dart_defines
+      name: Decode dart defines
+      script: |
+        mkdir dart_defines
+        echo $DART_DEFINES_DEVELOP | base64 --decode > $FCI_BUILD_DIR/dart_defines/develop.json
+        echo $DART_DEFINES_QA | base64 --decode > $FCI_BUILD_DIR/dart_defines/qa.json
+        echo $DART_DEFINES_STAGING | base64 --decode > $FCI_BUILD_DIR/dart_defines/staging.json
+        echo $DART_DEFINES_PRODUCTION | base64 --decode > $FCI_BUILD_DIR/dart_defines/production.json
+    # - &decode_firebase_json
+    #   name: Decode Firebase json
+    #   script: |
+    #     echo $IOS_FIREBASE_JSON_PRODUCTION | base64 --decode > $FCI_BUILD_DIR/ios/Runner/GoogleService-Info.plist
+    #     echo $ANDROID_FIREBASE_JSON_STAGING | base64 --decode > $FCI_BUILD_DIR/android/app/src/staging/google-services.json
+    #     echo $ANDROID_FIREBASE_JSON_PRODUCTION | base64 --decode > $FCI_BUILD_DIR/android/app/src/production/google-services.json
+    #     echo $IOS_FIREBASE_JSON_STAGING | base64 --decode > $FCI_BUILD_DIR/ios/Runner/GoogleService-Info-Staging.plist
+    #     echo $IOS_FIREBASE_JSON_PRODUCTION | base64 --decode > $FCI_BUILD_DIR/ios/Runner/GoogleService-Info-Production.plist
+    - &setup_local_properties
+      name: Setup local.properties
+      script: echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+    - &build_dev_ipa
+      name: Build .ipa develop
+      script: make build_dev_ipa
+    - &build_qa_ipa
+      name: Build .ipa qa
+      script: make build_qa_ipa
+    - &build_stg_ipa
+      name: Build .ipa staging
+      script: make build_stg_ipa
+    - &build_prod_ipa
+      name: Build .ipa production
+      script: make build_prod_ipa
+    - &build_dev_apk
+      name: Build .apk develop
+      script: make build_dev_apk
+    - &build_qa_apk
+      name: Build .apk qa
+      script: make build_qa_apk
+    - &build_stg_apk
+      name: Build .apk staging
+      script: make build_stg_apk
+    - &build_prod_apk
+      name: Build .apk production
+      script: make build_prod_apk
+    - &build_stg_aab
+      name: Build .aab staging
+      script: make build_stg_aab
+    - &build_prod_aab
+      name: Build .aab production
+      script: make build_prod_aab
+    - &lint
+      name: Run lint
+      script: make lint
+    - &check_pubspecs
+      name: Run check_pubspecs
+      script: make check_pubs
+    - &test
+      name: Run tests
+      script: make te
+    - &format
+      name: Format code
+      script: make fm
+  email_release: &email_release
+    email:
+      recipients:
+        - $EMAIL_1
+        - $EMAIL_2
+        - $EMAIL_3
+        - $EMAIL_4
+        - $EMAIL_5
+        - $EMAIL_6
+        - $EMAIL_7
+        - $EMAIL_8
+        - $EMAIL_9
+        - $EMAIL_10    
+      notify:
+        success: true
+        failure: true
+
+workflows:
+  distribution_staging_ios:
+    name: Distribution Staging (iOS)
+    <<: *instance_mac_os
+    environment:
+      <<: *env_config
+      ios_signing:
+        provisioning_profiles:
+          - ios_staging_adhoc_profile
+        certificates:
+          - ios_production_p12
+    scripts:
+      - *sync
+      - *install_pods
+      - *set_up_code_signing_settings_on_xcode_project
+      - *decode_dart_defines
+      - *build_stg_ipa
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing:
+      <<: *email_release
+
+  distribution_staging_android:
+    name: Distribution Staging (Android)
+    environment:
+      <<: *env_config
+      android_signing:
+        - mykey
+    scripts:
+      - *setup_local_properties
+      - *decode_dart_defines
+      - *sync
+      - *build_stg_apk
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+    publishing:
+      <<: *email_release
+
+  distribution_staging:
+    name: Distribution Staging
+    triggering:
+      events:
+        - pull_request
+      branch_patterns:
+        - pattern: 'build/stg/*'
+          include: true
+          source: true 
+    <<: *instance_mac_os
+    environment:
+      <<: *env_config
+      android_signing:
+        - mykey
+      ios_signing:
+        provisioning_profiles:
+          - ios_staging_adhoc_profile
+        certificates:
+          - ios_production_p12
+    scripts:
+      - *setup_local_properties
+      - *sync
+      - *install_pods
+      - *set_up_code_signing_settings_on_xcode_project
+      - *decode_dart_defines
+      - *build_stg_ipa
+      - *build_stg_apk 
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+      - build/app/outputs/flutter-apk/*.apk
+    publishing:
+      <<: *email_release
+
+  distribution_store_production:
+    name: Distribution Store Production
+    triggering:
+      events:
+        - pull_request
+      branch_patterns:
+        - pattern: 'build/prod/*'
+          include: true
+          source: true 
+    <<: *instance_mac_os
+    integrations:
+      app_store_connect: app-store-connect
+    environment:
+      <<: *env_config
+      android_signing:
+        - mykey
+      ios_signing:
+        provisioning_profiles:
+          - ios_distribution_profile
+        certificates:
+          - ios_production_p12
+    scripts:
+      - *setup_local_properties
+      - *sync
+      - *install_pods
+      - *set_up_code_signing_settings_on_xcode_project
+      - *decode_dart_defines
+      - *build_prod_ipa
+      - *build_prod_aab
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+      - build/app/outputs/bundle/productionRelease/*.aab
+    publishing:
+      scripts:
+        - *upload_debug_symbols_to_crashlytics
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: internal
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        # beta_groups:
+        #   - "testers"
+        expire_build_submitted_for_review: false
+        submit_to_app_store: false
+        cancel_previous_submissions: false
+      <<: *email_release
+
+  ci:
+    name: CI
+    triggering:
+      events:
+        - pull_request
+      branch_patterns:
+        - pattern: "develop"
+          include: true
+          source: false
+    when:
+      condition: not event.pull_request.draft
+    environment:
+      <<: *env_config
+    scripts:
+      - *decode_dart_defines
+      - *sync
+      - *check_pubspecs
+      - *test
+      - *format
+      - *lint
+    publishing:
+      <<: *email_release
