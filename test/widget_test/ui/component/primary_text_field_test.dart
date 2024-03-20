@@ -36,7 +36,7 @@ void main() {
       group('test', () {
         _baseTestGoldens(
           description: 'when text is empty',
-          filename: 'text_is_empty',
+          filename: 'when_text_is_empty',
           widget: PrimaryTextField(
             title: 'Email',
             hintText: 'Email',
@@ -48,7 +48,7 @@ void main() {
       group('test', () {
         _baseTestGoldens(
           description: 'when text is not empty',
-          filename: 'text_is_not_empty',
+          filename: 'when_text_is_not_empty',
           widget: PrimaryTextField(
             title: 'Email',
             hintText: 'Email',
@@ -59,8 +59,8 @@ void main() {
 
       group('test', () {
         _baseTestGoldens(
-          description: 'when has suffixIcon',
-          filename: 'has_suffixIcon',
+          description: 'when it has suffixIcon',
+          filename: 'when_it_has_suffixIcon',
           widget: PrimaryTextField(
             title: 'Password',
             hintText: 'Password',
@@ -76,7 +76,7 @@ void main() {
       group('test', () {
         _baseTestGoldens(
           description: 'when keyboardType is TextInputType.visiblePassword',
-          filename: 'keyboardType_is_TextInputType.visiblePassword',
+          filename: 'when_keyboardType_is_TextInputType.visiblePassword',
           widget: PrimaryTextField(
             title: 'Password',
             hintText: 'Password',

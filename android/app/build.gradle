@@ -93,7 +93,7 @@ android {
     productFlavors {
         develop {
             dimension "flavor-type"
-            versionCode 4
+            versionCode 1
             versionName "1.0.0"
             applicationId "jp.flutter.app.dev"
             manifestPlaceholders["host"] = "dev.chatwork.com"
@@ -106,7 +106,7 @@ android {
 
         qa {
             dimension "flavor-type"
-            versionCode 7
+            versionCode 1
             versionName "1.0.0"
             applicationId "jp.flutter.app.qa"
             manifestPlaceholders["host"] = "dev.chatwork.com"

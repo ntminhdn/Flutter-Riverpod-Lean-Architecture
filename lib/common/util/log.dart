@@ -89,12 +89,22 @@ class Log {
 }
 
 mixin LogMixin on Object {
-  void logD(String message, {DateTime? time}) {
-    Log.d(message, name: runtimeType.toString(), time: time);
+  void logD(
+    String message, {
+    LogColor color = LogColor.green,
+    DateTime? time,
+  }) {
+    Log.d(
+      message,
+      name: runtimeType.toString(),
+      time: time,
+      color: color,
+    );
   }
 
   void logE(
     Object? errorMessage, {
+    LogColor color = LogColor.red,
     Object? errorObject,
     StackTrace? stackTrace,
     DateTime? time,
@@ -105,6 +115,7 @@ mixin LogMixin on Object {
       errorObject: errorObject,
       stackTrace: stackTrace,
       time: time,
+      color: color,
     );
   }
 }

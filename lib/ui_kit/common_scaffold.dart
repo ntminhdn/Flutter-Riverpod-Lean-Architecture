@@ -32,11 +32,27 @@ class CommonScaffold extends StatelessWidget {
       floatingActionButton: floatingActionButton,
     );
 
+    final scaffoldWithBanner = Env.flavor == Flavor.production
+        ? scaffold
+        : Banner(
+            location: BannerLocation.topStart,
+            message: Env.flavor.name,
+            // ignore: avoid_hard_coded_colors
+            color: Colors.green.withOpacity(0.6),
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+              letterSpacing: 1,
+            ),
+            textDirection: TextDirection.ltr,
+            child: scaffold,
+          );
+
     return hideKeyboardWhenTouchOutside
         ? GestureDetector(
             onTap: () => ViewUtil.hideKeyboard(context),
-            child: scaffold,
+            child: scaffoldWithBanner,
           )
-        : scaffold;
+        : scaffoldWithBanner;
   }
 }

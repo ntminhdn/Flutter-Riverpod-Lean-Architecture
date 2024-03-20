@@ -34,8 +34,8 @@ void main() {
 
       group('test', () {
         _baseTestGoldens(
-          description: 'normal state',
-          filename: 'normal_state',
+          description: 'when it is normal state',
+          filename: 'when_it_is_normal_state',
           widget: MoreMenuIconButton(onCopy: () {}, onReply: () {}),
         );
       });

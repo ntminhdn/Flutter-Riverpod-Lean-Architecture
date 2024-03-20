@@ -62,7 +62,7 @@ void main() {
       final connectivityInterceptor = ConnectivityInterceptor(connectivityHelper);
       final refreshTokenInterceptor = RefreshTokenInterceptor(
         appPreferences,
-        refreshTokenApiService,
+        refreshTokenApiClient,
         _MockNoneAuthAppServerApiClient(),
       );
       final retryOnErrorInterceptor =

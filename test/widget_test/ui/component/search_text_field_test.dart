@@ -36,7 +36,7 @@ void main() {
       group('test', () {
         _baseTestGoldens(
           description: 'when text is empty',
-          filename: 'text_is_empty',
+          filename: 'when_text_is_empty',
           widget: const SearchTextField(),
         );
       });
@@ -44,7 +44,7 @@ void main() {
       group('test', () {
         _baseTestGoldens(
           description: 'when text is not empty',
-          filename: 'text_is_not_empty',
+          filename: 'when_text_is_not_empty',
           widget: const SearchTextField(),
           onCreate: (tester, key) async {
             final textFieldFinder = find.byType(TextField).isDescendantOf(find.byKey(key), find);

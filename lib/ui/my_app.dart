@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,11 +16,17 @@ class MyApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AppThemeSetting.currentAppThemeType =
-        ref.read(isDarkModeProvider) ? AppThemeType.dark : AppThemeType.light;
-    ref.listen(isDarkModeProvider, (previous, next) {
-      AppThemeSetting.currentAppThemeType = next ? AppThemeType.dark : AppThemeType.light;
-    });
+    useEffect(() {
+      ref.listenManual(
+        isDarkModeProvider,
+        (previous, next) {
+          AppThemeSetting.currentAppThemeType = next ? AppThemeType.dark : AppThemeType.light;
+        },
+        fireImmediately: true,
+      );
+
+      return null;
+    }, const []);
 
     final appRouter = ref.watch(appRouterProvider);
 

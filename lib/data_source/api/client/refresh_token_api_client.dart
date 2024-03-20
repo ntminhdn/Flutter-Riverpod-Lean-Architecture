@@ -1,7 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../index.dart';
+
+final refreshTokenApiClientProvider = Provider<RefreshTokenApiClient>(
+  (ref) => getIt.get<RefreshTokenApiClient>(),
+);
 
 @LazySingleton()
 class RefreshTokenApiClient extends RestApiClient {

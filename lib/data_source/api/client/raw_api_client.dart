@@ -1,7 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../index.dart';
+
+final rawApiClientProvider = Provider<RawApiClient>(
+  (ref) => getIt.get<RawApiClient>(),
+);
 
 @LazySingleton()
 class RawApiClient extends RestApiClient {

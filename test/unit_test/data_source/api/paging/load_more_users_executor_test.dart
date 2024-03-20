@@ -9,11 +9,11 @@ void main() {
   late LoadMoreUsersExecutor loadMoreUsersExecutor;
 
   setUp(() {
-    loadMoreUsersExecutor = LoadMoreUsersExecutor(appApiService);
+    loadMoreUsersExecutor = LoadMoreUsersExecutor(ref);
   });
 
   group('execute', () {
-    test('when fetching the first page', () async {
+    test('when data of the first page is not empty', () async {
       // Arrange
       const page = Constant.initialPage;
       const limit = Constant.itemsPerPage;
@@ -27,8 +27,16 @@ void main() {
       final response = ResultsListResponse(
         results: users,
       );
-      when(() => appApiService.getUsers(page: page, limit: limit))
-          .thenAnswer((_) async => response);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': page,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenAnswer((_) async => response);
 
       // Act
       final result = await loadMoreUsersExecutor.execute(isInitialLoad: true);
@@ -44,17 +52,26 @@ void main() {
           isRefreshSuccess: true,
         ),
       );
+
+      const initialState = LoadMoreOutput<ApiUserData>(data: []);
+      expect(initialState != result, true);
     });
 
-    test('when fetching the first page and it is the last page', () async {
+    test('when data of the first page is empty', () async {
       // Arrange
       const page = Constant.initialPage;
       const limit = Constant.itemsPerPage;
-      const response = ResultsListResponse(
-        results: <ApiUserData>[],
-      );
-      when(() => appApiService.getUsers(page: page, limit: limit))
-          .thenAnswer((_) async => response);
+      const response = ResultsListResponse(results: <ApiUserData>[]);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': page,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenAnswer((_) async => response);
 
       // Act
       final result = await loadMoreUsersExecutor.execute(isInitialLoad: true);
@@ -70,9 +87,12 @@ void main() {
           isRefreshSuccess: true,
         ),
       );
+
+      const initialState = LoadMoreOutput<ApiUserData>(data: []);
+      expect(initialState != result, true);
     });
 
-    test('when fetching more page', () async {
+    test('when data of the second page is not empty', () async {
       // Arrange
       const page = Constant.initialPage;
       const limit = Constant.itemsPerPage;
@@ -86,8 +106,16 @@ void main() {
       final response = ResultsListResponse(
         results: users,
       );
-      when(() => appApiService.getUsers(page: page, limit: limit))
-          .thenAnswer((_) async => response);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': page,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenAnswer((_) async => response);
 
       // Act
       final result = await loadMoreUsersExecutor.execute(isInitialLoad: true);
@@ -106,8 +134,16 @@ void main() {
       );
 
       // fetch the next page
-      when(() => appApiService.getUsers(page: nextPage, limit: limit))
-          .thenAnswer((_) async => response);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': nextPage,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenAnswer((_) async => response);
 
       final nextPageResult = await loadMoreUsersExecutor.execute(isInitialLoad: false);
 
@@ -136,8 +172,16 @@ void main() {
       );
       final response = ResultsListResponse(results: users);
       final exception = RemoteException(kind: RemoteExceptionKind.noInternet);
-      when(() => appApiService.getUsers(page: page, limit: limit))
-          .thenAnswer((_) async => response);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': page,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenAnswer((_) async => response);
 
       // Act
       final result = await loadMoreUsersExecutor.execute(isInitialLoad: true);
@@ -156,7 +200,16 @@ void main() {
       );
 
       // fetch the next page
-      when(() => appApiService.getUsers(page: nextPage, limit: limit)).thenThrow(exception);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': nextPage,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenThrow(exception);
 
       expect(
         loadMoreUsersExecutor.execute(isInitialLoad: false),
@@ -164,7 +217,7 @@ void main() {
       );
     });
 
-    test('when fetching the next page and it is the last page', () async {
+    test('when the second page is the last page', () async {
       // Arrange
       const page = Constant.initialPage;
       const limit = Constant.itemsPerPage;
@@ -178,8 +231,16 @@ void main() {
       final response = ResultsListResponse(
         results: users,
       );
-      when(() => appApiService.getUsers(page: page, limit: limit))
-          .thenAnswer((_) async => response);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': page,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenAnswer((_) async => response);
 
       // Act
       final result = await loadMoreUsersExecutor.execute(isInitialLoad: true);
@@ -200,8 +261,16 @@ void main() {
       const lastPageResponse = ResultsListResponse(
         results: <ApiUserData>[],
       );
-      when(() => appApiService.getUsers(page: nextPage, limit: limit))
-          .thenAnswer((_) async => lastPageResponse);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': nextPage,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenAnswer((_) async => lastPageResponse);
 
       final nextPageResult = await loadMoreUsersExecutor.execute(isInitialLoad: false);
 
@@ -230,8 +299,16 @@ void main() {
       );
       final response = ResultsListResponse(results: users);
       final exception = RemoteException(kind: RemoteExceptionKind.noInternet);
-      when(() => appApiService.getUsers(page: page, limit: limit))
-          .thenAnswer((_) async => response);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': page,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenAnswer((_) async => response);
 
       // Act
       final result = await loadMoreUsersExecutor.execute(isInitialLoad: true);
@@ -250,7 +327,16 @@ void main() {
       );
 
       // fetch the next page
-      when(() => appApiService.getUsers(page: nextPage, limit: limit)).thenThrow(exception);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': nextPage,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenThrow(exception);
 
       expect(
         loadMoreUsersExecutor.execute(isInitialLoad: false),
@@ -258,8 +344,16 @@ void main() {
       );
 
       // retry
-      when(() => appApiService.getUsers(page: nextPage, limit: limit))
-          .thenAnswer((_) async => response);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': nextPage,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenAnswer((_) async => response);
 
       final nextPageResult = await loadMoreUsersExecutor.execute(isInitialLoad: false);
 
@@ -288,8 +382,16 @@ void main() {
       );
       final response = ResultsListResponse(results: users);
       final exception = RemoteException(kind: RemoteExceptionKind.noInternet);
-      when(() => appApiService.getUsers(page: page, limit: limit))
-          .thenAnswer((_) async => response);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': page,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenAnswer((_) async => response);
 
       // Act
       final result = await loadMoreUsersExecutor.execute(isInitialLoad: true);
@@ -308,7 +410,16 @@ void main() {
       );
 
       // fetch the next page
-      when(() => appApiService.getUsers(page: nextPage, limit: limit)).thenThrow(exception);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': nextPage,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenThrow(exception);
 
       expect(
         loadMoreUsersExecutor.execute(isInitialLoad: false),
@@ -316,7 +427,16 @@ void main() {
       );
 
       // retry
-      when(() => appApiService.getUsers(page: nextPage, limit: limit)).thenThrow(exception);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': nextPage,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenThrow(exception);
 
       expect(
         loadMoreUsersExecutor.execute(isInitialLoad: false),
@@ -337,8 +457,16 @@ void main() {
       );
       final response = ResultsListResponse(results: users);
       final exception = RemoteException(kind: RemoteExceptionKind.noInternet);
-      when(() => appApiService.getUsers(page: page, limit: limit))
-          .thenAnswer((_) async => response);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': page,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenAnswer((_) async => response);
 
       // Act
       final result = await loadMoreUsersExecutor.execute(isInitialLoad: true);
@@ -357,7 +485,16 @@ void main() {
       );
 
       // fetch the next page
-      when(() => appApiService.getUsers(page: nextPage, limit: limit)).thenThrow(exception);
+      when(() => randomUserApiClient.request<ApiUserData, ResultsListResponse<ApiUserData>>(
+            method: RestMethod.get,
+            path: '',
+            queryParameters: {
+              'page': nextPage,
+              'results': limit,
+            },
+            successResponseDecoderType: SuccessResponseDecoderType.resultsJsonArray,
+            decoder: any(named: 'decoder'),
+          )).thenThrow(exception);
 
       expect(
         loadMoreUsersExecutor.execute(isInitialLoad: false),

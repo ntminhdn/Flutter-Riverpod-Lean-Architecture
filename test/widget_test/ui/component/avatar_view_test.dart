@@ -34,7 +34,7 @@ void main() {
       group('test', () {
         _baseTestGoldens(
           description: 'when text is empty',
-          filename: 'text_is_empty',
+          filename: 'when_text_is_empty',
           widget: const AvatarView(text: ''),
         );
       });
@@ -42,7 +42,7 @@ void main() {
       group('test', () {
         _baseTestGoldens(
           description: 'when text is not empty',
-          filename: 'text_is_not_empty',
+          filename: 'when_text_is_not_empty',
           widget: const AvatarView(text: 'Minh'),
         );
       });
@@ -50,7 +50,7 @@ void main() {
       group('test', () {
         _baseTestGoldens(
           description: 'when isActive is true',
-          filename: 'isActive_is_true',
+          filename: 'when_isActive_is_true',
           widget: const AvatarView(text: 'Minh', isActive: true),
         );
       });
@@ -58,7 +58,7 @@ void main() {
       group('test', () {
         _baseTestGoldens(
           description: 'when backgroundColor is red textColor is blue',
-          filename: 'backgroundColor_is_red_textColor_is_blue',
+          filename: 'when_backgroundColor_is_red_textColor_is_blue',
           widget: const AvatarView(
             text: 'Minh',
             backgroundColor: Colors.red,

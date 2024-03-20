@@ -66,8 +66,7 @@ class Constant {
   // Can not use AppColor here
   static const systemUiOverlay = SystemUiOverlayStyle(
     statusBarBrightness: Brightness.light,
-// ignore: avoid_hard_coded_colors
-    statusBarColor: Colors.green,
+    statusBarColor: Colors.transparent,
   );
 
   // Base API URL
