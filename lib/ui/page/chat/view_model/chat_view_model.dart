@@ -59,7 +59,7 @@ class ChatViewModel extends BaseViewModel<ChatState> with LogMixin {
     }
 
     final messages = await _ref.firebaseFirestoreService.getOlderMessages(
-      latestMessageId: oldestMessage!.uniqueID,
+      latestMessageId: oldestMessage!.uniqueId,
       conversationId: data.conversation.id,
     );
 
@@ -162,7 +162,7 @@ class ChatViewModel extends BaseViewModel<ChatState> with LogMixin {
           message: message,
           type: MessageType.text,
           status: MessageStatus.sending,
-          uniqueID: messageId,
+          uniqueId: messageId,
           userId: currentUserId,
           createdAt: now,
           updatedAt: now,

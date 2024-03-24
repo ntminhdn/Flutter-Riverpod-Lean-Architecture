@@ -121,7 +121,7 @@ void main() {
                         conversation: conversation,
                         messages: [
                           LocalMessageData(
-                            uniqueID: '8',
+                            uniqueId: '8',
                             conversationId: conversationId,
                             senderId: currentUserId,
                             message: '?????',
@@ -129,7 +129,7 @@ void main() {
                             status: MessageStatus.sent,
                           ),
                           LocalMessageData(
-                            uniqueID: '6',
+                            uniqueId: '6',
                             conversationId: conversationId,
                             senderId: thinhId,
                             replyMessage: LocalReplyMessageData(
@@ -145,7 +145,7 @@ void main() {
                             status: MessageStatus.sent,
                           ),
                           LocalMessageData(
-                            uniqueID: '7',
+                            uniqueId: '7',
                             conversationId: conversationId,
                             senderId: currentUserId,
                             message: 'Dmm. Lost the connection',
@@ -153,7 +153,7 @@ void main() {
                             status: MessageStatus.sending,
                           ),
                           LocalMessageData(
-                            uniqueID: '7',
+                            uniqueId: '7',
                             conversationId: conversationId,
                             senderId: currentUserId,
                             message: 'Ahhhhhhhhhhhh',
@@ -161,7 +161,7 @@ void main() {
                             status: MessageStatus.failed,
                           ),
                           LocalMessageData(
-                            uniqueID: '5',
+                            uniqueId: '5',
                             conversationId: conversationId,
                             senderId: duyId,
                             replyMessage: LocalReplyMessageData(
@@ -176,7 +176,7 @@ void main() {
                             status: MessageStatus.sent,
                           ),
                           LocalMessageData(
-                            uniqueID: '4',
+                            uniqueId: '4',
                             conversationId: conversationId,
                             senderId: currentUserId,
                             replyMessage: LocalReplyMessageData(
@@ -191,7 +191,7 @@ void main() {
                             status: MessageStatus.sent,
                           ),
                           LocalMessageData(
-                            uniqueID: '3',
+                            uniqueId: '3',
                             conversationId: conversationId,
                             senderId: thinhId,
                             message: 'Hola',
@@ -199,7 +199,7 @@ void main() {
                             status: MessageStatus.sent,
                           ),
                           LocalMessageData(
-                            uniqueID: '2',
+                            uniqueId: '2',
                             conversationId: conversationId,
                             senderId: duyId,
                             message: 'Hi',
@@ -207,7 +207,7 @@ void main() {
                             status: MessageStatus.sent,
                           ),
                           LocalMessageData(
-                            uniqueID: '1',
+                            uniqueId: '1',
                             conversationId: conversationId,
                             senderId: currentUserId,
                             message: 'Hello',
@@ -344,7 +344,7 @@ void main() {
                         conversation: conversation,
                         messages: [
                           LocalMessageData(
-                            uniqueID: '1',
+                            uniqueId: '1',
                             conversationId: conversation.id,
                             senderId: currentUserId,
                             message: 'Hello',
@@ -424,7 +424,7 @@ void main() {
                         conversation: conversation,
                         messages: [
                           LocalMessageData(
-                            uniqueID: '1',
+                            uniqueId: '1',
                             conversationId: conversation.id,
                             senderId: otherUserId,
                             message: 'Hello',
@@ -497,7 +497,7 @@ void main() {
                       conversation: conversation,
                       messages: [
                         LocalMessageData(
-                          uniqueID: '1',
+                          uniqueId: '1',
                           conversationId: conversation.id,
                           senderId: currentUserId,
                           message: message,
@@ -505,7 +505,7 @@ void main() {
                           status: MessageStatus.sent,
                         ),
                         LocalMessageData(
-                          uniqueID: '1',
+                          uniqueId: '1',
                           conversationId: conversation.id,
                           senderId: currentUserId,
                           message: message,
@@ -513,7 +513,7 @@ void main() {
                           status: MessageStatus.sent,
                         ),
                         LocalMessageData(
-                          uniqueID: '1',
+                          uniqueId: '1',
                           conversationId: conversation.id,
                           senderId: currentUserId,
                           message: message,
@@ -521,7 +521,7 @@ void main() {
                           status: MessageStatus.sent,
                         ),
                         LocalMessageData(
-                          uniqueID: '1',
+                          uniqueId: '1',
                           conversationId: conversation.id,
                           senderId: currentUserId,
                           message: message,
