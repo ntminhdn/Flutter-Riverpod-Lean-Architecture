@@ -10,30 +10,17 @@ void main() {
           {
             'uid': 100,
             'email': 'ntminh@gmail.com',
-            'birthday': '2023-08-12 00:00:00.000',
-            'income': '1000000000000',
-            'avatar': 'https://i.imgur.com/BoN9kdC.png',
-            'photos': [
-              'https://i.imgur.com/BoN9kdC.png',
-              'https://i.imgur.com/BoN9kdC.png',
-              'https://i.imgur.com/BoN9kdC.png',
-              'https://i.imgur.com/BoN9kdC.png',
-            ],
-            'sex': 1,
+            'dob': {
+              'date': '2003-12-15T12:48:58.136Z',
+            },
           },
           {
             'uid': 100,
             'email': 'ntminh@gmail.com',
-            'birthday': '2023-08-12 00:00:00.000',
-            'income': '1000000000000',
-            'avatar': 'https://i.imgur.com/BoN9kdC.png',
-            'photos': [
-              'https://i.imgur.com/BoN9kdC.png',
-              'https://i.imgur.com/BoN9kdC.png',
-              'https://i.imgur.com/BoN9kdC.png',
-              'https://i.imgur.com/BoN9kdC.png',
-            ],
-            'sex': 1,
+            'dob': {
+              'date': '1978-04-02T12:48:58.136Z',
+            },
+            'gender': 'female',
           },
         ],
         'page': 2,
@@ -43,35 +30,19 @@ void main() {
         'total': 5,
       };
 
-      const expected = RecordsListResponse(
+      final expected = RecordsListResponse(
         records: [
           ApiUserData(
             id: 100,
             email: 'ntminh@gmail.com',
-            birthday: '2023-08-12 00:00:00.000',
-            income: '1000000000000',
-            avatar: 'https://i.imgur.com/BoN9kdC.png',
-            photos: [
-              'https://i.imgur.com/BoN9kdC.png',
-              'https://i.imgur.com/BoN9kdC.png',
-              'https://i.imgur.com/BoN9kdC.png',
-              'https://i.imgur.com/BoN9kdC.png',
-            ],
-            gender: 1,
+            birthday: DateTime(2003, 12, 15, 12, 48, 58),
+            gender: Gender.other,
           ),
           ApiUserData(
             id: 100,
             email: 'ntminh@gmail.com',
-            birthday: '2023-08-12 00:00:00.000',
-            income: '1000000000000',
-            avatar: 'https://i.imgur.com/BoN9kdC.png',
-            photos: [
-              'https://i.imgur.com/BoN9kdC.png',
-              'https://i.imgur.com/BoN9kdC.png',
-              'https://i.imgur.com/BoN9kdC.png',
-              'https://i.imgur.com/BoN9kdC.png',
-            ],
-            gender: 1,
+            birthday: DateTime(1978, 4, 2, 12, 48, 58),
+            gender: Gender.female,
           ),
         ],
         page: 2,

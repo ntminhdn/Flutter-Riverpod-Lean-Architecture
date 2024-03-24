@@ -55,6 +55,8 @@ class DateTimeUtil {
     try {
       return dateFormat.parse(dateTime, utc);
     } catch (e) {
+      Log.e(e, name: 'DateTimeUtil.tryParse');
+
       return null;
     }
   }

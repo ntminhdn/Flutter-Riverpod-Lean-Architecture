@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../index.dart';
+import '../../index.dart';
 
 class FirebaseConversionUserDataConverter
     implements JsonConverter<FirebaseConversationUserData, Map<String, dynamic>> {

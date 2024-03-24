@@ -150,9 +150,10 @@ void main() {
                   LoadMoreOutput(
                     data: List.generate(
                       Constant.itemsPerPage,
-                      (index) => const ApiUserData(
+                      (index) => ApiUserData(
                         id: 1,
                         email: 'duynn@gmail.com',
+                        birthday: DateTime(2000, 1, 1),
                       ),
                     ),
                   ),

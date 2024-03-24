@@ -19,8 +19,5 @@ class ServerError with _$ServerError {
     @Default(ServerError.defaultErrors) List<ServerErrorDetail> errors,
   }) = _ServerError;
 
-  static const defaultGeneralServerStatusCode = -1;
-  static const defaultGeneralServerErrorId = '';
-  static const defaultGeneralMessage = '';
   static const defaultErrors = <ServerErrorDetail>[];
 }

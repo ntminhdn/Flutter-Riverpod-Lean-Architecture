@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../../index.dart';
+import '../../index.dart';
 
 class FirebaseReplyMessageDataConverter
     implements JsonConverter<FirebaseReplyMessageData, Map<String, dynamic>> {

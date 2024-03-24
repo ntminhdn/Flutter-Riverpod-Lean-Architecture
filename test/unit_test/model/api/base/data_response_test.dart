@@ -9,16 +9,10 @@ void main() {
         'data': {
           'uid': 100,
           'email': 'ntminh@gmail.com',
-          'birthday': '2023-08-12 00:00:00.000',
-          'income': '1000000000000',
-          'avatar': 'https://i.imgur.com/BoN9kdC.png',
-          'photos': [
-            'https://i.imgur.com/BoN9kdC.png',
-            'https://i.imgur.com/BoN9kdC.png',
-            'https://i.imgur.com/BoN9kdC.png',
-            'https://i.imgur.com/BoN9kdC.png',
-          ],
-          'sex': 1,
+          'dob': {
+            'date': '1978-04-02T12:48:58.136Z',
+          },
+          'gender': 'male',
         },
         'meta': {
           'page_info': {
@@ -28,19 +22,11 @@ void main() {
       };
 
       final expected = DataResponse(
-        data: const ApiUserData(
+        data: ApiUserData(
           id: 100,
           email: 'ntminh@gmail.com',
-          birthday: '2023-08-12 00:00:00.000',
-          income: '1000000000000',
-          avatar: 'https://i.imgur.com/BoN9kdC.png',
-          photos: [
-            'https://i.imgur.com/BoN9kdC.png',
-            'https://i.imgur.com/BoN9kdC.png',
-            'https://i.imgur.com/BoN9kdC.png',
-            'https://i.imgur.com/BoN9kdC.png',
-          ],
-          gender: 1,
+          birthday: DateTime(1978, 4, 2, 12, 48, 58),
+          gender: Gender.male,
         ),
         meta: Meta(
           pageInfo: PageInfo(next: 10),

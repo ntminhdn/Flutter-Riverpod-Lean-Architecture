@@ -89,15 +89,14 @@ class HomePage extends BasePage<HomeState,
                                     await ref.read(appNavigatorProvider).push(HomeRoute());
                                   },
                                   child: Container(
-                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.all(8.rps),
                                     decoration: BoxDecoration(
                                       color: cl.green1,
                                       borderRadius: BorderRadius.circular(8.rps),
                                     ),
                                     width: double.infinity,
-                                    height: 60.rps,
                                     child: CommonText(
-                                      user.email,
+                                      '${user.email}\n${user.gender}\n${user.birthday?.toIso8601String()}',
                                       style: ts(
                                         color: cl.black,
                                         fontSize: 14.rps,
