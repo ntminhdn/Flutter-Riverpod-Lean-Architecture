@@ -9,63 +9,43 @@ void main() {
   group(
     'AvatarView',
     () {
-      void _baseTestGoldens({
-        required String description,
-        required String filename,
-        required Widget widget,
-      }) {
-        testGoldens(description, (tester) async {
+      testGoldens(TestUtil.description('when text is empty'), (tester) async {
+        await tester.testWidgetWithDeviceBuilder(
+          filename: 'avatar_view/${TestUtil.filename('when_text_is_empty')}',
+          widget: const UnconstrainedBox(child: AvatarView(text: '')),
+        );
+      });
+
+      testGoldens(TestUtil.description('when text is not empty'), (tester) async {
+        await tester.testWidgetWithDeviceBuilder(
+          filename: 'avatar_view/${TestUtil.filename('when_text_is_not_empty')}',
+          widget: const UnconstrainedBox(child: AvatarView(text: 'Minh')),
+        );
+      });
+
+      testGoldens(TestUtil.description('when isActive is true'), (tester) async {
+        await tester.testWidgetWithDeviceBuilder(
+          filename: 'avatar_view/${TestUtil.filename('when_isActive_is_true')}',
+          widget: const UnconstrainedBox(child: AvatarView(text: 'Minh', isActive: true)),
+        );
+      });
+
+      testGoldens(
+        TestUtil.description('when backgroundColor is red textColor is blue'),
+        (tester) async {
           await tester.testWidgetWithDeviceBuilder(
-            filename: 'avatar_view/$filename',
-            widget: UnconstrainedBox(child: widget),
-            isDarkMode: false,
+            filename:
+                'avatar_view/${TestUtil.filename('when_backgroundColor_is_red_textColor_is_blue')}',
+            widget: const UnconstrainedBox(
+              child: AvatarView(
+                text: 'Minh',
+                backgroundColor: Colors.red,
+                textStyle: TextStyle(color: Colors.blue, fontSize: 28),
+              ),
+            ),
           );
-        });
-
-        testGoldens('$description dark mode', (tester) async {
-          await tester.testWidgetWithDeviceBuilder(
-            filename: 'avatar_view/dark_mode/$filename',
-            widget: UnconstrainedBox(child: widget),
-            isDarkMode: true,
-          );
-        });
-      }
-
-      group('test', () {
-        _baseTestGoldens(
-          description: 'when text is empty',
-          filename: 'when_text_is_empty',
-          widget: const AvatarView(text: ''),
-        );
-      });
-
-      group('test', () {
-        _baseTestGoldens(
-          description: 'when text is not empty',
-          filename: 'when_text_is_not_empty',
-          widget: const AvatarView(text: 'Minh'),
-        );
-      });
-
-      group('test', () {
-        _baseTestGoldens(
-          description: 'when isActive is true',
-          filename: 'when_isActive_is_true',
-          widget: const AvatarView(text: 'Minh', isActive: true),
-        );
-      });
-
-      group('test', () {
-        _baseTestGoldens(
-          description: 'when backgroundColor is red textColor is blue',
-          filename: 'when_backgroundColor_is_red_textColor_is_blue',
-          widget: const AvatarView(
-            text: 'Minh',
-            backgroundColor: Colors.red,
-            textStyle: TextStyle(color: Colors.blue, fontSize: 28),
-          ),
-        );
-      });
+        },
+      );
     },
   );
 }

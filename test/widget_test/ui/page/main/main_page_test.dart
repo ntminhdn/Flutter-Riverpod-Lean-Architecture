@@ -24,103 +24,90 @@ void main() {
   });
 
   group('MainPage', () {
-    void _baseTestGoldens({
-      required String description,
-      required String filename,
-      List<Override> overrides = const [],
-      Future<void> Function(WidgetTester)? onCreate,
-    }) {
-      void _build({
-        required bool isDarkMode,
-      }) {
-        testGoldens(TestUtil.description(description, isDarkMode), (tester) async {
-          await tester.runAsync(() async {
-            await tester.pumpWidgetBuilder(
-              ProviderScope(
-                overrides: overrides,
-                child: TestUtil.buildRouterMaterialApp(
-                  initialRoute: MainRoute(),
-                  appRouter: appRouter,
-                  isDarkMode: isDarkMode,
+    testGoldens(TestUtil.description('when current bottom navigation index is 0'), (tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidgetBuilder(
+          ProviderScope(
+            overrides: [
+              mainViewModelProvider.overrideWith(
+                (_) => MockMainViewModel(
+                  const CommonState(
+                    data: MainState(),
+                  ),
                 ),
               ),
-            );
-          });
-
-          await tester.pumpAndSettle();
-          await onCreate?.call(tester);
-
-          await screenMatchesGolden(
-            tester,
-            'main_page/${TestUtil.filename(filename, isDarkMode)}',
-          );
-        });
-      }
-
-      _build(isDarkMode: false);
-      _build(isDarkMode: true);
-    }
-
-    group('test', () {
-      _baseTestGoldens(
-        description: 'when current bottom navigation index is 0',
-        filename: 'when_current_bottom_navigation_index_is_0',
-        overrides: [
-          mainViewModelProvider.overrideWith(
-            (_) => MockMainViewModel(
-              const CommonState(
-                data: MainState(),
+              contactListViewModelProvider.overrideWith(
+                (_) => MockContactListViewModel(
+                  const CommonState(
+                    data: ContactListState(),
+                  ),
+                ),
               ),
-            ),
-          ),
-          contactListViewModelProvider.overrideWith(
-            (_) => MockContactListViewModel(
-              const CommonState(
-                data: ContactListState(),
+              currentUserProvider.overrideWith(
+                (ref) => const FirebaseUserData(
+                  id: '1',
+                  email: 'duynn@gmail.com',
+                ),
               ),
+              appNavigatorProvider.overrideWith((ref) => navigator),
+            ],
+            child: TestUtil.buildRouterMaterialApp(
+              initialRoute: MainRoute(),
+              appRouter: appRouter,
             ),
           ),
-          currentUserProvider.overrideWith(
-            (ref) => const FirebaseUserData(
-              id: '1',
-              email: 'duynn@gmail.com',
-            ),
-          ),
-          appNavigatorProvider.overrideWith((ref) => navigator),
-        ],
+        );
+      });
+
+      await tester.pumpAndSettle();
+
+      await screenMatchesGolden(
+        tester,
+        'main_page/${TestUtil.filename('when_current_bottom_navigation_index_is_0')}',
       );
     });
 
-    group('test', () {
-      _baseTestGoldens(
-        description: 'when current bottom navigation index is 1',
-        filename: 'when_current_bottom_navigation_index_is_1',
-        onCreate: (tester) async {
-          await tester.tapOnBottomNavigationTab(1);
-        },
-        overrides: [
-          mainViewModelProvider.overrideWith(
-            (_) => MockMainViewModel(
-              const CommonState(
-                data: MainState(),
+    testGoldens(TestUtil.description('when current bottom navigation index is 1'), (tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidgetBuilder(
+          ProviderScope(
+            overrides: [
+              mainViewModelProvider.overrideWith(
+                (_) => MockMainViewModel(
+                  const CommonState(
+                    data: MainState(),
+                  ),
+                ),
               ),
-            ),
-          ),
-          contactListViewModelProvider.overrideWith(
-            (_) => MockContactListViewModel(
-              const CommonState(
-                data: ContactListState(),
+              contactListViewModelProvider.overrideWith(
+                (_) => MockContactListViewModel(
+                  const CommonState(
+                    data: ContactListState(),
+                  ),
+                ),
               ),
+              currentUserProvider.overrideWith(
+                (ref) => const FirebaseUserData(
+                  id: '1',
+                  email: 'duynn@gmail.com',
+                ),
+              ),
+              appNavigatorProvider.overrideWith((ref) => navigator),
+            ],
+            child: TestUtil.buildRouterMaterialApp(
+              initialRoute: MainRoute(),
+              appRouter: appRouter,
             ),
           ),
-          currentUserProvider.overrideWith(
-            (ref) => const FirebaseUserData(
-              id: '1',
-              email: 'duynn@gmail.com',
-            ),
-          ),
-          appNavigatorProvider.overrideWith((ref) => navigator),
-        ],
+        );
+      });
+
+      await tester.pumpAndSettle();
+      await tester.tapOnBottomNavigationTab(1);
+
+      await screenMatchesGolden(
+        tester,
+        'main_page/${TestUtil.filename('when_current_bottom_navigation_index_is_1')}',
       );
     });
   });

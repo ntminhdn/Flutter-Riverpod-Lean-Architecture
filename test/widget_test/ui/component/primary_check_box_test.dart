@@ -9,31 +9,12 @@ void main() {
   group(
     'PrimaryCheckBox',
     () {
-      void _baseTestGoldens({
-        required String description,
-        required String filename,
-        required Widget widget,
-      }) {
-        testGoldens(description, (tester) async {
-          await tester.testWidgetWithDeviceBuilder(
-            filename: 'primary_check_box/$filename',
-            widget: widget,
-          );
-        });
-
-        testGoldens('$description dark mode', (tester) async {
-          await tester.testWidgetWithDeviceBuilder(
-            filename: 'primary_check_box/dark_mode/$filename',
-            widget: widget,
-            isDarkMode: true,
-          );
-        });
-      }
-
-      group('test', () {
-        _baseTestGoldens(
-          description: 'when text is null and init value is false and isEnabled is false',
-          filename: 'when_text_is_null_and_init_value_is_false_and_isEnabled_is_false',
+      testGoldens(
+          TestUtil.description('when text is null and init value is false and isEnabled is false'),
+          (tester) async {
+        await tester.testWidgetWithDeviceBuilder(
+          filename:
+              'primary_check_box/${TestUtil.filename('when_text_is_null_and_init_value_is_false_and_isEnabled_is_false')}',
           widget: const PrimaryCheckBox(
             text: null,
             initValue: false,
@@ -42,10 +23,13 @@ void main() {
         );
       });
 
-      group('test', () {
-        _baseTestGoldens(
-          description: 'when text is not null and init value is true and isEnabled is true',
-          filename: 'when_text_is_not_null_and_init_value_is_true_and_isEnabled_is_true',
+      testGoldens(
+          TestUtil.description(
+              'when text is not null and init value is true and isEnabled is true'),
+          (tester) async {
+        await tester.testWidgetWithDeviceBuilder(
+          filename:
+              'primary_check_box/${TestUtil.filename('when_text_is_not_null_and_init_value_is_true_and_isEnabled_is_true')}',
           widget: PrimaryCheckBox(
             text: Text('long long long long text' * 10),
             initValue: true,
@@ -54,10 +38,13 @@ void main() {
         );
       });
 
-      group('test', () {
-        _baseTestGoldens(
-          description: 'when text is not null and init value is true and isEnabled is false',
-          filename: 'when_text_is_not_null_and_init_value_is_true_and_isEnabled_is_false',
+      testGoldens(
+          TestUtil.description(
+              'when text is not null and init value is true and isEnabled is false'),
+          (tester) async {
+        await tester.testWidgetWithDeviceBuilder(
+          filename:
+              'primary_check_box/${TestUtil.filename('when_text_is_not_null_and_init_value_is_true_and_isEnabled_is_false')}',
           widget: const PrimaryCheckBox(
             text: Text('Minh'),
             initValue: true,

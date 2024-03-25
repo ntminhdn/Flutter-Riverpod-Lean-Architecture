@@ -40,17 +40,24 @@ ln:
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 te:
-	flutter test
+	make ut
+	make wt
 
 gt:
-	flutter test --tags=golden
+	flutter test --dart-define=IS_DARK_MODE=true --tags=golden
+	flutter test --dart-define=IS_DARK_MODE=false --tags=golden
 
 ug:
 	find . -type d -name "goldens" -exec rm -rf {} +
-	flutter test --update-goldens --tags=golden
+	flutter test --dart-define=IS_DARK_MODE=true --update-goldens --tags=golden
+	flutter test --dart-define=IS_DARK_MODE=false --update-goldens --tags=golden
 
 ut:
 	flutter test test/unit_test
+
+wt:
+	flutter test test/widget_test --dart-define=IS_DARK_MODE=true
+	flutter test test/widget_test --dart-define=IS_DARK_MODE=false
 
 cl:
 	flutter clean && rm -rf pubspec.lock

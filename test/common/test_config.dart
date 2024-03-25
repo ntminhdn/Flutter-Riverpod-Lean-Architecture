@@ -4,9 +4,12 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 class TestConfig {
   const TestConfig._();
 
+  static const _isDarkModeKey = 'IS_DARK_MODE';
+
   static const targetPlatform = TargetPlatform.android;
   static const goldenTestsLocale = Locale('ja');
   static const l10nTestLocale = Locale('ja');
+  static const isDarkMode = bool.fromEnvironment(_isDarkModeKey);
 
   static const targetGoldenTestDevices = [
     Device.phone,
