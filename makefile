@@ -8,6 +8,9 @@ else
     COMMIT_CHECK_CMD=./tools/check_commit_message.sh
 endif
 
+TEST_DART_DEFINE_LIGHT_MODE_AND_JA=--dart-define=IS_DARK_MODE=false --dart-define=LOCALE=ja
+TEST_DART_DEFINE_DARK_MODE_AND_EN=--dart-define=IS_DARK_MODE=true --dart-define=LOCALE=en
+
 update_app_icon:
 	dart run flutter_launcher_icons:main -f app_icon/app-icon.yaml
 
@@ -44,20 +47,20 @@ te:
 	make wt
 
 gt:
-	flutter test --dart-define=IS_DARK_MODE=true --tags=golden
-	flutter test --dart-define=IS_DARK_MODE=false --tags=golden
+	flutter test $(TEST_DART_DEFINE_LIGHT_MODE_AND_JA) --tags=golden
+	flutter test $(TEST_DART_DEFINE_DARK_MODE_AND_EN) --tags=golden
 
 ug:
 	find . -type d -name "goldens" -exec rm -rf {} +
-	flutter test --dart-define=IS_DARK_MODE=true --update-goldens --tags=golden
-	flutter test --dart-define=IS_DARK_MODE=false --update-goldens --tags=golden
+	flutter test $(TEST_DART_DEFINE_LIGHT_MODE_AND_JA) --update-goldens --tags=golden
+	flutter test $(TEST_DART_DEFINE_DARK_MODE_AND_EN) --update-goldens --tags=golden
 
 ut:
 	flutter test test/unit_test
 
 wt:
-	flutter test test/widget_test --dart-define=IS_DARK_MODE=true
-	flutter test test/widget_test --dart-define=IS_DARK_MODE=false
+	flutter test test/widget_test $(TEST_DART_DEFINE_LIGHT_MODE_AND_JA)
+	flutter test test/widget_test $(TEST_DART_DEFINE_DARK_MODE_AND_EN)
 
 cl:
 	flutter clean && rm -rf pubspec.lock

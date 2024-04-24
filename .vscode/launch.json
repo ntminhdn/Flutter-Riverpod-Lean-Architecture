@@ -2,22 +2,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Update Goldens (light)",
+      "name": "Update Goldens (light/ja)",
       "request": "launch",
       "type": "dart",
       "codeLens": {
         "for": ["run-test", "run-test-file"]
       },
-      "args": ["--update-goldens", "--dart-define=IS_DARK_MODE=false"]
+      "args": ["--update-goldens", "--dart-define=IS_DARK_MODE=false", "--dart-define=LOCALE=ja"]
     },
     {
-      "name": "Update Goldens (dark)",
+      "name": "Update Goldens (dark/en)",
       "request": "launch",
       "type": "dart",
       "codeLens": {
         "for": ["run-test", "run-test-file"]
       },
-      "args": ["--update-goldens", "--dart-define=IS_DARK_MODE=true"]
+      "args": ["--update-goldens", "--dart-define=IS_DARK_MODE=true", "--dart-define=LOCALE=en"]
     },
     {
       "name": "Debug Develop",
@@ -60,7 +60,7 @@
       "toolArgs": [
         "--flavor",
         "production",
-        "--dart-define-from-file=dart_defines/production.json",
+        "--dart-define-from-file=dart_defines/production.json"
       ]
     },
     {
@@ -108,7 +108,7 @@
       "toolArgs": [
         "--flavor",
         "production",
-        "--dart-define-from-file=dart_defines/production.json",
+        "--dart-define-from-file=dart_defines/production.json"
       ]
     },
     {
@@ -120,7 +120,7 @@
         "--flavor",
         "develop",
         "--release",
-        "--dart-define-from-file=dart_defines/develop.json",
+        "--dart-define-from-file=dart_defines/develop.json"
       ]
     },
     {
@@ -144,7 +144,7 @@
         "--flavor",
         "staging",
         "--release",
-        "--dart-define-from-file=dart_defines/staging.json",
+        "--dart-define-from-file=dart_defines/staging.json"
       ]
     },
     {
@@ -156,7 +156,7 @@
         "--flavor",
         "production",
         "--release",
-        "--dart-define-from-file=dart_defines/production.json",
+        "--dart-define-from-file=dart_defines/production.json"
       ]
     }
   ]

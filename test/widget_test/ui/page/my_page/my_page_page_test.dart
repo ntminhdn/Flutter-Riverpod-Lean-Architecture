@@ -18,7 +18,7 @@ void main() {
       TestUtil.description('when current user is not vip member'),
       (tester) async {
         await tester.testWidgetWithDeviceBuilder(
-          filename: 'my_page/${TestUtil.filename('when_current_user_is_not_vip_member')}',
+          filename: 'my_page_page/${TestUtil.filename('when_current_user_is_not_vip_member')}',
           widget: const MyPagePage(),
           overrides: [
             myPageViewModelProvider.overrideWith(
@@ -41,7 +41,7 @@ void main() {
       TestUtil.description('when current user is vip member'),
       (tester) async {
         await tester.testWidgetWithDeviceBuilder(
-          filename: 'my_page/${TestUtil.filename('when_current_user_is_vip_member')}',
+          filename: 'my_page_page/${TestUtil.filename('when_current_user_is_vip_member')}',
           widget: const MyPagePage(),
           overrides: [
             myPageViewModelProvider.overrideWith(
