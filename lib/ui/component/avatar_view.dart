@@ -25,13 +25,11 @@ class AvatarView extends StatelessWidget {
     final width = this.width ?? 60.rps;
     final height = this.height ?? 60.rps;
 
-    return Container(
+    return CommonContainer(
       height: height,
       width: width,
-      decoration: BoxDecoration(
-        color: backgroundColor ?? cl.black,
-        borderRadius: BorderRadius.circular(width / 2),
-      ),
+      color: backgroundColor ?? cl.black,
+      border: SolidBorder.allRadius(radius: width / 2),
       child: Stack(
         children: [
           Center(
@@ -49,14 +47,11 @@ class AvatarView extends StatelessWidget {
             visible: isActive,
             child: Align(
               alignment: Alignment.bottomRight,
-              child: Container(
+              child: CommonContainer(
                 width: 14.rps,
                 height: 14.rps,
-                decoration: BoxDecoration(
-                  color: cl.green1,
-                  borderRadius: BorderRadius.circular(7.rps),
-                  border: Border.all(color: cl.white),
-                ),
+                color: cl.green1,
+                border: SolidBorder.allRadius(radius: 7.rps, borderColor: cl.white),
               ),
             ),
           ),

@@ -39,6 +39,7 @@ class CommonText extends StatelessWidget {
             onOpen: (link) => onOpenLink,
             options: const LinkifyOptions(looseUrl: true),
           )
+        // ignore: prefer_common_widgets
         : Text(
             text ?? 'nil',
             style: style,

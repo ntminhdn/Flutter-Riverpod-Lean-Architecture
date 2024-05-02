@@ -13,6 +13,7 @@ class CircleShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: prefer_common_widgets
     return Container(
       width: diameter ?? 32.rps,
       height: diameter ?? 32.rps,

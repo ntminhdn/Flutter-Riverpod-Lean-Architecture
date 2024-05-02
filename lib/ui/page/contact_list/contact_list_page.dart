@@ -131,14 +131,14 @@ class ContactListPage extends BasePage<ContactListState,
 
                   return ListView.separated(
                     separatorBuilder: (context, index) =>
-                        SizedBox(height: 1.rps, child: Divider(indent: 68.rps)),
+                        SizedBox(height: 1.rps, child: CommonDivider(indent: 68.rps)),
                     padding: EdgeInsets.zero,
                     itemCount: filteredConversations.length,
                     itemBuilder: (context, index) {
                       final conversation = filteredConversations[index];
                       final conversationName = ref.watch(conversationNameProvider(conversation.id));
 
-                      return InkWell(
+                      return CommonInkWell(
                         onTap: () {
                           ref.read(appNavigatorProvider).push(ChatRoute(
                                 conversation: conversation,

@@ -24,6 +24,7 @@ class CommonScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+// ignore: prefer_common_widgets
     final scaffold = Scaffold(
       backgroundColor: backgroundColor ?? cl.white,
       body: shimmerEnabled ? Shimmer(child: body) : body,

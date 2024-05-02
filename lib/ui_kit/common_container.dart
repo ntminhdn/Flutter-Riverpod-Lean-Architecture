@@ -44,6 +44,7 @@ class CommonContainer extends StatelessWidget {
     final material = Material(
       borderRadius: shape == CommonShape.circle ? null : border?.borderRadius,
       color: color,
+      // ignore: prefer_common_widgets
       child: InkWell(
         borderRadius: shape == CommonShape.circle ? null : border?.borderRadius,
         splashColor: splashColor,
@@ -69,6 +70,7 @@ class CommonContainer extends StatelessWidget {
   Widget _buildContainer({
     Color? containerColor,
   }) {
+    // ignore: prefer_common_widgets
     final container = Container(
       alignment: alignment,
       margin: margin,

@@ -158,4 +158,6 @@ extension StringExtensions on String {
 
     return '$prefix$replacement$suffix';
   }
+
+  String get hardcoded => this;
 }

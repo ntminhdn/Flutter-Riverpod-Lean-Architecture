@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_common_widgets
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';

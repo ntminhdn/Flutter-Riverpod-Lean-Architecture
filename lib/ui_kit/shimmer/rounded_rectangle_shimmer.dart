@@ -17,6 +17,7 @@ class RounedRectangleShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: prefer_common_widgets
     return Container(
       width: width,
       height: height ?? 16.rps,

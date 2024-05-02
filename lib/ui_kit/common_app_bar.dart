@@ -89,6 +89,7 @@ class CommonAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+// ignore: prefer_common_widgets
     return AppBar(
       toolbarHeight: preferredSize.height,
       automaticallyImplyLeading: automaticallyImplyLeading,

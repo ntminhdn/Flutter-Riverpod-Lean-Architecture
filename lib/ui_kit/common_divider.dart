@@ -21,6 +21,7 @@ class CommonDivider extends StatelessWidget {
     return direction == DividerDirection.horizontal
         ? SizedBox(
             height: 1,
+            // ignore: prefer_common_widgets
             child: Divider(
               height: thickness,
               color: color,
@@ -30,6 +31,7 @@ class CommonDivider extends StatelessWidget {
           )
         : SizedBox(
             width: 1,
+            // ignore: prefer_common_widgets
             child: VerticalDivider(
               width: thickness,
               color: color,
