@@ -17,7 +17,7 @@ class LocalPushNotificationHelper with LogMixin {
   static const _channelId = 'jp.flutter.app';
   static const _channelName = 'flutter';
   static const _channelDescription = 'flutter';
-  static const _androidDefaultIcon = 'ic_app_logo';
+  static const _androidDefaultIcon = 'ic_app_notification';
   static const _bitCount = 31;
 
   int get _randomNotificationId => Random().nextInt(pow(2, _bitCount).toInt() - 1);

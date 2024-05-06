@@ -11,13 +11,13 @@ endif
 TEST_DART_DEFINE_LIGHT_MODE_AND_JA=--dart-define=IS_DARK_MODE=false --dart-define=LOCALE=ja
 TEST_DART_DEFINE_DARK_MODE_AND_EN=--dart-define=IS_DARK_MODE=true --dart-define=LOCALE=en
 
-update_app_icon:
+gen_ai:
 	dart run flutter_launcher_icons:main -f app_icon/app-icon.yaml
 
-update_splash:
+gen_spl:
 	dart run flutter_native_splash:create --path=splash/splash.yaml
 
-remove_splash:
+rm_spl:
 	dart run flutter_native_splash:remove --path=splash/splash.yaml
 
 gen_env:
@@ -74,7 +74,7 @@ pg:
 fm:
 	find . -name "*.dart" ! -name "*.g.dart" ! -name "*.freezed.dart" ! -name "*.gr.dart" ! -name "*.config.dart" ! -name "*.mocks.dart" ! -path '*/generated/*' ! -path '*/.dart_tool/*' | tr '\n' ' ' | xargs dart format --set-exit-if-changed -l 100
 
-my_lint:
+super_lint:
 	./tools/super_lint.sh
 
 analyze:
@@ -85,7 +85,7 @@ dart_code_metrics:
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 lint:
-	make my_lint
+	make super_lint
 	make analyze
 	# make dart_code_metrics
 

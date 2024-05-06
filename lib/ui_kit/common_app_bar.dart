@@ -128,7 +128,7 @@ class CommonAppBar extends ConsumerWidget implements PreferredSizeWidget {
         child: titleType == AppBarTitle.text
             ? CommonText(text, style: titleTextStyle)
             : titleType == AppBarTitle.logo
-                ? _buildIcon(Assets.images.logo)
+                ? _buildIcon(Assets.images.appLogo)
                 : null,
       ),
       actions: actions,
