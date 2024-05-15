@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 
 import '../../index.dart';
 
@@ -57,4 +58,14 @@ class FirebaseConversationData with _$FirebaseConversationData {
   static const defaultMemberIds = <String>[];
   static const defaultCreatedAt = null;
   static const defaultUpdatedAt = null;
+
+  Future<FirebaseConversationData> to({required LanguageCode languageCode}) async {
+    final onDeviceTranslator = OnDeviceTranslator(
+        sourceLanguage: BCP47Code.fromRawValue(LanguageCode.defaultValue.localeCode) ??
+            TranslateLanguage.japanese,
+        targetLanguage:
+            BCP47Code.fromRawValue(languageCode.localeCode) ?? TranslateLanguage.japanese);
+    final newLastMessage = await onDeviceTranslator.translateText(lastMessage);
+    return copyWith(lastMessage: newLastMessage);
+  }
 }

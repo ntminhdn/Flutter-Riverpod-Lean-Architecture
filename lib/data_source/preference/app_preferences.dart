@@ -37,6 +37,8 @@ class AppPreferences with LogMixin {
   static const keyLanguageCode = 'languageCode';
   static const keyNickName = 'nickName';
 
+  static const appLanguageCodeKey = 'appLanguageCode';
+
   Future<bool> saveIsDarkMode(bool isDarkMode) {
     return _sharedPreference.setBool(keyIsDarkMode, isDarkMode);
   }

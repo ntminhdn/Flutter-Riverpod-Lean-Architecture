@@ -11,5 +11,7 @@ class ContactListState extends BaseState with _$ContactListState {
   const factory ContactListState({
     @Default('') String keyword,
     @Default(<FirebaseConversationData>[]) List<FirebaseConversationData> conversationList,
+    @Default(<String, List<FirebaseConversationData>>{})
+    Map<String, List<FirebaseConversationData>> conversationsMap,
   }) = _ContactListState;
 }

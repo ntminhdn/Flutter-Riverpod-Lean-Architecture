@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../index.dart';
+import '../../localizations/app_localization_view_model.dart';
 
 abstract class BasePage<S extends BaseState, P extends ProviderListenable<CommonState<S>>>
     extends HookConsumerWidget with LogMixin {
@@ -14,7 +16,24 @@ abstract class BasePage<S extends BaseState, P extends ProviderListenable<Common
     AppDimen.of(context);
     AppColor.of(context);
     l10n = AppString.of(context)!;
+    ref.listen(
+      appLocalizationViewModelProvider.select((value) => value.data.localization),
+      (previous, next) {
+        l10n = next!;
+      },
+    );
 
+    ref.listen(
+      languageCodeProvider,
+      (previous, next) async {
+        if (previous != next) {
+          final modelManager = OnDeviceTranslatorModelManager();
+          final isModelDownloaded = await modelManager.isModelDownloaded(next.localeCode);
+          if (!isModelDownloaded) return;
+          await onLanguageCodeChange(ref: ref);
+        }
+      },
+    );
     ref.listen(
       provider.select((value) => value.appException),
       (previous, next) {
@@ -36,6 +55,8 @@ abstract class BasePage<S extends BaseState, P extends ProviderListenable<Common
       ],
     );
   }
+
+  Future<void> onLanguageCodeChange({required WidgetRef ref}) async {}
 
   Widget buildPageLoading() => const CommonProgressIndicator();
 

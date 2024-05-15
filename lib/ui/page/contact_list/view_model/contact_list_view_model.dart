@@ -25,6 +25,31 @@ class ContactListViewModel extends BaseViewModel<ContactListState> {
     listenToConversations();
   }
 
+  void updateConversionsFollowLanguageCode() {
+    final languageCode = _ref.read(languageCodeProvider);
+    data = data.copyWith(conversationList: data.conversationsMap[languageCode.localeCode] ?? []);
+  }
+
+  Future<void> _translateConversations(List<FirebaseConversationData> conversations) async {
+    final conversationsMap = {LanguageCode.defaultValue.localeCode: conversations};
+
+    final newConversationsFutures = <Future<FirebaseConversationData>>[];
+    conversations.forEach((conversation) async {
+      newConversationsFutures.add(conversation.to(languageCode: LanguageCode.ko));
+    });
+    final newConversations = await Future.wait(newConversationsFutures);
+    conversationsMap[LanguageCode.ko.localeCode] = newConversations;
+
+    final newConversationsZHFutures = <Future<FirebaseConversationData>>[];
+    conversations.forEach((conversation) async {
+      newConversationsZHFutures.add(conversation.to(languageCode: LanguageCode.zh));
+    });
+    final newConversationsZH = await Future.wait(newConversationsFutures);
+    conversationsMap[LanguageCode.zh.localeCode] = newConversationsZH;
+
+    data = data.copyWith(conversationsMap: conversationsMap);
+  }
+
   void listenToConversations() {
     _conversationsSubscription?.cancel();
     final userId = _ref.appPreferences.userId;
@@ -32,7 +57,10 @@ class ContactListViewModel extends BaseViewModel<ContactListState> {
         _ref.firebaseFirestoreService.getConversationsStream(userId).listen((event) {
       runCatching(
         action: () async {
-          data = data.copyWith(conversationList: event);
+          await _translateConversations(event);
+          final languageCode = _ref.read(languageCodeProvider);
+          data =
+              data.copyWith(conversationList: data.conversationsMap[languageCode.localeCode] ?? []);
           _ref.update<Map<String, List<FirebaseConversationUserData>>>(
             conversationMembersMapProvider,
             (state) => state.plusAll(mapToConversationMembers(event)),

@@ -10,6 +10,15 @@ enum LanguageCode {
   ja(
     localeCode: 'ja',
     value: Constant.ja,
+  ),
+
+  ko(
+    localeCode: 'ko',
+    value: Constant.ko,
+  ),
+  zh(
+    localeCode: 'zh',
+    value: Constant.zh,
   );
 
   const LanguageCode({

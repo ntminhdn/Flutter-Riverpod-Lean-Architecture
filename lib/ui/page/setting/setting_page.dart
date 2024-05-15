@@ -54,7 +54,7 @@ class SettingPage extends BasePage<SettingState,
                     value: languageCode == LanguageCode.ja,
                     onChanged: (isJa) => ref.update<LanguageCode>(
                       languageCodeProvider,
-                      (state) => isJa ? LanguageCode.ja : LanguageCode.en,
+                      (state) => isJa ? LanguageCode.ja : LanguageCode.ko,
                     ),
                   );
                 },

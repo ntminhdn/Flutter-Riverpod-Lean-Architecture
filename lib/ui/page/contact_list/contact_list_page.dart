@@ -15,11 +15,18 @@ class ContactListPage extends BasePage<ContactListState,
       get provider => contactListViewModelProvider;
 
   @override
+  Future<void> onLanguageCodeChange({required WidgetRef ref}) async {
+    final contactListViewModel = ref.read(contactListViewModelProvider.notifier);
+    contactListViewModel.updateConversionsFollowLanguageCode();
+  }
+
+  @override
   Widget buildPage(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(provider.notifier);
     useEffect(
       () {
         Future.microtask(() {
-          ref.read(provider.notifier).init();
+          viewModel.init();
         });
 
         return () {};
