@@ -19,6 +19,7 @@ A VSCode extension used for this code base.
     - [2.4. nals:[API] Json to Data Model](#24-nalsapi-json-to-data-model)
     - [2.5. nals:[API] Json to Params](#25-nalsapi-json-to-params)
     - [2.6. nals:Create test file](#26-nalscreate-test-file)
+    - [2.7. nals:[API] Extract API URL](#27-nalsapi-extract-api-url)
 
 - [3. Snippets](#3-snippets)
     - [3.1. Data model](#31-data-model)
@@ -224,6 +225,61 @@ required String classifies,
 
 It's used to generate a test file for the `.dart` file currently displayed in the active Text Editor. If the test file was generated, it will open the test file in the active Text Editor. The test file path will mirror the code file path in the lib folder. For example, if the code file is `lib/ui/page/login/view_model/login_view_model.dart`, the test file will be `test/unit_test/ui/page/login/view_model/login_view_model_test.dart`.
 
+### 2.7. nals:[API] Extract API URL
+
+It is used to convert the API URL to args of Dio.
+
+Input:
+```
+{{url}}/training/my-courses/getJoiningCourse?page=1&limit=10&sortBy=created_at&sortDesc=desc&course_id=13&training_type_id=4&platform=1&onlineLearningFormat=zoom&teacher_id=19&persons_charge_id=6&from_time=2024-05-11&to_time=2024-05-12
+
+or
+
+https://google.com/api/training/my-courses/getJoiningCourse?page=1&limit=10&sortBy=created_at&sortDesc=desc&course_id=13&training_type_id=4&platform=1&onlineLearningFormat=zoom&teacher_id=19&persons_charge_id=6&from_time=2024-05-11&to_time=2024-05-12
+```
+
+Output:
+```
+method: RestMethod.get,
+path: 'training/my-courses/getJoiningCourse',
+queryParameters: {
+'page': page,
+'limit': limit,
+'sortBy': sortBy,
+'sortDesc': sortDesc,
+'course_id': courseId,
+'training_type_id': trainingTypeId,
+'platform': platform,
+'onlineLearningFormat': onlineLearningFormat,
+'teacher_id': teacherId,
+'persons_charge_id': personsChargeId,
+'from_time': fromTime,
+'to_time': toTime,
+},
+```
+
+Input:
+```
+?course_id=8&platform=2&status=2&time_start=2024-05-08&time_end=2024-05-24
+
+or
+
+course_id=8&platform=2&status=2&time_start=2024-05-08&time_end=2024-05-24
+```
+
+Output:
+```
+method: RestMethod.get,
+path: '',
+queryParameters: {
+'course_id': courseId,
+'platform': platform,
+'status': status,
+'time_start': timeStart,
+'time_end': timeEnd,
+},
+```
+
 ## 3. Snippets
 
 ## 3.1. Data model
@@ -243,6 +299,9 @@ It's used to generate a test file for the `.dart` file currently displayed in th
 * `pa`: `EdgeInsets.all(xx.rps)`
 * `pv`: `EdgeInsets.symmetric(vertical: xx.rps,)`
 * `ph`: `EdgeInsets.symmetric(horizontal: xx.rps,)`
+* `sw`: `SizedBox(width: xx.rps),`
+* `sh`: `SizedBox(height: xx.rps),`
+* `fi`: `https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067_1280.png`
 * `po`: `EdgeInsets.only(xx: yy.rps)`
 * `di`: `xx.rps`
 * `cl`: `cl.xx`
