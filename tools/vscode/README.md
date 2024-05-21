@@ -135,7 +135,17 @@ Export all files in lib folder to the [index.dart](../../lib/index.dart) file
 
 ### 2.3. nals:[API] Clipboard to Data Model
 
-Copy a Json and run this command, it will generate all data model files in the `[nalsMobileBrain.dataModelPath]` folder.
+Copy a Json and run this command, it will generate all data model files in the `[nalsMobileBrain.dataModelPath]` folder. Both of following text are valid:
+```
+{
+    "id": 13,
+    "email": "abc@gmail.com"
+}
+```
+```
+"id": 13,
+"email": "abc@gmail.com",
+```
 
 ### 2.4. nals:[API] Json to Data Model
 
@@ -240,22 +250,41 @@ https://google.com/api/training/my-courses/getJoiningCourse?page=1&limit=10&sort
 
 Output:
 ```
-method: RestMethod.get,
-path: 'training/my-courses/getJoiningCourse',
-queryParameters: {
-'page': page,
-'limit': limit,
-'sortBy': sortBy,
-'sortDesc': sortDesc,
-'course_id': courseId,
-'training_type_id': trainingTypeId,
-'platform': platform,
-'onlineLearningFormat': onlineLearningFormat,
-'teacher_id': teacherId,
-'persons_charge_id': personsChargeId,
-'from_time': fromTime,
-'to_time': toTime,
-},
+Future<XXX> get({
+  required int page,
+  required int limit,
+  required String sortBy,
+  required String sortDesc,
+  required int courseId,
+  required int trainingTypeId,
+  required int platform,
+  required String onlineLearningFormat,
+  required int teacherId,
+  required int personsChargeId,
+  required String fromTime,
+  required String toTime,
+}) {
+  return authAppServerClient.request(
+    method: RestMethod.get,
+    path: 'training/my-courses/getJoiningCourse',
+    queryParameters: {
+      'page': page,
+      'limit': limit,
+      'sortBy': sortBy,
+      'sortDesc': sortDesc,
+      'course_id': courseId,
+      'training_type_id': trainingTypeId,
+      'platform': platform,
+      'onlineLearningFormat': onlineLearningFormat,
+      'teacher_id': teacherId,
+      'persons_charge_id': personsChargeId,
+      'from_time': fromTime,
+      'to_time': toTime,
+    },
+// decoder: XXX.fromJson,
+// successResponseMapperType: SuccessResponseMapperType.yyy,
+  );
+}
 ```
 
 Input:
@@ -269,15 +298,56 @@ course_id=8&platform=2&status=2&time_start=2024-05-08&time_end=2024-05-24
 
 Output:
 ```
-method: RestMethod.get,
-path: '',
-queryParameters: {
-'course_id': courseId,
-'platform': platform,
-'status': status,
-'time_start': timeStart,
-'time_end': timeEnd,
-},
+Future<XXX> get({
+  required int courseId,
+  required int platform,
+  required int status,
+  required String timeStart,
+  required String timeEnd,
+}) {
+  return authAppServerClient.request(
+    method: RestMethod.get,
+    path: '',
+    queryParameters: {
+      'course_id': courseId,
+      'platform': platform,
+      'status': status,
+      'time_start': timeStart,
+      'time_end': timeEnd,
+    },
+// decoder: XXX.fromJson,
+// successResponseMapperType: SuccessResponseMapperType.yyy,
+  );
+}
+```
+
+Input:
+```
+v1/training/courses/25/register
+
+or
+
+/v1/training/courses/25/register
+
+or 
+
+api/v1/training/courses/25/register
+
+or
+
+/api/v1/training/courses/25/register
+```
+
+Output:
+```
+Future<XXX> get() {
+  return authAppServerClient.request(
+    method: RestMethod.get,
+    path: 'v1/training/courses/25/register',
+// decoder: XXX.fromJson,
+// successResponseMapperType: SuccessResponseMapperType.yyy,
+  );
+}
 ```
 
 ## 3. Snippets
@@ -311,7 +381,7 @@ queryParameters: {
 
 ## 3.4. ViewModel
 
-- `rc` - `await runCatching(action: () async {});` in ViewModel classes
+- `rc` - `Future<void> get() async { await runCatching(action: () async {}...` in ViewModel classes
 
 ## 3.5. Shared Preferences
 
