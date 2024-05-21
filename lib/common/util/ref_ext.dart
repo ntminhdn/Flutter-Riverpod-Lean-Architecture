@@ -25,11 +25,8 @@ extension RefExt on Ref {
   AppDatabase get appDatabase => read(appDatabaseProvider);
 
   // api
-  AuthAppServerApiClient get authApiClient => read(authApiClientProvider);
-  NoneAuthAppServerApiClient get noneAuthApiClient => read(noneAuthApiClientProvider);
-  RefreshTokenApiClient get refreshTokenApiClient => read(refreshTokenApiClientProvider);
-  RawApiClient get rawApiClient => read(rawApiClientProvider);
-  RandomUserApiClient get randomUserApiClient => read(randomUserApiClientProvider);
+  AppApiService get appApiService => read(appApiServiceProvider);
+  RefreshTokenApiService get refreshTokenApiService => read(refreshTokenApiServiceProvider);
   LoadMoreUsersExecutor get loadMoreUsersExecutor => read(loadMoreUsersExecutorProvider);
 
   // firebase

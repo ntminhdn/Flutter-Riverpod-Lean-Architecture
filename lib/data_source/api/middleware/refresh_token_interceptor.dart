@@ -8,14 +8,14 @@ import '../../../index.dart';
 class RefreshTokenInterceptor extends BaseInterceptor {
   // ignore: prefer_named_parameters
   RefreshTokenInterceptor(
-    this._appPreferences,
-    this._refreshTokenApiClient,
-    this._noneAuthAppServerApiClient,
+    this.appPreferences,
+    this.refreshTokenService,
+    this.noneAuthAppServerApiClient,
   ) : super(InterceptorType.refreshToken);
 
-  final AppPreferences _appPreferences;
-  final RefreshTokenApiClient _refreshTokenApiClient;
-  final NoneAuthAppServerApiClient _noneAuthAppServerApiClient;
+  final AppPreferences appPreferences;
+  final RefreshTokenApiService refreshTokenService;
+  final NoneAuthAppServerApiClient noneAuthAppServerApiClient;
 
   var _isRefreshing = false;
   final _queue = Queue<({RequestOptions options, ErrorInterceptorHandler handler})>();
@@ -58,36 +58,13 @@ class RefreshTokenInterceptor extends BaseInterceptor {
 
   Future<String> _refreshToken() async {
     _isRefreshing = true;
-    final refreshToken = await _appPreferences.refreshToken;
-    final refreshTokenResponse = await _makeRefreshTokenCall(refreshToken);
-    await _appPreferences.saveAccessToken(
+    final refreshToken = await appPreferences.refreshToken;
+    final refreshTokenResponse = await refreshTokenService.refreshToken(refreshToken);
+    await appPreferences.saveAccessToken(
       refreshTokenResponse?.data?.accessToken ?? '',
     );
 
     return refreshTokenResponse?.data?.accessToken ?? '';
-  }
-
-  Future<DataResponse<ApiRefreshTokenData>?> _makeRefreshTokenCall(String refreshToken) async {
-    try {
-      final respone = await _refreshTokenApiClient
-          .request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
-        method: RestMethod.post,
-        path: '/v1/auth/refresh',
-        body: {'refresh_token': refreshToken},
-        decoder: (json) => ApiRefreshTokenData.fromJson(json as Map<String, dynamic>),
-      );
-
-      return respone;
-    } catch (e) {
-      // TODO(minh): fix depend on project #0
-      if (e is RemoteException &&
-          (e.kind == RemoteExceptionKind.serverDefined ||
-              e.kind == RemoteExceptionKind.serverUndefined)) {
-        throw RemoteException(kind: RemoteExceptionKind.refreshTokenFailed);
-      }
-
-      rethrow;
-    }
   }
 
   Future<void> _onRefreshTokenSuccess(String newToken) async {
@@ -116,7 +93,7 @@ class RefreshTokenInterceptor extends BaseInterceptor {
     _putAccessToken(headers: options.headers, accessToken: newAccessToken);
 
     try {
-      final response = await _noneAuthAppServerApiClient.fetch(options);
+      final response = await noneAuthAppServerApiClient.fetch(options);
       handler.resolve(response);
     } catch (e) {
       handler.next(DioException(requestOptions: options, error: e));

@@ -1,12 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../index.dart';
-
-final authApiClientProvider = Provider<AuthAppServerApiClient>(
-  (ref) => getIt.get<AuthAppServerApiClient>(),
-);
 
 @LazySingleton()
 class AuthAppServerApiClient extends RestApiClient {
@@ -33,7 +28,7 @@ class AuthAppServerApiClient extends RestApiClient {
               ),
               RefreshTokenInterceptor(
                 getIt.get<AppPreferences>(),
-                getIt.get<RefreshTokenApiClient>(),
+                getIt.get<RefreshTokenApiService>(),
                 getIt.get<NoneAuthAppServerApiClient>(),
               ),
             ],

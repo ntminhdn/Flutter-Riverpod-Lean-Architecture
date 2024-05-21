@@ -1,12 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../index.dart';
-
-final noneAuthApiClientProvider = Provider<NoneAuthAppServerApiClient>(
-  (ref) => getIt.get<NoneAuthAppServerApiClient>(),
-);
 
 @LazySingleton()
 class NoneAuthAppServerApiClient extends RestApiClient {

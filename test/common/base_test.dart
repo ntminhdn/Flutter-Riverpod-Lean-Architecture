@@ -41,11 +41,8 @@ Future<void> main() async {
     when(() => ref.read(exceptionHandlerProvider)).thenReturn(exceptionHandler);
     when(() => ref.read(appPreferencesProvider)).thenReturn(appPreferences);
     when(() => ref.read(appDatabaseProvider)).thenReturn(appDatabase);
-    when(() => ref.read(authApiClientProvider)).thenReturn(authApiClient);
-    when(() => ref.read(noneAuthApiClientProvider)).thenReturn(noneAuthApiClient);
-    when(() => ref.read(randomUserApiClientProvider)).thenReturn(randomUserApiClient);
-    when(() => ref.read(refreshTokenApiClientProvider)).thenReturn(refreshTokenApiClient);
-    when(() => ref.read(rawApiClientProvider)).thenReturn(rawApiClient);
+    when(() => ref.read(appApiServiceProvider)).thenReturn(appApiService);
+    when(() => ref.read(refreshTokenApiServiceProvider)).thenReturn(refreshTokenApiService);
     when(() => ref.read(loadMoreUsersExecutorProvider)).thenReturn(loadMoreUsersExecutor);
     when(() => ref.read(firebaseFirestoreServiceProvider)).thenReturn(firebaseFirestoreService);
     when(() => ref.read(firebaseAuthServiceProvider)).thenReturn(firebaseAuthService);
@@ -124,15 +121,9 @@ class _MockAppPreferences extends Mock implements AppPreferences {}
 
 class _MockAppDatabase extends Mock implements AppDatabase {}
 
-class _MockAuthAppServerApiClient extends Mock implements AuthAppServerApiClient {}
+class _MockAppApiService extends Mock implements AppApiService {}
 
-class _MockNoneAuthAppServerApiClient extends Mock implements NoneAuthAppServerApiClient {}
-
-class _MockRandomUserApiClient extends Mock implements RandomUserApiClient {}
-
-class _MockRefreshTokenApiClient extends Mock implements RefreshTokenApiClient {}
-
-class _MockRawApiClient extends Mock implements RawApiClient {}
+class _MockRefreshTokenApiService extends Mock implements RefreshTokenApiService {}
 
 class _MockLoadMoreUsersExecutor extends Mock implements LoadMoreUsersExecutor {}
 
@@ -175,11 +166,8 @@ final navigator = _MockNavigator();
 final exceptionHandler = _MockExceptionHandler();
 final appPreferences = _MockAppPreferences();
 final appDatabase = _MockAppDatabase();
-final authApiClient = _MockAuthAppServerApiClient();
-final noneAuthApiClient = _MockNoneAuthAppServerApiClient();
-final randomUserApiClient = _MockRandomUserApiClient();
-final refreshTokenApiClient = _MockRefreshTokenApiClient();
-final rawApiClient = _MockRawApiClient();
+final appApiService = _MockAppApiService();
+final refreshTokenApiService = _MockRefreshTokenApiService();
 final loadMoreUsersExecutor = _MockLoadMoreUsersExecutor();
 final firebaseFirestoreService = _MockFirebaseFirestoreService();
 final firebaseAuthService = _MockFirebaseAuthService();
