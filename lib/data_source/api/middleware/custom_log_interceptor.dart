@@ -8,7 +8,7 @@ class CustomLogInterceptor extends BaseInterceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    if (kDebugMode || !Config.enableLogInterceptor || !Config.enableLogRequestInfo) {
+    if (kReleaseMode || !Config.enableLogInterceptor || !Config.enableLogRequestInfo) {
       handler.next(options);
 
       return;
@@ -45,7 +45,7 @@ class CustomLogInterceptor extends BaseInterceptor {
 
   @override
   void onResponse(Response<dynamic> response, ResponseInterceptorHandler handler) {
-    if (kDebugMode || !Config.enableLogInterceptor || !Config.enableLogSuccessResponse) {
+    if (kReleaseMode || !Config.enableLogInterceptor || !Config.enableLogSuccessResponse) {
       handler.next(response);
 
       return;
@@ -67,7 +67,7 @@ class CustomLogInterceptor extends BaseInterceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    if (kDebugMode || !Config.enableLogInterceptor || !Config.enableLogErrorResponse) {
+    if (kReleaseMode || !Config.enableLogInterceptor || !Config.enableLogErrorResponse) {
       handler.next(err);
 
       return;

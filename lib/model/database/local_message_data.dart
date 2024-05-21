@@ -8,7 +8,7 @@ part 'local_message_data.g.dart';
 @collection
 class LocalMessageData {
   LocalMessageData({
-    this.uniqueID = '',
+    this.uniqueId = '',
     this.userId = '',
     this.conversationId = '',
     this.senderId = '',
@@ -22,7 +22,7 @@ class LocalMessageData {
 
   Id id = Isar.autoIncrement;
   @Index(unique: true, replace: true)
-  String uniqueID;
+  String uniqueId;
   String userId;
   String conversationId;
   String senderId;
@@ -37,7 +37,7 @@ class LocalMessageData {
 
   @override
   String toString() {
-    return 'LocalMessageData{id: $id, uniqueID: $uniqueID, userId: $userId, conversationId: $conversationId, senderId: $senderId, type: $type, status: $status, message: $message, createdAt: $createdAt, updatedAt: $updatedAt, replyMessage: $replyMessage}';
+    return 'LocalMessageData{id: $id, uniqueId: $uniqueId, userId: $userId, conversationId: $conversationId, senderId: $senderId, type: $type, status: $status, message: $message, createdAt: $createdAt, updatedAt: $updatedAt, replyMessage: $replyMessage}';
   }
 
   @override
@@ -46,7 +46,7 @@ class LocalMessageData {
       other is LocalMessageData &&
           runtimeType == other.runtimeType &&
           id == other.id &&
-          uniqueID == other.uniqueID &&
+          uniqueId == other.uniqueId &&
           userId == other.userId &&
           conversationId == other.conversationId &&
           senderId == other.senderId &&
@@ -60,7 +60,7 @@ class LocalMessageData {
   @override
   int get hashCode =>
       id.hashCode ^
-      uniqueID.hashCode ^
+      uniqueId.hashCode ^
       userId.hashCode ^
       conversationId.hashCode ^
       senderId.hashCode ^
@@ -73,7 +73,7 @@ class LocalMessageData {
 
   cv.Message toMessage() {
     return cv.Message(
-      id: uniqueID,
+      id: uniqueId,
       message: message,
       sendBy: senderId,
       replyMessage: replyMessage?.toReplyMessage() ?? const cv.ReplyMessage(),

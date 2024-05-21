@@ -61,7 +61,7 @@ class HomePage extends BasePage<HomeState,
               url: Constant.contactListBg,
               fit: BoxFit.cover,
               cacheManager: cacheManager,
-              errorBuilder: (context, error) => Container(color: cl.red1),
+              errorBuilder: (context, error) => CommonContainer(color: cl.red1),
             ),
             Consumer(
               builder: (context, ref, child) {
@@ -88,16 +88,14 @@ class HomePage extends BasePage<HomeState,
                                   onTap: () async {
                                     await ref.read(appNavigatorProvider).push(HomeRoute());
                                   },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: cl.green1,
-                                      borderRadius: BorderRadius.circular(8.rps),
-                                    ),
+                                  child: CommonContainer(
+                                    padding: EdgeInsets.all(8.rps),
+                                    color: cl.green1,
+                                    border: SolidBorder.allRadius(radius: 8.rps),
                                     width: double.infinity,
-                                    height: 60.rps,
                                     child: CommonText(
-                                      user.email,
+                                      '${user.email}\n${user.gender}\n${user.birthday?.toIso8601String()}'
+                                          .hardcoded,
                                       style: ts(
                                         color: cl.black,
                                         fontSize: 14.rps,

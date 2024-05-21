@@ -13,7 +13,7 @@ void main() {
   });
 
   group('execute', () {
-    test('when fetching the first page', () async {
+    test('when data of the first page is not empty', () async {
       // Arrange
       const page = Constant.initialPage;
       const limit = Constant.itemsPerPage;
@@ -44,15 +44,16 @@ void main() {
           isRefreshSuccess: true,
         ),
       );
+
+      const initialState = LoadMoreOutput<ApiUserData>(data: []);
+      expect(initialState != result, true);
     });
 
-    test('when fetching the first page and it is the last page', () async {
+    test('when data of the first page is empty', () async {
       // Arrange
       const page = Constant.initialPage;
       const limit = Constant.itemsPerPage;
-      const response = ResultsListResponse(
-        results: <ApiUserData>[],
-      );
+      const response = ResultsListResponse(results: <ApiUserData>[]);
       when(() => appApiService.getUsers(page: page, limit: limit))
           .thenAnswer((_) async => response);
 
@@ -70,9 +71,12 @@ void main() {
           isRefreshSuccess: true,
         ),
       );
+
+      const initialState = LoadMoreOutput<ApiUserData>(data: []);
+      expect(initialState != result, true);
     });
 
-    test('when fetching more page', () async {
+    test('when data of the second page is not empty', () async {
       // Arrange
       const page = Constant.initialPage;
       const limit = Constant.itemsPerPage;
@@ -164,7 +168,7 @@ void main() {
       );
     });
 
-    test('when fetching the next page and it is the last page', () async {
+    test('when the second page is the last page', () async {
       // Arrange
       const page = Constant.initialPage;
       const limit = Constant.itemsPerPage;

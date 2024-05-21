@@ -8,13 +8,16 @@ else
     COMMIT_CHECK_CMD=./tools/check_commit_message.sh
 endif
 
-update_app_icon:
+TEST_DART_DEFINE_LIGHT_MODE_AND_JA=--dart-define=IS_DARK_MODE=false --dart-define=LOCALE=ja
+TEST_DART_DEFINE_DARK_MODE_AND_EN=--dart-define=IS_DARK_MODE=true --dart-define=LOCALE=en
+
+gen_ai:
 	dart run flutter_launcher_icons:main -f app_icon/app-icon.yaml
 
-update_splash:
+gen_spl:
 	dart run flutter_native_splash:create --path=splash/splash.yaml
 
-remove_splash:
+rm_spl:
 	dart run flutter_native_splash:remove --path=splash/splash.yaml
 
 gen_env:
@@ -40,17 +43,24 @@ ln:
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 te:
-	flutter test
+	make ut
+	make wt
 
 gt:
-	flutter test --tags=golden
+	flutter test $(TEST_DART_DEFINE_LIGHT_MODE_AND_JA) --tags=golden
+	flutter test $(TEST_DART_DEFINE_DARK_MODE_AND_EN) --tags=golden
 
 ug:
 	find . -type d -name "goldens" -exec rm -rf {} +
-	flutter test --update-goldens --tags=golden
+	flutter test $(TEST_DART_DEFINE_LIGHT_MODE_AND_JA) --update-goldens --tags=golden
+	flutter test $(TEST_DART_DEFINE_DARK_MODE_AND_EN) --update-goldens --tags=golden
 
 ut:
 	flutter test test/unit_test
+
+wt:
+	flutter test test/widget_test $(TEST_DART_DEFINE_LIGHT_MODE_AND_JA)
+	flutter test test/widget_test $(TEST_DART_DEFINE_DARK_MODE_AND_EN)
 
 cl:
 	flutter clean && rm -rf pubspec.lock
@@ -64,7 +74,7 @@ pg:
 fm:
 	find . -name "*.dart" ! -name "*.g.dart" ! -name "*.freezed.dart" ! -name "*.gr.dart" ! -name "*.config.dart" ! -name "*.mocks.dart" ! -path '*/generated/*' ! -path '*/.dart_tool/*' | tr '\n' ' ' | xargs dart format --set-exit-if-changed -l 100
 
-my_lint:
+super_lint:
 	./tools/super_lint.sh
 
 analyze:
@@ -75,7 +85,7 @@ dart_code_metrics:
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 lint:
-	make my_lint
+	make super_lint
 	make analyze
 	# make dart_code_metrics
 

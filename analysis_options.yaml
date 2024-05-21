@@ -51,12 +51,19 @@ custom_lint:
           param_name: "description"
     - avoid_hard_coded_colors:
       excludes:
-        - "**_test.dart"
+        - "test/*.dart"
+        - "test/**/*.dart"
+        - "integration_test/*.dart"
+        - "integration_test/**/*.dart"
     - test_folder_must_mirror_lib_folder:
       lib_folder_path: "lib"
       test_folder_paths:
         - "test/unit_test"
         - "test/widget_test"
+    - avoid_hard_coded_strings:
+      includes:
+        - "lib/ui/component/*.dart"
+        - "lib/ui/page/**/*_page.dart"
 
 dart_code_metrics:
   metrics:

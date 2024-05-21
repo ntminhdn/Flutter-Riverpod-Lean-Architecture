@@ -93,7 +93,7 @@ void main() {
       final message1 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '1',
+        uniqueId: '1',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -105,7 +105,7 @@ void main() {
       final message2 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '2',
+        uniqueId: '2',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -141,7 +141,7 @@ void main() {
       final message1 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '1',
+        uniqueId: '1',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -153,7 +153,7 @@ void main() {
       final message2 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '2',
+        uniqueId: '2',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -208,7 +208,7 @@ void main() {
       final message1 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '1',
+        uniqueId: '1',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -220,7 +220,7 @@ void main() {
       final message2 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '2',
+        uniqueId: '2',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -242,7 +242,7 @@ void main() {
         setUp: () {
           when(() => firebaseFirestoreService.getOlderMessages(
                 conversationId: initialConversation.id,
-                latestMessageId: message2.uniqueID,
+                latestMessageId: message2.uniqueId,
               )).thenAnswer((_) async => []);
           when(() => messageDataMapper.mapToLocalList(any())).thenAnswer((invocation) => []);
           when(() => appDatabase.putMessages(any())).thenAnswer((_) async => {});
@@ -264,7 +264,7 @@ void main() {
       final message1 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '1',
+        uniqueId: '1',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -276,7 +276,7 @@ void main() {
       final message2 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '2',
+        uniqueId: '2',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -311,7 +311,7 @@ void main() {
         (index) => LocalMessageData(
           userId: '1',
           conversationId: '1',
-          uniqueID: '1',
+          uniqueId: '1',
           senderId: '1',
           message: 'message',
           type: MessageType.text,
@@ -327,7 +327,7 @@ void main() {
         setUp: () {
           when(() => firebaseFirestoreService.getOlderMessages(
                 conversationId: initialConversation.id,
-                latestMessageId: message2.uniqueID,
+                latestMessageId: message2.uniqueId,
               )).thenAnswer((_) async => olderFirestoreMessages);
           when(() => messageDataMapper.mapToLocalList(any()))
               .thenAnswer((invocation) => olderLocalMessages);
@@ -352,7 +352,7 @@ void main() {
       final message1 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '1',
+        uniqueId: '1',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -364,7 +364,7 @@ void main() {
       final message2 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '2',
+        uniqueId: '2',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -423,7 +423,7 @@ void main() {
       final localMessage1 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '1',
+        uniqueId: '1',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -435,7 +435,7 @@ void main() {
       final localMessage2 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '2',
+        uniqueId: '2',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -620,7 +620,7 @@ void main() {
       final localMessage1 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '1',
+        uniqueId: '1',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -632,7 +632,7 @@ void main() {
       final localMessage2 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '2',
+        uniqueId: '2',
         senderId: '2',
         message: 'message',
         type: MessageType.text,
@@ -653,7 +653,7 @@ void main() {
       final newLocalMessage = LocalMessageData(
         userId: userId,
         conversationId: initialConversation.id,
-        uniqueID: newMessageId,
+        uniqueId: newMessageId,
         senderId: userId,
         message: message,
         type: MessageType.text,
@@ -708,7 +708,7 @@ void main() {
       final localMessage1 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '1',
+        uniqueId: '1',
         senderId: '1',
         message: 'message',
         type: MessageType.text,
@@ -720,7 +720,7 @@ void main() {
       final localMessage2 = LocalMessageData(
         userId: '1',
         conversationId: '1',
-        uniqueID: '2',
+        uniqueId: '2',
         senderId: '2',
         message: 'message',
         type: MessageType.text,
@@ -741,7 +741,7 @@ void main() {
       final newLocalMessage = LocalMessageData(
         userId: userId,
         conversationId: initialConversation.id,
-        uniqueID: newMessageId,
+        uniqueId: newMessageId,
         senderId: userId,
         message: message,
         type: MessageType.text,

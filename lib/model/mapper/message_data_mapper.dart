@@ -27,7 +27,7 @@ class MessageDataMapper extends BaseDataMapper<FirebaseMessageData, LocalMessage
     return LocalMessageData(
       userId: _appPreferences.userId,
       conversationId: _conversationId,
-      uniqueID: data?.id ?? '',
+      uniqueId: data?.id ?? '',
       senderId: data?.senderId ?? '',
       message: data?.message ?? '',
       type: data?.type ?? MessageType.text,
@@ -50,7 +50,7 @@ class MessageDataMapper extends BaseDataMapper<FirebaseMessageData, LocalMessage
   @override
   FirebaseMessageData mapToRemote(LocalMessageData data) {
     return FirebaseMessageData(
-      id: data.uniqueID,
+      id: data.uniqueId,
       senderId: data.senderId,
       message: data.message,
       type: data.type,

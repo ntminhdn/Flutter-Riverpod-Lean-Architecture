@@ -28,7 +28,7 @@ class Config {
   /// log interceptor
   static const enableLogInterceptor = kDebugMode;
   static const enableLogRequestInfo = kDebugMode;
-  static const enableLogSuccessResponse = false;
+  static const enableLogSuccessResponse = kDebugMode;
   static const enableLogErrorResponse = kDebugMode;
 
   /// load more executor

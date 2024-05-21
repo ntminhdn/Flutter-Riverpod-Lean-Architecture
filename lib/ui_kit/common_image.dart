@@ -407,6 +407,7 @@ class CommonImage extends StatelessWidget {
         break;
       case ImageInputType.network:
         final _style = style as _CommonNetworkImageStyle;
+        // ignore: prefer_common_widgets
         image = CachedNetworkImage(
           imageUrl: (source as String?) ?? '',
           width: _style.width,
@@ -454,6 +455,7 @@ class CommonImage extends StatelessWidget {
         break;
       case ImageInputType.memory:
         final _style = style as _CommonMemoryImageStyle;
+        // ignore: prefer_common_widgets
         image = Image.memory(
           source as Uint8List,
           width: _style.width,
@@ -480,6 +482,7 @@ class CommonImage extends StatelessWidget {
         break;
       case ImageInputType.file:
         final _style = style as _CommonFileImageStyle;
+        // ignore: prefer_common_widgets
         image = Image.file(
           source as File,
           width: _style.width,

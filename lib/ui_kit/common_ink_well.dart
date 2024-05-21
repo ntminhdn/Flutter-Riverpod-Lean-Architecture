@@ -69,6 +69,7 @@ class CommonInkWell extends StatelessWidget {
         decoration: decoration,
         height: height,
         width: width,
+        // ignore: prefer_common_widgets
         child: InkWell(
           onTap: onTap,
           onTapDown: onTapDown,

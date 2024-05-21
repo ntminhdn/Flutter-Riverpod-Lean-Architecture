@@ -13,12 +13,12 @@ import 'index.dart';
 class TestUtil {
   const TestUtil._();
 
-  static String filename(String filename, bool isDarkMode) {
-    return '${isDarkMode ? 'dark_mode/' : ''}$filename';
+  static String filename(String filename) {
+    return '${TestConfig.isDarkMode ? 'dark_mode/' : ''}$filename';
   }
 
-  static String description(String description, bool isDarkMode) {
-    return '$description${isDarkMode ? ' dark mode' : ''}';
+  static String description(String description) {
+    return '$description${TestConfig.isDarkMode ? ' dark mode' : ''}';
   }
 
   static ProviderContainer createContainer({
@@ -40,9 +40,9 @@ class TestUtil {
   static Widget buildRouterMaterialApp({
     required PageRouteInfo<dynamic> initialRoute,
     required AppRouter appRouter,
-    bool isDarkMode = false,
   }) {
-    AppThemeSetting.currentAppThemeType = isDarkMode ? AppThemeType.dark : AppThemeType.light;
+    AppThemeSetting.currentAppThemeType =
+        TestConfig.isDarkMode ? AppThemeType.dark : AppThemeType.light;
 
     return MediaQuery(
       data: const MediaQueryData(
@@ -70,7 +70,7 @@ class TestUtil {
             routeInformationParser: appRouter.defaultRouteParser(),
             title: Constant.materialAppTitle,
             color: Constant.taskMenuMaterialAppColor,
-            themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            themeMode: TestConfig.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             theme: lightTheme,
             darkTheme: darkTheme,
             debugShowCheckedModeBanner: false,
@@ -94,9 +94,9 @@ class TestUtil {
   static Widget buildMaterialApp(
     Widget wrapper, {
     TargetPlatform platform = TestConfig.targetPlatform,
-    bool isDarkMode = false,
   }) {
-    AppThemeSetting.currentAppThemeType = isDarkMode ? AppThemeType.dark : AppThemeType.light;
+    AppThemeSetting.currentAppThemeType =
+        TestConfig.isDarkMode ? AppThemeType.dark : AppThemeType.light;
 
     return materialAppWrapper(
       platform: platform,
@@ -107,7 +107,7 @@ class TestUtil {
         GlobalCupertinoLocalizations.delegate,
       ],
       localeOverrides: [TestConfig.goldenTestsLocale],
-      theme: isDarkMode ? darkTheme : lightTheme,
+      theme: TestConfig.isDarkMode ? darkTheme : lightTheme,
     ).call(
       MediaQuery(
         data: const MediaQueryData(
@@ -145,19 +145,16 @@ extension WidgetTesterExt on WidgetTester {
     bool mergeIntoSingleImage = true,
     bool runAsynchronous = true,
     Future<void> Function(WidgetTester)? customPump,
-    bool isDarkMode = false,
   }) async {
     if (runAsynchronous) {
       await runAsync(() async => await _pumpWidgetBuilder(
             widget: widget,
             overrides: overrides,
-            isDarkMode: isDarkMode,
           ));
     } else {
       await _pumpWidgetBuilder(
         widget: widget,
         overrides: overrides,
-        isDarkMode: isDarkMode,
       );
     }
 
@@ -179,7 +176,6 @@ extension WidgetTesterExt on WidgetTester {
     bool mergeIntoSingleImage = true,
     bool runAsynchronous = true,
     Future<void> Function(WidgetTester)? customPump,
-    bool isDarkMode = false,
   }) async {
     final builder = DeviceBuilder()
       ..addScenario(
@@ -192,14 +188,12 @@ extension WidgetTesterExt on WidgetTester {
         () async => await _pumpDeviceBuilder(
           builder: builder,
           overrides: overrides,
-          isDarkMode: isDarkMode,
         ),
       );
     } else {
       await _pumpDeviceBuilder(
         builder: builder,
         overrides: overrides,
-        isDarkMode: isDarkMode,
       );
     }
 
@@ -213,7 +207,6 @@ extension WidgetTesterExt on WidgetTester {
   Future<void> _pumpWidgetBuilder({
     required Widget widget,
     List<Override> overrides = const [],
-    bool isDarkMode = false,
   }) {
     return mockNetworkImages(
       () async => await pumpWidgetBuilder(
@@ -223,7 +216,6 @@ extension WidgetTesterExt on WidgetTester {
           child: _buildMaterialApp(
             wrapper,
             overrides: overrides,
-            isDarkMode: isDarkMode,
           ),
         ),
       ),
@@ -233,7 +225,6 @@ extension WidgetTesterExt on WidgetTester {
   Future<void> _pumpDeviceBuilder({
     required DeviceBuilder builder,
     List<Override> overrides = const [],
-    bool isDarkMode = false,
   }) {
     return mockNetworkImages(
       () async => await pumpDeviceBuilder(
@@ -241,7 +232,6 @@ extension WidgetTesterExt on WidgetTester {
         wrapper: (wrapper) => _buildMaterialApp(
           wrapper,
           overrides: overrides,
-          isDarkMode: isDarkMode,
         ),
       ),
     );
@@ -250,11 +240,10 @@ extension WidgetTesterExt on WidgetTester {
   Widget _buildMaterialApp(
     Widget wrapper, {
     List<Override> overrides = const [],
-    bool isDarkMode = false,
   }) =>
       ProviderScope(
         overrides: overrides,
-        child: TestUtil.buildMaterialApp(wrapper, isDarkMode: isDarkMode),
+        child: TestUtil.buildMaterialApp(wrapper),
       );
 
   Future<void> _takeScreenshot({

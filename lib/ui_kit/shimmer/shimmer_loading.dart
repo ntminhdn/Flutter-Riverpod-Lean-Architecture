@@ -54,9 +54,11 @@ class _ShimmerLoadingState extends State<ShimmerLoading> {
     }
     final shimmerSize = shimmer.size;
     final gradient = shimmer.gradient;
-    final descendant = context.findRenderObject().safeCast<RenderBox>();
     Offset offsetWithinShimmer = Offset.zero;
+
     try {
+      final descendant = context.findRenderObject() as RenderBox?;
+
       offsetWithinShimmer = descendant != null
           ? shimmer.getDescendantOffset(
               descendant: descendant,

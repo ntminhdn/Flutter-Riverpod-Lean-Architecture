@@ -1,13 +1,8 @@
 import 'package:clock/clock.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:nalsflutter/index.dart';
 
 void main() {
-  setUp(() {
-    initializeDateFormatting();
-  });
-
   group('today', () {
     test('hour, minute, and second should be 0', () async {
       withClock(Clock.fixed(DateTime(2024, 1, 2, 3, 4, 5, 6, 7)), () {

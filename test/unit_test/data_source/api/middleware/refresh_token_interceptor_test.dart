@@ -39,7 +39,9 @@ void main() {
       // Act
       refreshTokenInterceptor.onError(dummyError, handler);
 
-      verifyNever(() => refreshTokenApiService.refreshToken(any()));
+      verifyNever(
+        () => refreshTokenApiService.refreshToken(any()),
+      );
       verifyNever(() => noneAuthAppServerApiClient.fetch(any()));
       verifyNever(() => appPreferences.saveAccessToken(any()));
       verify(() => handler.next(dummyError)).called(1);

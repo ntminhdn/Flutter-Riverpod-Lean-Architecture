@@ -35,7 +35,7 @@ void main() {
         conversationId: '1',
         userId: '2',
         senderId: '3',
-        uniqueID: '4',
+        uniqueId: '4',
         status: MessageStatus.sent,
         replyMessage: LocalReplyMessageData(
           conversationId: '1',
@@ -66,7 +66,7 @@ void main() {
               e.conversationId == '1' &&
               e.userId == '2' &&
               e.senderId == '3' &&
-              e.uniqueID == '4' &&
+              e.uniqueId == '4' &&
               e.status == MessageStatus.sent &&
               e.replyMessage!.conversationId == '1' &&
               e.replyMessage!.replyByUserId == '3' &&
@@ -86,7 +86,7 @@ void main() {
         conversationId: '1',
         userId: '2',
         senderId: '3',
-        uniqueID: '4',
+        uniqueId: '4',
         status: MessageStatus.sent,
         type: MessageType.text,
         createdAt: 1,
@@ -109,7 +109,7 @@ void main() {
               e.conversationId == '1' &&
               e.userId == '2' &&
               e.senderId == '3' &&
-              e.uniqueID == '4' &&
+              e.uniqueId == '4' &&
               e.status == MessageStatus.sent &&
               e.replyMessage == null,
           'properties',
@@ -129,7 +129,7 @@ void main() {
           conversationId: '1',
           userId: '2',
           senderId: '3',
-          uniqueID: uniqueId,
+          uniqueId: uniqueId,
           status: MessageStatus.sent,
           replyMessage: LocalReplyMessageData(
             conversationId: '1',
@@ -148,7 +148,7 @@ void main() {
           conversationId: '1',
           userId: '2',
           senderId: '3',
-          uniqueID: otherUniqueId,
+          uniqueId: otherUniqueId,
           status: MessageStatus.sent,
           replyMessage: LocalReplyMessageData(
             conversationId: '1',
@@ -180,7 +180,7 @@ void main() {
               e.conversationId == '1' &&
               e.userId == '2' &&
               e.senderId == '3' &&
-              e.uniqueID == '4' &&
+              e.uniqueId == '4' &&
               e.status == MessageStatus.sent &&
               e.replyMessage!.conversationId == '1' &&
               e.replyMessage!.replyByUserId == '3' &&
@@ -203,7 +203,7 @@ void main() {
           conversationId: '1',
           userId: '2',
           senderId: '3',
-          uniqueID: uniqueId,
+          uniqueId: uniqueId,
           status: MessageStatus.sent,
           type: MessageType.text,
           createdAt: 1,
@@ -214,7 +214,7 @@ void main() {
           conversationId: '1',
           userId: '2',
           senderId: '3',
-          uniqueID: otherUniqueId,
+          uniqueId: otherUniqueId,
           status: MessageStatus.sent,
           type: MessageType.text,
           createdAt: 1,
@@ -238,7 +238,7 @@ void main() {
               e.conversationId == '1' &&
               e.userId == '2' &&
               e.senderId == '3' &&
-              e.uniqueID == '4' &&
+              e.uniqueId == '4' &&
               e.status == MessageStatus.sent &&
               e.replyMessage == null,
           'properties',
@@ -247,7 +247,7 @@ void main() {
       );
     });
 
-    test('when data have the same uniqueID', () async {
+    test('when data have the same uniqueId', () async {
       const uniqueId = '4';
       final messages = [
         LocalMessageData(
@@ -255,7 +255,7 @@ void main() {
           conversationId: '1',
           userId: '2',
           senderId: '3',
-          uniqueID: uniqueId,
+          uniqueId: uniqueId,
           status: MessageStatus.sent,
           type: MessageType.text,
           createdAt: 1,
@@ -266,7 +266,7 @@ void main() {
           conversationId: '1',
           userId: '2',
           senderId: '3',
-          uniqueID: uniqueId,
+          uniqueId: uniqueId,
           status: MessageStatus.sent,
           type: MessageType.text,
           createdAt: 1,
@@ -291,7 +291,7 @@ void main() {
       conversationId: conversationId,
       userId: userId,
       senderId: '3',
-      uniqueID: '4',
+      uniqueId: '4',
       status: MessageStatus.sent,
       type: MessageType.text,
       createdAt: 2,
@@ -303,7 +303,7 @@ void main() {
       conversationId: conversationId,
       userId: userId,
       senderId: '4',
-      uniqueID: '5',
+      uniqueId: '5',
       status: MessageStatus.sent,
       type: MessageType.text,
       createdAt: 1,
@@ -315,7 +315,7 @@ void main() {
       conversationId: conversationId,
       userId: userId,
       senderId: '5',
-      uniqueID: '6',
+      uniqueId: '6',
       status: MessageStatus.sent,
       type: MessageType.text,
       createdAt: 3,
@@ -327,7 +327,7 @@ void main() {
       conversationId: '22222222222',
       userId: userId,
       senderId: '6',
-      uniqueID: '7',
+      uniqueId: '7',
       status: MessageStatus.sent,
       type: MessageType.text,
       createdAt: 4,
@@ -339,7 +339,7 @@ void main() {
       conversationId: conversationId,
       userId: '999999999',
       senderId: '6',
-      uniqueID: '8',
+      uniqueId: '8',
       status: MessageStatus.sent,
       type: MessageType.text,
       createdAt: 4,
@@ -377,7 +377,7 @@ void main() {
       conversationId: conversationId,
       userId: userId,
       senderId: '3',
-      uniqueID: '4',
+      uniqueId: '4',
       status: MessageStatus.sent,
       type: MessageType.text,
       createdAt: 2,
@@ -389,7 +389,7 @@ void main() {
       conversationId: conversationId,
       userId: userId,
       senderId: '4',
-      uniqueID: '5',
+      uniqueId: '5',
       status: MessageStatus.sent,
       type: MessageType.text,
       createdAt: 1,
@@ -401,7 +401,7 @@ void main() {
       conversationId: conversationId,
       userId: userId,
       senderId: '5',
-      uniqueID: '6',
+      uniqueId: '6',
       status: MessageStatus.sent,
       type: MessageType.text,
       createdAt: 3,
@@ -413,7 +413,7 @@ void main() {
       conversationId: '22222222222',
       userId: userId,
       senderId: '6',
-      uniqueID: '7',
+      uniqueId: '7',
       status: MessageStatus.sent,
       type: MessageType.text,
       createdAt: 4,
@@ -425,7 +425,7 @@ void main() {
       conversationId: conversationId,
       userId: '999999999',
       senderId: '6',
-      uniqueID: '8',
+      uniqueId: '8',
       status: MessageStatus.sent,
       type: MessageType.text,
       createdAt: 4,
@@ -472,7 +472,7 @@ void main() {
               conversationId: conversationId,
               userId: userId,
               senderId: '3',
-              uniqueID: i.toString(),
+              uniqueId: i.toString(),
               status: MessageStatus.sent,
               type: MessageType.text,
               createdAt: 1,
@@ -496,7 +496,7 @@ void main() {
       conversationId: conversationId,
       userId: userId,
       senderId: '3',
-      uniqueID: '4',
+      uniqueId: '4',
       status: MessageStatus.sent,
       type: MessageType.text,
       createdAt: 1,
@@ -508,7 +508,7 @@ void main() {
       conversationId: conversationId,
       userId: userId,
       senderId: '4',
-      uniqueID: '5',
+      uniqueId: '5',
       status: MessageStatus.sent,
       type: MessageType.text,
       createdAt: 1,

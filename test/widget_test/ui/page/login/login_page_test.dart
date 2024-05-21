@@ -16,106 +16,78 @@ void main() {
   group(
     'LoginPage',
     () {
-      group('test', () {
-        void _baseTestGoldens(bool isDarkMode) {
-          testGoldens(
-            TestUtil.description('when login button is disabled', isDarkMode),
-            (tester) async {
-              await tester.testWidgetWithDeviceBuilder(
-                filename:
-                    'login_page/${TestUtil.filename('when_login_button_is_disabled', isDarkMode)}',
-                widget: const LoginPage(),
-                overrides: [
-                  isDarkModeProvider.overrideWith((_) => isDarkMode),
-                  loginViewModelProvider.overrideWith((ref) => MockLoginViewModel(
-                        const CommonState(
-                          data: LoginState(),
-                        ),
-                      )),
-                ],
-                isDarkMode: isDarkMode,
-              );
-            },
+      testGoldens(
+        TestUtil.description('when login button is disabled'),
+        (tester) async {
+          await tester.testWidgetWithDeviceBuilder(
+            filename: 'login_page/${TestUtil.filename('when_login_button_is_disabled')}',
+            widget: const LoginPage(),
+            overrides: [
+              isDarkModeProvider.overrideWith((_) => TestConfig.isDarkMode),
+              loginViewModelProvider.overrideWith((ref) => MockLoginViewModel(
+                    const CommonState(
+                      data: LoginState(),
+                    ),
+                  )),
+            ],
           );
-        }
+        },
+      );
 
-        _baseTestGoldens(true);
-        _baseTestGoldens(false);
-      });
-
-      group('test', () {
-        void _baseTestGoldens(bool isDarkMode) {
-          testGoldens(
-            TestUtil.description('when login button is enabled', isDarkMode),
-            (tester) async {
-              await tester.testWidgetWithDeviceBuilder(
-                filename:
-                    'login_page/${TestUtil.filename('when_login_button_is_enabled', isDarkMode)}',
-                widget: const LoginPage(),
-                onCreate: (tester, key) async {
-                  final primaryTextFieldFinder =
-                      find.byType(PrimaryTextField).isDescendantOf(find.byKey(key), find);
-                  expect(primaryTextFieldFinder, findsExactly(2));
-                  final emailTextField = primaryTextFieldFinder.first;
-                  final passwordTextField = primaryTextFieldFinder.at(1);
-                  await tester.enterText(
-                    emailTextField,
-                    'this is a long long long long email email email @ g m a i l . com',
-                  );
-                  await tester.enterText(passwordTextField, '1234567890987654321!@#%^&*()_+');
-                },
-                overrides: [
-                  isDarkModeProvider.overrideWith((_) => isDarkMode),
-                  loginViewModelProvider.overrideWith(
-                    (ref) => MockLoginViewModel(
-                      const CommonState(
-                        data: LoginState(
-                          email:
-                              'this is a long long long long email email email @ g m a i l . com',
-                          password: '1234567890987654321!@#%^&*()_+',
-                        ),
-                      ),
+      testGoldens(
+        TestUtil.description('when login button is enabled'),
+        (tester) async {
+          await tester.testWidgetWithDeviceBuilder(
+            filename: 'login_page/${TestUtil.filename('when_login_button_is_enabled')}',
+            widget: const LoginPage(),
+            onCreate: (tester, key) async {
+              final primaryTextFieldFinder =
+                  find.byType(PrimaryTextField).isDescendantOf(find.byKey(key), find);
+              expect(primaryTextFieldFinder, findsExactly(2));
+              final emailTextField = primaryTextFieldFinder.first;
+              final passwordTextField = primaryTextFieldFinder.at(1);
+              await tester.enterText(
+                emailTextField,
+                'this is a long long long long email email email @ g m a i l . com',
+              );
+              await tester.enterText(passwordTextField, '1234567890987654321!@#%^&*()_+');
+            },
+            overrides: [
+              isDarkModeProvider.overrideWith((_) => TestConfig.isDarkMode),
+              loginViewModelProvider.overrideWith(
+                (ref) => MockLoginViewModel(
+                  const CommonState(
+                    data: LoginState(
+                      email: 'this is a long long long long email email email @ g m a i l . com',
+                      password: '1234567890987654321!@#%^&*()_+',
                     ),
                   ),
-                ],
-                isDarkMode: isDarkMode,
-              );
-            },
+                ),
+              ),
+            ],
           );
-        }
+        },
+      );
 
-        _baseTestGoldens(true);
-        _baseTestGoldens(false);
-      });
-
-      group('test', () {
-        void _baseTestGoldens(bool isDarkMode) {
-          testGoldens(
-            TestUtil.description('when error text is visible', isDarkMode),
-            (tester) async {
-              await tester.testWidgetWithDeviceBuilder(
-                filename:
-                    'login_page/${TestUtil.filename('when_error_text_is_visible', isDarkMode)}',
-                widget: const LoginPage(),
-                overrides: [
-                  isDarkModeProvider.overrideWith((_) => isDarkMode),
-                  loginViewModelProvider.overrideWith(
-                    (ref) => MockLoginViewModel(
-                      const CommonState(
-                        data: LoginState(onPageError: 'This is an error'),
-                      ),
-                    ),
+      testGoldens(
+        TestUtil.description('when error text is visible'),
+        (tester) async {
+          await tester.testWidgetWithDeviceBuilder(
+            filename: 'login_page/${TestUtil.filename('when_error_text_is_visible')}',
+            widget: const LoginPage(),
+            overrides: [
+              isDarkModeProvider.overrideWith((_) => TestConfig.isDarkMode),
+              loginViewModelProvider.overrideWith(
+                (ref) => MockLoginViewModel(
+                  const CommonState(
+                    data: LoginState(onPageError: 'This is an error'),
                   ),
-                ],
-                isDarkMode: isDarkMode,
-              );
-            },
+                ),
+              ),
+            ],
           );
-        }
-
-        _baseTestGoldens(true);
-        _baseTestGoldens(false);
-      });
+        },
+      );
     },
   );
 }

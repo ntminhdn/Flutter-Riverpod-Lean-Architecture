@@ -18,48 +18,6 @@ class AppApiService {
   final AuthAppServerApiClient _authAppServerApiClient;
   final RandomUserApiClient _randomUserApiClient;
 
-  Future<DataResponse<ApiAuthResponseData>?> login({
-    required String email,
-    required String password,
-  }) async {
-    return _noneAuthAppServerApiClient.request(
-      method: RestMethod.post,
-      path: '/v1/auth/login',
-      body: {
-        'email': email,
-        'password': password,
-      },
-      decoder: (json) => ApiAuthResponseData.fromJson(json as Map<String, dynamic>),
-    );
-  }
-
-  Future<void> logout() async {
-    await _authAppServerApiClient.request(
-      method: RestMethod.post,
-      path: '/v1/auth/logout',
-    );
-  }
-
-  Future<DataResponse<ApiAuthResponseData>?> register({
-    required String username,
-    required String email,
-    required String password,
-    required int gender,
-  }) async {
-    return _noneAuthAppServerApiClient.request(
-      method: RestMethod.post,
-      path: '/v1/auth/register',
-      body: {
-        'username': username,
-        'gender': gender,
-        'email': email,
-        'password': password,
-        'password_confirmation': password,
-      },
-      decoder: (json) => ApiAuthResponseData.fromJson(json as Map<String, dynamic>),
-    );
-  }
-
   Future<void> forgotPassword(String email) async {
     await _noneAuthAppServerApiClient.request(
       method: RestMethod.post,

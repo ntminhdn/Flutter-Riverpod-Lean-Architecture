@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nalsflutter/index.dart';
 
@@ -30,9 +31,12 @@ Future<void> main() async {
     registerFallbackValue(_FakeCommonPopup());
     registerFallbackValue(const RemoteMessage());
     registerFallbackValue(DioException(requestOptions: RequestOptions()));
+    registerFallbackValue(RestMethod.get);
   });
 
   setUp(() {
+    initializeDateFormatting();
+
     when(() => ref.read(appNavigatorProvider)).thenReturn(navigator);
     when(() => ref.read(exceptionHandlerProvider)).thenReturn(exceptionHandler);
     when(() => ref.read(appPreferencesProvider)).thenReturn(appPreferences);

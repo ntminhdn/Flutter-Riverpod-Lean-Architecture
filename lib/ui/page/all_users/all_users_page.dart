@@ -89,7 +89,7 @@ class AllUsersPage extends BasePage<AllUsersState,
                         ? const SizedBox()
                         : SizedBox(
                             height: 1,
-                            child: Divider(indent: 60.rps),
+                            child: CommonDivider(indent: 60.rps),
                           );
                   },
                   padding: EdgeInsets.zero,
@@ -225,7 +225,7 @@ class AllUsersPage extends BasePage<AllUsersState,
     final email = user.email;
     final isMe = userId == ref.watch(currentUserProvider.select((value) => value.id));
 
-    return InkWell(
+    return CommonInkWell(
       onTap: isMe
           ? null
           : () {
@@ -285,7 +285,7 @@ class AllUsersPage extends BasePage<AllUsersState,
   }) {
     final userId = users[index].id;
 
-    return InkWell(
+    return CommonInkWell(
       onTap: () {
         ref.read(provider.notifier).isUserChecked(userId)
             ? ref.read(provider.notifier).unselectUser(userId)

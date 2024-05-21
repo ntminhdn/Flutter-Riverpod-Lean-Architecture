@@ -43,10 +43,10 @@ class RenameConversationPage extends BasePage<
 
                 return ListView.separated(
                   separatorBuilder: (context, index) =>
-                      SizedBox(height: 1, child: Divider(indent: 68.rps)),
+                      SizedBox(height: 1, child: CommonDivider(indent: 68.rps)),
                   padding: EdgeInsets.zero,
                   itemCount: members.length,
-                  itemBuilder: (context, index) => InkWell(
+                  itemBuilder: (context, index) => CommonInkWell(
                     onTap: () {},
                     child: Padding(
                       padding: EdgeInsets.only(
@@ -73,7 +73,7 @@ class RenameConversationPage extends BasePage<
                                   ),
                                 ),
                               ),
-                              InkWell(
+                              CommonInkWell(
                                 child: Icon(
                                   Icons.edit,
                                   size: 20.rps,

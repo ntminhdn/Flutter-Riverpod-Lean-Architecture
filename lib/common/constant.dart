@@ -66,21 +66,20 @@ class Constant {
   // Can not use AppColor here
   static const systemUiOverlay = SystemUiOverlayStyle(
     statusBarBrightness: Brightness.light,
-// ignore: avoid_hard_coded_colors
-    statusBarColor: Colors.green,
+    statusBarColor: Colors.transparent,
   );
 
   // Base API URL
   static String get appApiBaseUrl {
     switch (Env.flavor) {
       case Flavor.develop:
-        return 'http://api.dev.nals.vn/api';
+        return 'http://api.dev.nals.vn/api/';
       case Flavor.qa:
-        return 'http://api.dev.nals.vn/api';
+        return 'http://api.dev.nals.vn/api/';
       case Flavor.staging:
-        return 'http://api.dev.nals.vn/api';
+        return 'http://api.dev.nals.vn/api/';
       case Flavor.production:
-        return 'http://api.dev.nals.vn/api';
+        return 'http://api.dev.nals.vn/api/';
     }
   }
 

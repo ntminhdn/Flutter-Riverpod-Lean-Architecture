@@ -15,114 +15,86 @@ class MockContactListViewModel extends StateNotifier<CommonState<ContactListStat
 
 void main() {
   group('ContactListPage', () {
-    group('test', () {
-      void _baseTestGoldens(bool isDarkMode) {
-        testGoldens(
-          TestUtil.description('when conversationList is empty', isDarkMode),
-          (tester) async {
-            await tester.testWidgetWithDeviceBuilder(
-              isDarkMode: isDarkMode,
-              filename:
-                  'contact_list_page/${TestUtil.filename('when_conversationList_is_empty', isDarkMode)}',
-              widget: const ContactListPage(),
-              overrides: [
-                contactListViewModelProvider.overrideWith(
-                  (_) => MockContactListViewModel(
-                    const CommonState(
-                      data: ContactListState(),
-                    ),
-                  ),
+    testGoldens(
+      TestUtil.description('when conversationList is empty'),
+      (tester) async {
+        await tester.testWidgetWithDeviceBuilder(
+          filename: 'contact_list_page/${TestUtil.filename('when_conversationList_is_empty')}',
+          widget: const ContactListPage(),
+          overrides: [
+            contactListViewModelProvider.overrideWith(
+              (_) => MockContactListViewModel(
+                const CommonState(
+                  data: ContactListState(),
                 ),
-                currentUserProvider.overrideWith((ref) => const FirebaseUserData(
-                      id: '1',
-                      email: 'ntminhdn@gmail.com',
-                    )),
-              ],
-            );
-          },
+              ),
+            ),
+            currentUserProvider.overrideWith((ref) => const FirebaseUserData(
+                  id: '1',
+                  email: 'ntminhdn@gmail.com',
+                )),
+          ],
         );
-      }
+      },
+    );
 
-      _baseTestGoldens(true);
-      _baseTestGoldens(false);
-    });
+    testGoldens(
+      TestUtil.description('when conversationList is not empty'),
+      (tester) async {
+        await tester.testWidgetWithDeviceBuilder(
+          filename: 'contact_list_page/${TestUtil.filename('when_conversationList_is_not_empty')}',
+          widget: const ContactListPage(),
+          onCreate: (tester, key) async {
+            final textFieldFinder = find.byType(TextField).isDescendantOf(find.byKey(key), find);
+            expect(textFieldFinder, findsOneWidget);
 
-    group('test', () {
-      void _baseTestGoldens(bool isDarkMode) {
-        testGoldens(
-          TestUtil.description('when conversationList is not empty', isDarkMode),
-          (tester) async {
-            await tester.testWidgetWithDeviceBuilder(
-              isDarkMode: isDarkMode,
-              filename:
-                  'contact_list_page/${TestUtil.filename('when_conversationList_is_not_empty', isDarkMode)}',
-              widget: const ContactListPage(),
-              onCreate: (tester, key) async {
-                final textFieldFinder =
-                    find.byType(TextField).isDescendantOf(find.byKey(key), find);
-                expect(textFieldFinder, findsOneWidget);
-
-                await tester.enterText(textFieldFinder, 'dog');
-              },
-              overrides: [
-                contactListViewModelProvider.overrideWith(
-                  (_) => MockContactListViewModel(
-                    const CommonState(
-                      data: ContactListState(conversationList: [
-                        FirebaseConversationData(id: '1'),
-                        FirebaseConversationData(id: '2'),
-                      ]),
-                    ),
-                  ),
-                ),
-                currentUserProvider.overrideWith((ref) => const FirebaseUserData(
-                      id: '1',
-                      email: 'duynn@gmail.com',
-                    )),
-                conversationNameProvider.overrideWith(
-                  (ref, conversationId) => conversationId == '1' ? 'Dog, Cat' : 'Fish',
-                ),
-              ],
-            );
+            await tester.enterText(textFieldFinder, 'dog');
           },
-        );
-      }
-
-      _baseTestGoldens(true);
-      _baseTestGoldens(false);
-    });
-
-    group('test', () {
-      void _baseTestGoldens(bool isDarkMode) {
-        testGoldens(
-          TestUtil.description('when current user is vip member', isDarkMode),
-          (tester) async {
-            await tester.testWidgetWithDeviceBuilder(
-              isDarkMode: isDarkMode,
-              filename:
-                  'contact_list_page/${TestUtil.filename('when_current_user_is_vip_member', isDarkMode)}',
-              widget: const ContactListPage(),
-              overrides: [
-                contactListViewModelProvider.overrideWith(
-                  (_) => MockContactListViewModel(
-                    const CommonState(
-                      data: ContactListState(),
-                    ),
-                  ),
+          overrides: [
+            contactListViewModelProvider.overrideWith(
+              (_) => MockContactListViewModel(
+                const CommonState(
+                  data: ContactListState(conversationList: [
+                    FirebaseConversationData(id: '1'),
+                    FirebaseConversationData(id: '2'),
+                  ]),
                 ),
-                currentUserProvider.overrideWith((ref) => const FirebaseUserData(
-                      id: '1',
-                      email: 'ntminhdnlonglonglonglonglong@gmail.com',
-                      isVip: true,
-                    )),
-              ],
-            );
-          },
+              ),
+            ),
+            currentUserProvider.overrideWith((ref) => const FirebaseUserData(
+                  id: '1',
+                  email: 'duynn@gmail.com',
+                )),
+            conversationNameProvider.overrideWith(
+              (ref, conversationId) => conversationId == '1' ? 'Dog, Cat' : 'Fish',
+            ),
+          ],
         );
-      }
+      },
+    );
 
-      _baseTestGoldens(true);
-      _baseTestGoldens(false);
-    });
+    testGoldens(
+      TestUtil.description('when current user is vip member'),
+      (tester) async {
+        await tester.testWidgetWithDeviceBuilder(
+          filename: 'contact_list_page/${TestUtil.filename('when_current_user_is_vip_member')}',
+          widget: const ContactListPage(),
+          overrides: [
+            contactListViewModelProvider.overrideWith(
+              (_) => MockContactListViewModel(
+                const CommonState(
+                  data: ContactListState(),
+                ),
+              ),
+            ),
+            currentUserProvider.overrideWith((ref) => const FirebaseUserData(
+                  id: '1',
+                  email: 'ntminhdnlonglonglonglonglong@gmail.com',
+                  isVip: true,
+                )),
+          ],
+        );
+      },
+    );
   });
 }

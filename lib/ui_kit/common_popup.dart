@@ -88,7 +88,7 @@ class CommonPopup {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: List.generate(children.length * 2 - 1, (index) {
-            return index % 2 == 0 ? children[index ~/ 2] : const Divider(height: 1);
+            return index % 2 == 0 ? children[index ~/ 2] : const CommonDivider();
           }),
         ),
       ),
@@ -303,7 +303,7 @@ class CommonPopup {
         return Dialog(
           child: StatefulBuilder(
             builder: (context, setState) {
-              return Container(
+              return CommonContainer(
                 padding: EdgeInsets.symmetric(horizontal: 16.rps, vertical: 32.rps),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

@@ -15,6 +15,8 @@ class _SuperLintPlugin extends PluginBase {
       PreferLowerCaseTestDescription(configs),
       TestFolderMustMirrorLibFolder(configs),
       AvoidHardCodedColors(configs),
+      PreferCommonWidgets(configs),
+      AvoidHardCodedStrings(configs),
     ];
   }
 }
