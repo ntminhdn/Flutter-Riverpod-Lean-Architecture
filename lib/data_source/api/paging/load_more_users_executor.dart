@@ -19,6 +19,7 @@ class LoadMoreUsersExecutor extends LoadMoreExecutor<ApiUserData> {
   Future<PagedList<ApiUserData>> action({
     required int page,
     required int limit,
+    required Map<String, dynamic> params,
   }) async {
     final response = await appApiService.getUsers(page: page, limit: limit);
 

@@ -8,24 +8,29 @@ class CommonScaffold extends StatelessWidget {
     this.appBar,
     this.floatingActionButton,
     this.drawer,
-    super.key,
+    this.endDrawer,
     this.backgroundColor,
     this.hideKeyboardWhenTouchOutside = false,
     this.shimmerEnabled = false,
+    this.scaffoldKey,
   });
 
   final Widget body;
   final PreferredSizeWidget? appBar;
   final Widget? drawer;
+  final Widget? endDrawer;
   final Widget? floatingActionButton;
   final Color? backgroundColor;
   final bool hideKeyboardWhenTouchOutside;
   final bool shimmerEnabled;
+  final Key? scaffoldKey;
 
   @override
   Widget build(BuildContext context) {
 // ignore: prefer_common_widgets
     final scaffold = Scaffold(
+      key: scaffoldKey,
+      endDrawer: endDrawer,
       backgroundColor: backgroundColor ?? cl.white,
       body: shimmerEnabled ? Shimmer(child: body) : body,
       appBar: appBar,

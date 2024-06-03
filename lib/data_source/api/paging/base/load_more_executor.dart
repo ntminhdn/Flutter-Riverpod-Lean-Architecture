@@ -21,10 +21,12 @@ abstract class LoadMoreExecutor<T> with LogMixin {
   Future<PagedList<T>> action({
     required int page,
     required int limit,
+    required Map<String, dynamic> params,
   });
 
   Future<LoadMoreOutput<T>> execute({
     required bool isInitialLoad,
+    Map<String, dynamic>? params,
   }) async {
     try {
       if (isInitialLoad) {
@@ -34,6 +36,7 @@ abstract class LoadMoreExecutor<T> with LogMixin {
       final pagedList = await action(
         page: page,
         limit: limit,
+        params: params ?? {}
       );
 
       final newOutput = _oldOutput.copyWith(
@@ -47,6 +50,7 @@ abstract class LoadMoreExecutor<T> with LogMixin {
             : _oldOutput.offset + pagedList.data.length,
         isLastPage: pagedList.isLastPage,
         isRefreshSuccess: isInitialLoad,
+        total: pagedList.total ?? 0,
       );
 
       _output = newOutput;

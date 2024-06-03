@@ -47,15 +47,16 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
-		<!-- ios location permistion -->
-		<!-- <key>NSCameraUsageDescription</key>
-	<string>To capture photos to check in or check out</string> -->
-		<!-- <key>NSMicrophoneUsageDescription</key>
-	<string>To record videos to check in or check out</string> -->
-		<!-- <key>NSPhotoLibraryUsageDescription</key>
-	<string>App needs access to photo lib to check in or check out</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Requires access to LocationWhenInUse..</string> -->
+		<key>NSCameraUsageDescription</key>
+		<string>To capture photos to check in or check out</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Used to capture audio for image picker plugin</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>Requires access to LocationWhenInUse..</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>App needs to know the location where users checkin and checkout</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>App needs access to photo lib to check in or check out</string>
 		<key>CADisableMinimumFrameDurationOnPhone</key>
 		<true/>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
