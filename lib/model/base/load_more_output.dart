@@ -15,6 +15,7 @@ class LoadMoreOutput<T> with _$LoadMoreOutput<T> {
     @Default(false) bool isRefreshSuccess,
     @Default(0) int offset,
     @Default(false) bool isLastPage,
+    @Default(0) int total,
   }) = _LoadMoreOutput;
 
   int get nextPage => page + 1;

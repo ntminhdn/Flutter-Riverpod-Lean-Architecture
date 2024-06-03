@@ -16,6 +16,7 @@
 		80A8AEB82A76B33700B8026B /* Staging.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 80A8AEB72A76B33700B8026B /* Staging.xcconfig */; };
 		80A8AEBA2A76B34D00B8026B /* Qa.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 80A8AEB92A76B34D00B8026B /* Qa.xcconfig */; };
 		80A8AEBC2A76B36100B8026B /* Production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 80A8AEBB2A76B36100B8026B /* Production.xcconfig */; };
+		80C1E4C72C0D7040003B0DB6 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 80C1E4C62C0D7040003B0DB6 /* PrivacyInfo.xcprivacy */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
@@ -69,6 +70,7 @@
 		80A8AEB72A76B33700B8026B /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Staging.xcconfig; path = Flutter/Staging.xcconfig; sourceTree = "<group>"; };
 		80A8AEB92A76B34D00B8026B /* Qa.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Qa.xcconfig; path = Flutter/Qa.xcconfig; sourceTree = "<group>"; };
 		80A8AEBB2A76B36100B8026B /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Production.xcconfig; path = Flutter/Production.xcconfig; sourceTree = "<group>"; };
+		80C1E4C62C0D7040003B0DB6 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		845AC334B0CAC2BC63DA453C /* Pods-Runner.debug-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-staging.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-staging.xcconfig"; sourceTree = "<group>"; };
 		85A394DF52AEC6948D5278E7 /* Pods-Runner.release-develop.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-develop.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-develop.xcconfig"; sourceTree = "<group>"; };
 		8C10D0BB6CBB6FF8393D0190 /* Pods-RunnerTests.release-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release-staging.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release-staging.xcconfig"; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */,
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
+				80C1E4C62C0D7040003B0DB6 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				80A8AEB62A76B30900B8026B /* Develop.xcconfig in Resources */,
 				80A8AEBC2A76B36100B8026B /* Production.xcconfig in Resources */,
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
+				80C1E4C72C0D7040003B0DB6 /* PrivacyInfo.xcprivacy in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				80A8AEB82A76B33700B8026B /* Staging.xcconfig in Resources */,
