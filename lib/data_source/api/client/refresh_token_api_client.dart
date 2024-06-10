@@ -23,9 +23,6 @@ class RefreshTokenApiClient extends RestApiClient {
                 packageHelper: getIt.get<PackageHelper>(),
                 deviceHelper: getIt.get<DeviceHelper>(),
               ),
-              AccessTokenInterceptor(
-                getIt.get<AppPreferences>(),
-              ),
             ],
           ),
         );

@@ -50,7 +50,6 @@ dependencies:
   flutter_svg: 2.0.9
   flutter_udid: 2.0.1
   freezed_annotation: 2.4.1
-  golden_toolkit: 0.15.0
   # geolocator: 10.1.0
   # get_it: 7.6.0
   # gql: 0.14.0
@@ -84,6 +83,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: 2.4.6
+  golden_toolkit: 0.15.0
   injectable_generator: 2.4.1
   integration_test:
     sdk: flutter

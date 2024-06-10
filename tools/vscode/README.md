@@ -381,7 +381,7 @@ Future<XXX> get() {
 
 ## 3.4. ViewModel
 
-- `rc` - `Future<void> get() async { await runCatching(action: () async {}...` in ViewModel classes
+- `rc` - `await runCatching(action: () async {}...` in ViewModel classes
 
 ## 3.5. Shared Preferences
 

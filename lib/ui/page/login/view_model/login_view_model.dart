@@ -65,7 +65,7 @@ class LoginViewModel extends BaseViewModel<LoginState> {
         await _ref.nav.replaceAll([const ContactListRoute()]);
       },
       handleErrorWhen: (_) => false,
-      doBeforeHandlingError: (e) async {
+      doOnError: (e) async {
         data = data.copyWith(onPageError: e.message);
       },
     );

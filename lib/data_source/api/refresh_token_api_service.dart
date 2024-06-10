@@ -18,7 +18,7 @@ class RefreshTokenApiService {
       final respone = await _refreshTokenApiClient
           .request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
         method: RestMethod.post,
-        path: '/v1/auth/refresh',
+        path: 'v1/auth/refresh',
         decoder: (json) => ApiRefreshTokenData.fromJson(json as Map<String, dynamic>),
       );
 

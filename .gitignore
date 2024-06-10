@@ -66,6 +66,8 @@ dart_defines/
 android/fastlane/report.xml
 ios/fastlane/report.xml
 .fvm/
+.fvmrc
 *.mdb
+*.p8
 pubspec_overrides.yaml
 **/failures/*.png

@@ -35,7 +35,7 @@ class HomeViewModel extends BaseViewModel<HomeState> {
         );
         data = data.copyWith(users: output);
       },
-      doBeforeHandlingError: (e) async {
+      doOnError: (e) async {
         data = data.copyWith(loadUsersException: e);
       },
       doOnSuccessOrError: () async {

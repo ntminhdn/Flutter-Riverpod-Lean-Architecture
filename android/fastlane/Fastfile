@@ -17,25 +17,16 @@ default_platform(:android)
 
 platform :android do
   # secrets
-  APPCENTER_TOKEN = ENV["APP_CENTER_TOKEN"] # https://appcenter.ms/settings/apitokens
-  FIREBASE_CLI_TOKEN = ENV["FIREBASE_TOKEN"] # run: `firebase login:ci`
-  SLACK_HOOKS_URL = ENV["SLACK_URL"] # Test link: https://hooks.slack.com/services/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
-
-  # appcenter
-  OWNER_NAME = "minhnt3-nal.vn"
-  OWNER_TYPE = "user"
-  DEV_APP_NAME = "Nals-Flutter-Dev-Android"
-  QA_APP_NAME = "Nals-Flutter-Qa-Android"
-  STG_APP_NAME = "Nals-Flutter-Stg-Android"
-  APPCENTER_GROUPS = "testers"
-
-  # firebase
+  FIREBASE_TOKEN = ENV["FIREBASE_TOKEN"] # run: `firebase login:ci`
+  
+  # config
   DEV_APP_ID = "1:553358319716:android:4a1d8352483ca8e20f3f71"
   QA_APP_ID = "1:458527024484:android:422540b7cf2b694f288671"
   STG_APP_ID = "1:521801780624:android:794b1dc60332e404597715"
   FIREBASE_GROUPS = "testers"
 
-  # slack
+  # config slack notification
+  SLACK_HOOKS_URL = "https://hooks.slack.com/services/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"
   MENTIONS = "@channel"
   MESSAGE = "Xin các anh chị tester nhẹ tay giúp!"
 
@@ -48,37 +39,6 @@ platform :android do
   QA_APK_PATH = "../build/app/outputs/flutter-apk/app-qa-release.apk"
   STG_APK_PATH = "../build/app/outputs/flutter-apk/app-staging-release.apk"
   RELEASE_NOTES_PATH = "../RELEASE_NOTES.md"
-
-  # ===== deploy to appcenter =====
-  desc "Develop: Deploy app to App Center"
-  lane :appcenter_upload_develop do
-    deployToAppCenter(DEV_APP_NAME, DEV_APK_PATH, DEV_FLAVOR)
-  end
-
-  desc "Develop: Increase version, build & deploy app to App Center"
-  lane :increase_version_build_and_up_appcenter_develop do
-    increaseVersionAndBuildAndDeployToAppCenter(DEV_APP_NAME, DEV_FLAVOR)
-  end
-
-  desc "Qa: Deploy app to App Center"
-  lane :appcenter_upload_qa do
-    deployToAppCenter(QA_APP_NAME, QA_APK_PATH, QA_FLAVOR)
-  end
-
-  desc "Qa: Increase version, build & deploy app to App Center"
-  lane :increase_version_build_and_up_appcenter_qa do
-    increaseVersionAndBuildAndDeployToAppCenter(QA_APP_NAME, QA_FLAVOR)
-  end
-
-  desc "Staging: Deploy app to App Center"
-  lane :appcenter_upload_staging do
-    deployToAppCenter(STG_APP_NAME, STG_APK_PATH, STG_FLAVOR)
-  end
-
-  desc "Staging: Increase version, build & deploy app to App Center"
-  lane :increase_version_build_and_up_appcenter_staging do
-    increaseVersionAndBuildAndDeployToAppCenter(STG_APP_NAME, STG_FLAVOR)
-  end
 
   # ===== deploy to firebase =====
   desc "Develop: Deploy app to Firebase"
@@ -111,66 +71,10 @@ platform :android do
     increaseVersionAndBuildAndDeployToFirebase(STG_APP_ID, STG_FLAVOR)
   end
 
-  def deployToAppCenter(app_name, apk_path, flavor)
-    begin
-      changelog = File.read("../#{RELEASE_NOTES_PATH}")
-      appcenter_upload(
-        api_token: APPCENTER_TOKEN,
-        owner_name: OWNER_NAME,
-        owner_type: OWNER_TYPE,
-        app_name: app_name,
-        file: apk_path,
-        destinations: APPCENTER_GROUPS,
-        release_notes: changelog,
-        notify_testers: true
-      )
-
-      version = "#{lane_context[SharedValues::APPCENTER_BUILD_INFORMATION]['short_version']}(#{lane_context[SharedValues::APPCENTER_BUILD_INFORMATION]['version']})"
-      sendSlack("#{MENTIONS} *App Center Android #{flavor} #{version}* - <#{lane_context[SharedValues::APPCENTER_DOWNLOAD_LINK]}|Download here>.\n*Release notes:* #{changelog}\n#{MESSAGE}")
-    rescue => exception
-      error(exception)
-    end
-  end
-
-  def increaseVersionAndBuildAndDeployToAppCenter(app_name, flavor)
-    begin
-      latest_release = nil
-      begin
-        latest_release = appcenter_fetch_version_number(
-          api_token: APPCENTER_TOKEN,
-          owner_name: OWNER_NAME,
-          app_name: app_name,
-        )
-      rescue
-        
-      end
-      
-      increment_version_code(
-        version_code: latest_release.nil? ? 1 : latest_release['build_number'].to_i + 1,
-        flavor: flavor,
-        app_project_dir: APP_DIR
-      )
-      if flavor == DEV_FLAVOR
-        sh("cd ../.. && make build_dev_apk")
-        appcenter_upload_develop
-      elsif flavor == QA_FLAVOR
-        sh("cd ../.. && make build_qa_apk")
-        appcenter_upload_qa
-      elsif flavor == STG_FLAVOR
-        sh("cd ../.. && make build_stg_apk")
-        appcenter_upload_staging
-      else
-        raise "flavor #{flavor} is invalid"
-      end
-    rescue => exception
-      error(exception)
-    end
-  end
-
   def deployToFirebase(app_id, apk_path, flavor)
     begin
       firebase_app_distribution(
-        firebase_cli_token: FIREBASE_CLI_TOKEN,
+        firebase_cli_token: FIREBASE_TOKEN,
         app: app_id,
         groups: FIREBASE_GROUPS,
         android_artifact_path: apk_path,
@@ -179,7 +83,7 @@ platform :android do
 
       latest_release = firebase_app_distribution_get_latest_release(
         app: app_id,
-        firebase_cli_token: FIREBASE_CLI_TOKEN
+        firebase_cli_token: FIREBASE_TOKEN
       )
       version = "#{latest_release[:displayVersion]}(#{latest_release[:buildVersion]})"
       changelog = latest_release.fetch(:releaseNotes, nil)&.fetch(:text, nil)
@@ -196,7 +100,7 @@ platform :android do
     begin
       latest_release = firebase_app_distribution_get_latest_release(
         app: app_id,
-        firebase_cli_token: FIREBASE_CLI_TOKEN
+        firebase_cli_token: FIREBASE_TOKEN
       )
       increment_version_code(
         version_code: latest_release.nil? ? 1 : latest_release[:buildVersion].to_i + 1,

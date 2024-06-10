@@ -12,16 +12,16 @@ TEST_DART_DEFINE_LIGHT_MODE_AND_JA=--dart-define=IS_DARK_MODE=false --dart-defin
 TEST_DART_DEFINE_DARK_MODE_AND_EN=--dart-define=IS_DARK_MODE=true --dart-define=LOCALE=en
 
 gen_ai:
-	dart run flutter_launcher_icons:main -f app_icon/app-icon.yaml
+	fvm dart run flutter_launcher_icons:main -f app_icon/app-icon.yaml
 
 gen_spl:
-	dart run flutter_native_splash:create --path=splash/splash.yaml
+	fvm dart run flutter_native_splash:create --path=splash/splash.yaml
 
 rm_spl:
-	dart run flutter_native_splash:remove --path=splash/splash.yaml
+	fvm dart run flutter_native_splash:remove --path=splash/splash.yaml
 
 gen_env:
-	dart run tools/gen_env.dart
+	fvm dart run tools/gen_env.dart
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 sync:
@@ -30,8 +30,8 @@ sync:
 	make fb
 
 rpg:
-	flutter clean && rm -rf pubspec.lock
-	flutter pub get
+	fvm flutter clean && rm -rf pubspec.lock
+	fvm flutter pub get
 
 ref:
 	make cc
@@ -39,7 +39,7 @@ ref:
 	make sync
 
 ln:
-	flutter gen-l10n
+	fvm flutter gen-l10n
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 te:
@@ -47,28 +47,28 @@ te:
 	make wt
 
 gt:
-	flutter test $(TEST_DART_DEFINE_LIGHT_MODE_AND_JA) --tags=golden
-	flutter test $(TEST_DART_DEFINE_DARK_MODE_AND_EN) --tags=golden
+	fvm flutter test $(TEST_DART_DEFINE_LIGHT_MODE_AND_JA) --tags=golden
+	fvm flutter test $(TEST_DART_DEFINE_DARK_MODE_AND_EN) --tags=golden
 
 ug:
 	find . -type d -name "goldens" -exec rm -rf {} +
-	flutter test $(TEST_DART_DEFINE_LIGHT_MODE_AND_JA) --update-goldens --tags=golden
-	flutter test $(TEST_DART_DEFINE_DARK_MODE_AND_EN) --update-goldens --tags=golden
+	fvm flutter test $(TEST_DART_DEFINE_LIGHT_MODE_AND_JA) --update-goldens --tags=golden
+	fvm flutter test $(TEST_DART_DEFINE_DARK_MODE_AND_EN) --update-goldens --tags=golden
 
 ut:
-	flutter test test/unit_test
+	fvm flutter test test/unit_test
 
 wt:
-	flutter test test/widget_test $(TEST_DART_DEFINE_LIGHT_MODE_AND_JA)
-	flutter test test/widget_test $(TEST_DART_DEFINE_DARK_MODE_AND_EN)
+	fvm flutter test test/widget_test $(TEST_DART_DEFINE_LIGHT_MODE_AND_JA)
+	fvm flutter test test/widget_test $(TEST_DART_DEFINE_DARK_MODE_AND_EN)
 
 cl:
-	flutter clean && rm -rf pubspec.lock
-	cd super_lint && flutter clean && rm -rf pubspec.lock
-	cd super_lint/example && flutter clean && rm -rf pubspec.lock
+	fvm flutter clean && rm -rf pubspec.lock
+	cd super_lint && fvm flutter clean && rm -rf pubspec.lock
+	cd super_lint/example && fvm flutter clean && rm -rf pubspec.lock
 
 pg:
-	flutter pub get && cd super_lint && flutter pub get && cd example && flutter pub get
+	fvm flutter pub get && cd super_lint && fvm flutter pub get && cd example && fvm flutter pub get
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 fm:
@@ -78,7 +78,7 @@ super_lint:
 	./tools/super_lint.sh
 
 analyze:
-	flutter analyze --no-pub --suppress-analytics
+	fvm flutter analyze --no-pub --suppress-analytics
 
 dart_code_metrics:
 	$(METRICS_CMD)
@@ -90,14 +90,14 @@ lint:
 	# make dart_code_metrics
 
 custom_lint:
-	dart run custom_lint
+	fvm dart run custom_lint
 
 # It is used in [tools/dart_code_metrics.sh] and [tools/check_commit_message.bat], so if you rename it, you need to update these files
 dcm:
-	dart run dart_code_metrics:metrics analyze lib --disable-sunset-warning
+	fvm dart run dart_code_metrics:metrics analyze lib --disable-sunset-warning
 
 cov_full:
-	flutter test --coverage
+	fvm flutter test --coverage
 	lcov --remove coverage/lcov.info \
 	'*/*.g.dart' \
 	'**/generated/*' \
@@ -106,7 +106,7 @@ cov_full:
 	open coverage/html/index.html
 
 cov_ut:
-	flutter test --coverage test/unit_test
+	fvm flutter test --coverage test/unit_test
 	lcov --remove coverage/lcov.info \
 	'lib/data_source/api/client/*_client.dart' \
 	'lib/data_source/api/*_service.dart' \
@@ -149,7 +149,7 @@ cov_ut:
 	open coverage/html/index.html
 
 cov:
-	flutter test --coverage
+	fvm flutter test --coverage
 	lcov --remove coverage/lcov.info \
 	'lib/data_source/api/client/*_client.dart' \
 	'lib/data_source/api/*_service.dart' \
@@ -192,23 +192,23 @@ cov:
 	open coverage/html/index.html
 
 br:
-	dart run build_runner build --verbose
+	fvm dart run build_runner build --verbose
 
 fb:
-	dart run build_runner build --delete-conflicting-outputs --verbose
+	fvm dart run build_runner build --delete-conflicting-outputs --verbose
 
 cc:
-	flutter packages pub run build_runner clean
+	fvm flutter packages pub run build_runner clean
 
 ccfb:
 	make cc
 	make fb
 
 wr:
-	dart run build_runner watch --verbose
+	fvm dart run build_runner watch --verbose
 
 fw:
-	dart run build_runner watch --delete-conflicting-outputs --verbose
+	fvm dart run build_runner watch --delete-conflicting-outputs --verbose
 
 run_dev:
 	$(BUILD_CMD) develop run
@@ -272,51 +272,51 @@ build_prod_ipa:
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 check_pubs:
-	dart run tools/check_pubspecs.dart
+	fvm dart run tools/check_pubspecs.dart
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 check_commit_message:
 	$(COMMIT_CHECK_CMD) "$(shell git log --format=%B -n 1 --no-merges $(BITBUCKET_COMMIT))"
 
 check_unused_files:
-	dart run dart_code_metrics:metrics check-unused-files lib
+	fvm dart run dart_code_metrics:metrics check-unused-files lib
 
 # It is used in [tools/remove_unused_l10n.dart], so if you rename it, you need to update this file
 dcm_check_unused_l10n:
-	dart run dart_code_metrics:metrics check-unused-l10n lib --disable-sunset-warning -p ^S$
+	fvm dart run dart_code_metrics:metrics check-unused-l10n lib --disable-sunset-warning -p ^S$
 
 check_unused_text_styles:
-	dart run dart_code_metrics:metrics check-unused-l10n lib --disable-sunset-warning -p ^AppTextStyles$
+	fvm dart run dart_code_metrics:metrics check-unused-l10n lib --disable-sunset-warning -p ^AppTextStyles$
 
 comment_unused_text_styles:
-	dart run tools/remove_unused_text_styles.dart comment
+	fvm dart run tools/remove_unused_text_styles.dart comment
 
 remove_unused_text_styles:
-	dart run tools/remove_unused_text_styles.dart remove
+	fvm dart run tools/remove_unused_text_styles.dart remove
 
 comment_unused_lib:
-	dart run tools/remove_unused_lib.dart comment
+	fvm dart run tools/remove_unused_lib.dart comment
 	make pg
 
 remove_unused_lib:
-	dart run tools/remove_unused_lib.dart remove
+	fvm dart run tools/remove_unused_lib.dart remove
 	make pg
 
 remove_unused_l10n:
 	make ln
-	dart run tools/remove_unused_l10n.dart remove
+	fvm dart run tools/remove_unused_l10n.dart remove
 	make ln
 
 check_unused_l10n:
 	make ln
-	dart run tools/remove_unused_l10n.dart check
+	fvm dart run tools/remove_unused_l10n.dart check
 
 comment_unused_l10n:
 	make ln
-	dart run tools/remove_unused_l10n.dart comment
+	fvm dart run tools/remove_unused_l10n.dart comment
 
 remove_dup_l10n:
-	dart run tools/remove_dup_l10n.dart
+	fvm dart run tools/remove_dup_l10n.dart
 
 repod:
 	make cl
@@ -324,7 +324,7 @@ repod:
 	cd ios && rm -rf Pods && rm Podfile.lock && pod install --repo-update
 
 pu:
-	flutter pub upgrade
+	fvm flutter pub upgrade
 
 ci:
 	make check_pubs
@@ -430,7 +430,7 @@ fastlane_update_plugins:
 	cd android && bundle install && fastlane update_plugins
 
 t1_test:
-	flutter drive \
+	fvm flutter drive \
 	--driver=integration_test/test_driver/integration_driver.dart \
 	--target integration_test/t1_login_failed.dart \
 	--flavor develop --debug --dart-define-from-file=dart_defines/develop.json

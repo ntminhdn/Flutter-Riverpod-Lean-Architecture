@@ -69,10 +69,10 @@ abstract class BaseViewModel<S extends BaseState> extends StateNotifier<CommonSt
 
   Future<void> runCatching({
     required Future<void> Function() action,
-    Future<void> Function()? doBeforeRetrying,
-    Future<void> Function(AppException)? doBeforeHandlingError,
+    Future<void> Function()? doOnRetry,
+    Future<void> Function(AppException)? doOnError,
     Future<void> Function()? doOnSuccessOrError,
-    Future<void> Function()? doOnEventCompleted,
+    Future<void> Function()? doOnCompleted,
     bool handleLoading = true,
     bool Function(AppException)? handleRetryWhen,
     bool Function(AppException)? handleErrorWhen,
@@ -97,27 +97,27 @@ abstract class BaseViewModel<S extends BaseState> extends StateNotifier<CommonSt
         hideLoading();
       }
       await doOnSuccessOrError?.call();
-      await doBeforeHandlingError?.call(appException);
+      await doOnError?.call(appException);
 
       if (handleErrorWhen?.call(appException) != false ||
           appException.action == AppExceptionAction.showDialogForceLogout) {
         final shouldRetryAutomatically = handleRetryWhen?.call(appException) != false &&
             (maxRetries == null || maxRetries - 1 >= 0);
-        final shouldDoBeforeRetrying = doBeforeRetrying != null;
+        final shouldDoBeforeRetrying = doOnRetry != null;
 
         if (shouldRetryAutomatically || shouldDoBeforeRetrying) {
           appException.onRetry = () async {
             if (shouldDoBeforeRetrying) {
-              await doBeforeRetrying.call();
+              await doOnRetry.call();
             }
 
             if (shouldRetryAutomatically) {
               await runCatching(
                 action: action,
-                doOnEventCompleted: doOnEventCompleted,
+                doOnCompleted: doOnCompleted,
                 doOnSuccessOrError: doOnSuccessOrError,
-                doBeforeHandlingError: doBeforeHandlingError,
-                doBeforeRetrying: doBeforeRetrying,
+                doOnError: doOnError,
+                doOnRetry: doOnRetry,
                 handleErrorWhen: handleErrorWhen,
                 handleLoading: handleLoading,
                 handleRetryWhen: handleRetryWhen,
@@ -130,7 +130,7 @@ abstract class BaseViewModel<S extends BaseState> extends StateNotifier<CommonSt
         exception = appException;
       }
     } finally {
-      await doOnEventCompleted?.call();
+      await doOnCompleted?.call();
     }
   }
 }

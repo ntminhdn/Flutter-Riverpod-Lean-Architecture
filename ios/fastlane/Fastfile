@@ -17,36 +17,29 @@ default_platform(:ios)
 
 platform :ios do
   # secrets
-  APPCENTER_TOKEN = ENV["APP_CENTER_TOKEN"] # https://appcenter.ms/settings/apitokens
-  APPLE_API_TOKEN = ENV["APPLE_TOKEN"] # https://appstoreconnect.apple.com/access/api
-  FIREBASE_CLI_TOKEN = ENV["FIREBASE_TOKEN"] # run: `firebase login:ci`
-  SLACK_HOOKS_URL = ENV["SLACK_URL"] # Test link: https://hooks.slack.com/services/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
+  ISSUER_ID = ENV["ISSUER_ID"]
 
-  # appcenter
-  OWNER_NAME = "minhnt3-nal.vn"
-  OWNER_TYPE = "user"
-  DEV_APP_NAME = "Nals-Flutter-Dev-iOS"
-  QA_APP_NAME = "Nals-Flutter-Qa-iOS"
-  STG_APP_NAME = "Nals-Flutter-Stg-iOS"
-  APPCENTER_GROUPS = "testers"
-
-  # test flight
-  TEST_FLIGHT_EXTERNAL_GROUPS = "testers",
-  STG_APPLE_ID = "1111",
-  TEAM_ID = "<TEAM_ID>"
+  # config
+  TEST_FLIGHT_EXTERNAL_GROUPS = "testers"
+  TEAM_ID = "AB69DU2Z36"
+  KEY_ID = "5654J275D7"
+  KEY_FILEPATH = "./AuthKey_5654J275D7.p8"
+  DEV_APP_STORE_ID = "6500000000"
+  DEV_BUNDLE_ID = "jp.flutter.app.dev"
+  QA_APP_STORE_ID = "6500000000"
+  QA_BUNDLE_ID = "jp.flutter.app.qa"
+  STG_APP_STORE_ID = "6500000000"
   STG_BUNDLE_ID = "jp.flutter.app.stg"
 
-  # firebase
-  DEV_APP_ID = "1:553358319716:ios:25772305fb757cbe0f3f71"
-  QA_APP_ID = "1:458527024484:ios:53d199d8dc63d10c288671"
-  STG_APP_ID = "1:521801780624:ios:e5caf6d740df3625597715"
-  FIREBASE_GROUPS = "testers"
-
-  # slack
+  # config slack notification
+  SLACK_HOOKS_URL = "https://hooks.slack.com/services/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"
   MENTIONS = "@channel"
   MESSAGE = "Xin các anh chị tester nhẹ tay giúp!"
 
   # build info
+  DEV_FLAVOR = "develop"
+  QA_FLAVOR = "qa"
+  STG_FLAVOR = "staging"
   DEV_XCCONFIG_PATH = "Flutter/Develop.xcconfig"
   QA_XCCONFIG_PATH = "Flutter/Qa.xcconfig"
   STG_XCCONFIG_PATH = "Flutter/Staging.xcconfig"
@@ -57,249 +50,111 @@ platform :ios do
   STG_IPA_PATH = "../build/ios/ipa/Staging.ipa"
   RELEASE_NOTES_PATH = "../RELEASE_NOTES.md"
 
-  # ===== deploy to appcenter =====
-  desc "Develop: Deploy app to App Center"
-  lane :appcenter_upload_develop do
-    deployToAppCenter(DEV_APP_NAME, DEV_IPA_PATH)
-  end
-
-  desc "Develop: Increase version, build & deploy app to App Center"
-  lane :increase_version_build_and_up_appcenter_develop do
-    increaseVersionAndBuildAndDeployToAppCenter(DEV_APP_NAME, DEV_XCCONFIG_PATH)
-  end
-
-  desc "Qa: Deploy app to App Center"
-  lane :appcenter_upload_qa do
-    deployToAppCenter(QA_APP_NAME, QA_IPA_PATH)
-  end
-
-  desc "Qa: Increase version, build & deploy app to App Center"
-  lane :increase_version_build_and_up_appcenter_qa do
-    increaseVersionAndBuildAndDeployToAppCenter(QA_APP_NAME, QA_XCCONFIG_PATH)
-  end
-
-  desc "Staging: Deploy app to App Center"
-  lane :appcenter_upload_staging do
-    deployToAppCenter(STG_APP_NAME, STG_IPA_PATH)
-  end
-
-  desc "Staging: Increase version, build & deploy app to App Center"
-  lane :increase_version_build_and_up_appcenter_staging do
-    increaseVersionAndBuildAndDeployToAppCenter(STG_APP_NAME, STG_XCCONFIG_PATH)
-  end
-
   # ===== deploy to testflight =====
+  desc "Develop: Deploy app to TestFlight"
+  lane :testflight_upload_develop do
+    deployToTestFlight(DEV_BUNDLE_ID, DEV_APP_STORE_ID, DEV_IPA_PATH, DEV_XCCONFIG_PATH, DEV_FLAVOR)
+  end
+
+  desc "Develop: Increase version, build & deploy app to TestFlight"
+  lane :increase_version_build_and_up_testflight_develop do
+    increaseVersionAndBuildAndDeployToTestFlight(DEV_BUNDLE_ID, DEV_XCCONFIG_PATH, DEV_FLAVOR)
+  end
+
+  desc "Qa: Deploy app to TestFlight"
+  lane :testflight_upload_qa do
+    deployToTestFlight(QA_BUNDLE_ID, QA_APP_STORE_ID, QA_IPA_PATH, QA_XCCONFIG_PATH, QA_FLAVOR)
+  end
+
+  desc "Qa: Increase version, build & deploy app to TestFlight"
+  lane :increase_version_build_and_up_testflight_qa do
+    increaseVersionAndBuildAndDeployToTestFlight(QA_BUNDLE_ID, QA_XCCONFIG_PATH, QA_FLAVOR)
+  end
+
   desc "Staging: Deploy app to TestFlight"
   lane :testflight_upload_staging do
-    begin
-      changelog = File.read("../#{RELEASE_NOTES_PATH}")
-      upload_to_testflight(
-        api_key: APPLE_API_TOKEN,
-        changelog: changelog,
-        ipa: STG_IPA_PATH,
-        distribute_external: true,
-        notify_external_testers: true,
-        groups: TEST_FLIGHT_EXTERNAL_GROUPS,
-        apple_id: STG_APPLE_ID,
-        itc_provider: TEAM_ID
-      )
-      version_name = get_xcconfig_value(
-        path: STG_XCCONFIG_PATH,
-        name: BUILD_NAME_KEY
-      )
-      latest_release = latest_testflight_build_number(
-        api_key: APPLE_API_TOKEN,
-        team_id: TEAM_ID,
-        app_identifier: STG_BUNDLE_ID,
-        version: version_name
-      )
-      version = "#{version_name}(#{latest_release})"
-      sendSlack("#{MENTIONS} *Test Flight iOS staging #{version}*\n*Release notes:* #{changelog}\n#{MESSAGE}")
-    rescue => exception
-      error(exception)
-    end
+    deployToTestFlight(STG_BUNDLE_ID, STG_APP_STORE_ID, STG_IPA_PATH, STG_XCCONFIG_PATH, STG_FLAVOR)
   end
 
   desc "Staging: Increase version, build & deploy app to TestFlight"
   lane :increase_version_build_and_up_testflight_staging do
+    increaseVersionAndBuildAndDeployToTestFlight(STG_BUNDLE_ID, STG_XCCONFIG_PATH, STG_FLAVOR)
+  end
+
+  def deployToTestFlight(bundle_id, app_store_id, ipa_path, xcconfig, flavor)
     begin
+      api_key = app_store_connect_api_key(
+        key_id: KEY_ID,
+        issuer_id: ISSUER_ID,
+        key_filepath: KEY_FILEPATH,
+        duration: 1200, # optional (maximum 1200)
+        in_house: false # optional but may be required if using match/sigh
+      )
+      changelog = File.read("../#{RELEASE_NOTES_PATH}")
+      upload_to_testflight(
+        api_key: api_key,
+        changelog: changelog,
+        ipa: ipa_path,
+        distribute_external: true,
+        notify_external_testers: true,
+        groups: TEST_FLIGHT_EXTERNAL_GROUPS,
+        apple_id: app_store_id,
+        itc_provider: TEAM_ID
+      )
       version_name = get_xcconfig_value(
-        path: STG_XCCONFIG_PATH,
+        path: xcconfig,
         name: BUILD_NAME_KEY
       )
       latest_release = latest_testflight_build_number(
-        api_key: APPLE_API_TOKEN,
+        api_key: api_key,
         team_id: TEAM_ID,
-        app_identifier: STG_BUNDLE_ID,
+        app_identifier: bundle_id,
+        version: version_name
+      )
+      version = "#{version_name}(#{latest_release})"
+      sendSlack("#{MENTIONS} *Test Flight iOS #{flavor} #{version}*\n*Release notes:* #{changelog}\n#{MESSAGE}")
+    rescue => exception
+      error(exception)
+    end
+  end
+
+  def increaseVersionAndBuildAndDeployToTestFlight(bundle_id, xcconfig, flavor)
+    begin
+      api_key = app_store_connect_api_key(
+        key_id: KEY_ID,
+        issuer_id: ISSUER_ID,
+        key_filepath: KEY_FILEPATH,
+        duration: 1200, # optional (maximum 1200)
+        in_house: false # optional but may be required if using match/sigh
+      )
+      version_name = get_xcconfig_value(
+        path: xcconfig,
+        name: BUILD_NAME_KEY
+      )
+      latest_release = latest_testflight_build_number(
+        api_key: api_key,
+        team_id: TEAM_ID,
+        app_identifier: bundle_id,
         version: version_name
       )
       update_xcconfig_value(
-        path: STG_XCCONFIG_PATH,
+        path: xcconfig,
         name: BUILD_NUMBER_KEY,
         value: (latest_release.to_i + 1).to_s
       )
-      sh("cd ../.. && make build_stg_ipa")
-      testflight_upload_staging
-    rescue => exception
-      error(exception)
-    end
-  end
-
-  # ===== deploy to firebase =====
-  desc "Develop: Deploy app to Firebase"
-  lane :firebase_upload_develop do
-    deployToFirebase(DEV_APP_ID, DEV_IPA_PATH)
-  end
-
-  desc "Develop: Increase version, build & deploy app to Firebase Distribution"
-  lane :increase_version_build_and_up_firebase_develop do
-    increaseVersionAndBuildAndDeployToFirebase(DEV_APP_ID, DEV_XCCONFIG_PATH)
-  end
-
-  desc "Qa: Deploy app to Firebase"
-  lane :firebase_upload_qa do
-    deployToFirebase(QA_APP_ID, QA_IPA_PATH)
-  end
-
-  desc "Qa: Increase version, build & deploy app to Firebase Distribution"
-  lane :increase_version_build_and_up_firebase_qa do
-    increaseVersionAndBuildAndDeployToFirebase(QA_APP_ID, QA_XCCONFIG_PATH)
-  end
-
-  desc "Staging: Deploy app to Firebase"
-  lane :firebase_upload_staging do
-    deployToFirebase(STG_APP_ID, STG_IPA_PATH)
-  end
-
-  desc "Staging: Increase version, build & deploy app to Firebase Distribution"
-  lane :increase_version_build_and_up_firebase_staging do
-    increaseVersionAndBuildAndDeployToFirebase(STG_APP_ID, STG_XCCONFIG_PATH)
-  end
-
-  def deployToAppCenter(app_name, ipa_path)
-    begin
-      changelog = File.read("../#{RELEASE_NOTES_PATH}")
-      appcenter_upload(
-        api_token: APPCENTER_TOKEN,
-        owner_name: OWNER_NAME,
-        owner_type: OWNER_TYPE,
-        app_name: app_name,
-        file: ipa_path,
-        destinations: APPCENTER_GROUPS,
-        release_notes: changelog,
-        notify_testers: true
-      )
-  
-      version = "#{lane_context[SharedValues::APPCENTER_BUILD_INFORMATION]['short_version']}(#{lane_context[SharedValues::APPCENTER_BUILD_INFORMATION]['version']})"
-      flavor = "null"
-      if ipa_path == DEV_IPA_PATH
-        flavor = "develop"
-      elsif ipa_path == QA_IPA_PATH
-        flavor = "qa"
-      elsif ipa_path == STG_IPA_PATH
-        flavor = "staging"
+      if flavor == DEV_FLAVOR
+        sh("cd ../.. && make build_dev_ipa")
+        testflight_upload_develop
+      elsif flavor == QA_FLAVOR
+        sh("cd ../.. && make build_qa_ipa")
+        testflight_upload_qa
+      elsif flavor == STG_FLAVOR
+        sh("cd ../.. && make build_stg_ipa")
+        testflight_upload_staging
       else
-        raise "ipa_path #{ipa_path} is invalid"
-      end
-      sendSlack("#{MENTIONS} *App Center iOS #{flavor} #{version}* - <#{lane_context[SharedValues::APPCENTER_DOWNLOAD_LINK]}|Download here>.\n*Release notes:* #{changelog}\n#{MESSAGE}")
-    rescue => exception
-      error(exception)
-    end
-  end
-
-  def increaseVersionAndBuildAndDeployToAppCenter(app_name, xcconfig_path)
-    begin
-      latest_release = nil
-      begin
-        latest_release = appcenter_fetch_version_number(
-          api_token: APPCENTER_TOKEN,
-          owner_name: OWNER_NAME,
-          app_name: app_name,
-        )
-      rescue
-        
+        raise "flavor #{flavor} is invalid"
       end
       
-      update_xcconfig_value(
-        path: xcconfig_path,
-        name: BUILD_NUMBER_KEY,
-        value: latest_release.nil? ? "1" : (latest_release['build_number'].to_i + 1).to_s
-      )
-      if xcconfig_path == DEV_XCCONFIG_PATH
-        sh("cd ../.. && make build_dev_ipa")
-        appcenter_upload_develop
-      elsif xcconfig_path == QA_XCCONFIG_PATH
-        sh("cd ../.. && make build_qa_ipa")
-        appcenter_upload_qa
-      elsif xcconfig_path == STG_XCCONFIG_PATH
-        sh("cd ../.. && make build_stg_ipa")
-        appcenter_upload_staging
-      else
-        raise "xcconfig_path #{xcconfig_path} is invalid"
-      end
-    rescue => exception
-      error(exception)
-    end
-  end
-
-  def deployToFirebase(app_id, ipa_path)
-    begin
-      firebase_app_distribution(
-        firebase_cli_token: FIREBASE_CLI_TOKEN,
-        app: app_id,
-        groups: FIREBASE_GROUPS,
-        ipa_path: ipa_path,
-        release_notes_file: RELEASE_NOTES_PATH
-      )
-      
-      latest_release = firebase_app_distribution_get_latest_release(
-        app: app_id,
-        firebase_cli_token: FIREBASE_CLI_TOKEN
-      )
-      version = "#{latest_release[:displayVersion]}(#{latest_release[:buildVersion]})"
-      changelog = latest_release.fetch(:releaseNotes, nil)&.fetch(:text, nil)
-      if changelog == nil
-        raise "Release notes is empty"
-      end
-      flavor = "null"
-      if ipa_path == DEV_IPA_PATH
-        flavor = "develop"
-      elsif ipa_path == QA_IPA_PATH
-        flavor = "qa"
-      elsif ipa_path == STG_IPA_PATH
-        flavor = "staging"
-      else
-        raise "ipa_path #{ipa_path} is invalid"
-      end
-      sendSlack("#{MENTIONS} *Firebase iOS #{flavor} #{version}*\n*Release notes:* #{changelog}\n#{MESSAGE}")
-    rescue => exception
-      error(exception)
-    end
-  end
-
-  def increaseVersionAndBuildAndDeployToFirebase(app_id, xcconfig_path)
-    begin
-      latest_release = firebase_app_distribution_get_latest_release(
-        app: app_id,
-        firebase_cli_token: FIREBASE_CLI_TOKEN
-      )
-      update_xcconfig_value(
-        path: xcconfig_path,
-        name: BUILD_NUMBER_KEY,
-        value: latest_release.nil? ? "1" : (latest_release[:buildVersion].to_i + 1).to_s
-      )
-      if xcconfig_path == DEV_XCCONFIG_PATH
-        sh("cd ../.. && make build_dev_ipa")
-        firebase_upload_develop
-      elsif xcconfig_path == QA_XCCONFIG_PATH
-        sh("cd ../.. && make build_qa_ipa")
-        firebase_upload_qa
-      elsif xcconfig_path == STG_XCCONFIG_PATH
-        sh("cd ../.. && make build_stg_ipa")
-        firebase_upload_staging
-      else
-        raise "xcconfig_path #{xcconfig_path} is invalid"
-      end
     rescue => exception
       error(exception)
     end
