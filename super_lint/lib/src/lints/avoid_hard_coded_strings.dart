@@ -59,7 +59,7 @@ class AvoidHardCodedStrings extends OptionsLintRule<_AvoidHardCodedStringsOption
         return;
       }
 
-      reporter.reportErrorForNode(code, node);
+      reporter.atNode(node, code);
     });
 
     context.registry.addInterpolationString((node) {
@@ -71,7 +71,7 @@ class AvoidHardCodedStrings extends OptionsLintRule<_AvoidHardCodedStringsOption
       if (node.parent?.parent?.toSource().endsWith('.hardcoded') ?? false) {
         return;
       }
-      reporter.reportErrorForNode(code, node.parent ?? node);
+      reporter.atNode(node.parent ?? node, code);
     });
   }
 

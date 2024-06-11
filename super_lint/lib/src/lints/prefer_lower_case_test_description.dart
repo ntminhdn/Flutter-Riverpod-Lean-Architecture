@@ -58,7 +58,7 @@ class PreferLowerCaseTestDescription
             firstArgument.staticParameterElement?.name == descriptionParamName) {
           final firstCharacter = firstArgument.stringValue?[0];
           if (RegExp(_regex).hasMatch(firstCharacter ?? '')) {
-            reporter.reportErrorForNode(code, firstArgument);
+            reporter.atNode(firstArgument, code);
           }
         }
       }

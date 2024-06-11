@@ -42,9 +42,9 @@ class AvoidUnnecessaryAsyncFunction extends OptionsLintRule<_AvoidUnnecessaryAsy
                     !node.childReturnStatements.any((element) =>
                         element.expression?.staticType.toString().startsWith('Future') == true)) {
                   if (node.functionExpression.body.keyword != null) {
-                    reporter.reportErrorForToken(code, node.functionExpression.body.keyword!);
+                    reporter.atToken(node.functionExpression.body.keyword!, code);
                   } else {
-                    reporter.reportErrorForNode(code, node);
+                    reporter.atNode(node, code);
                   }
                 }
               },
@@ -55,9 +55,9 @@ class AvoidUnnecessaryAsyncFunction extends OptionsLintRule<_AvoidUnnecessaryAsy
                     !node.childReturnStatements.any((element) =>
                         element.expression?.staticType.toString().startsWith('Future') == true)) {
                   if (node.body.keyword != null) {
-                    reporter.reportErrorForToken(code, node.body.keyword!);
+                    reporter.atToken(node.body.keyword!, code);
                   } else {
-                    reporter.reportErrorForNode(code, node);
+                    reporter.atNode(node, code);
                   }
                 }
               },

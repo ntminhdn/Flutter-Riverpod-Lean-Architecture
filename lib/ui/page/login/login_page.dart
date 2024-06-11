@@ -91,15 +91,15 @@ class LoginPage extends BasePage<LoginState,
                               ? () => ref.read(provider.notifier).login()
                               : null,
                           style: ButtonStyle(
-                            minimumSize: MaterialStateProperty.all(
+                            minimumSize: WidgetStateProperty.all(
                               Size(double.infinity, 48.rps),
                             ),
-                            backgroundColor: MaterialStateProperty.all(
+                            backgroundColor: WidgetStateProperty.all(
                               cl.black.withOpacity(
                                 isLoginButtonEnabled ? 1 : 0.5,
                               ),
                             ),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(10.rps)),
                               ),

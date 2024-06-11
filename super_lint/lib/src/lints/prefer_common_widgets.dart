@@ -43,7 +43,7 @@ class PreferCommonWidgets extends OptionsLintRule<_PreferCommonWidgetsOption> {
       });
 
       if (bannedWidget != null) {
-        reporter.reportErrorForNode(code, node.constructorName);
+        reporter.atNode(node.constructorName, code);
       }
     });
   }

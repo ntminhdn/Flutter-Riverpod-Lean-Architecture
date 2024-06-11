@@ -38,7 +38,11 @@ class IncorrectTodoComment extends OptionsLintRule<_IncorrectTodoCommentOption> 
       if (codeLine.isEndOfLineComment) {
         if (codeLine.content.contains(RegExp(r'//\s*TODO')) &&
             !RegExp(r'^\/\/\s*TODO\(.+\):.*\S.*#\d+.*$').hasMatch(codeLine.content.trim())) {
-          reporter.reportErrorForOffset(code, codeLine.lineOffset, codeLine.lineLength);
+          reporter.atOffset(
+            offset: codeLine.lineOffset,
+            length: codeLine.lineLength,
+            errorCode: code,
+          );
         }
       }
     });

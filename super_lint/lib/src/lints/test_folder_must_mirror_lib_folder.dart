@@ -49,10 +49,10 @@ class TestFolderMustMirrorLibFolder extends OptionsLintRule<_TestFolderMustMirro
     final fileName = getFileNameFromPath(resolver.path);
 
     if (!fileName.endsWith(_testFileSuffix)) {
-      reporter.reportErrorForOffset(
-        code,
-        0,
-        resolver.documentLength,
+      reporter.atOffset(
+        offset: 0,
+        length: resolver.documentLength,
+        errorCode: code,
       );
       return;
     }
@@ -62,10 +62,10 @@ class TestFolderMustMirrorLibFolder extends OptionsLintRule<_TestFolderMustMirro
         .replaceLast(pattern: _testFileSuffix, replacement: '');
 
     if (!File('$rootPath/$libFilePath').existsSync()) {
-      reporter.reportErrorForOffset(
-        code,
-        0,
-        resolver.documentLength,
+      reporter.atOffset(
+        offset: 0,
+        length: resolver.documentLength,
+        errorCode: code,
       );
     }
   }

@@ -183,15 +183,15 @@ class AllUsersPage extends BasePage<AllUsersState,
                             : ref.read(provider.notifier).addMembers()
                         : null,
                     style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(
+                      minimumSize: WidgetStateProperty.all(
                         Size(double.infinity, 48.rps),
                       ),
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                         cl.black.withOpacity(
                           isAddButtonEnabled ? 1 : 0.5,
                         ),
                       ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                         const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),

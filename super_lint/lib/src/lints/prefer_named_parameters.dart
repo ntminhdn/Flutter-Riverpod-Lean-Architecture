@@ -40,7 +40,7 @@ class PreferNamedParameters extends OptionsLintRule<_PreferNamedParametersOption
                 node.functionExpression.parameters?.parameters ?? <FormalParameter>[];
             if (formalParams.length >= parameters.threshold &&
                 formalParams.where((element) => element.isNamed).length != formalParams.length) {
-              reporter.reportErrorForNode(code, node.functionExpression.parameters!);
+              reporter.atNode(node.functionExpression.parameters!, code);
             }
           },
           onVisitMethodDeclaration: (MethodDeclaration node) {
@@ -48,7 +48,7 @@ class PreferNamedParameters extends OptionsLintRule<_PreferNamedParametersOption
             if (formalParams.length >= parameters.threshold &&
                 !node.isOverrideMethod &&
                 formalParams.where((element) => element.isNamed).length != formalParams.length) {
-              reporter.reportErrorForNode(code, node.parameters!);
+              reporter.atNode(node.parameters!, code);
             }
           },
           onVisitConstructorDeclaration: (ConstructorDeclaration node) {
@@ -56,7 +56,7 @@ class PreferNamedParameters extends OptionsLintRule<_PreferNamedParametersOption
             if (formalParams.length >= parameters.threshold &&
                 !_isConstuctorDeclarationException(node) &&
                 formalParams.where((element) => element.isNamed).length != formalParams.length) {
-              reporter.reportErrorForNode(code, node.parameters);
+              reporter.atNode(node.parameters, code);
             }
           },
         ))));
