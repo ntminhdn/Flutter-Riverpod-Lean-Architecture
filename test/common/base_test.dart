@@ -42,7 +42,6 @@ Future<void> main() async {
     when(() => ref.read(appPreferencesProvider)).thenReturn(appPreferences);
     when(() => ref.read(appDatabaseProvider)).thenReturn(appDatabase);
     when(() => ref.read(appApiServiceProvider)).thenReturn(appApiService);
-    when(() => ref.read(refreshTokenApiServiceProvider)).thenReturn(refreshTokenApiService);
     when(() => ref.read(loadMoreUsersExecutorProvider)).thenReturn(loadMoreUsersExecutor);
     when(() => ref.read(firebaseFirestoreServiceProvider)).thenReturn(firebaseFirestoreService);
     when(() => ref.read(firebaseAuthServiceProvider)).thenReturn(firebaseAuthService);
@@ -123,8 +122,6 @@ class _MockAppDatabase extends Mock implements AppDatabase {}
 
 class _MockAppApiService extends Mock implements AppApiService {}
 
-class _MockRefreshTokenApiService extends Mock implements RefreshTokenApiService {}
-
 class _MockLoadMoreUsersExecutor extends Mock implements LoadMoreUsersExecutor {}
 
 class _MockFirebaseFirestoreService extends Mock implements FirebaseFirestoreService {}
@@ -167,7 +164,6 @@ final exceptionHandler = _MockExceptionHandler();
 final appPreferences = _MockAppPreferences();
 final appDatabase = _MockAppDatabase();
 final appApiService = _MockAppApiService();
-final refreshTokenApiService = _MockRefreshTokenApiService();
 final loadMoreUsersExecutor = _MockLoadMoreUsersExecutor();
 final firebaseFirestoreService = _MockFirebaseFirestoreService();
 final firebaseAuthService = _MockFirebaseAuthService();

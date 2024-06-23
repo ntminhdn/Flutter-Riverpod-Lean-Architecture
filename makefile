@@ -25,15 +25,16 @@ gen_env:
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 sync:
+	make cc
 	make pg
 	make ln
 	make fb
 
 rpg:
-	flutter clean && rm -rf pubspec.lock
-	flutter pub get
+	make cl
+	make pg
 
-ref:
+fix:
 	make cc
 	make cl
 	make sync
@@ -198,7 +199,7 @@ fb:
 	dart run build_runner build --delete-conflicting-outputs --verbose
 
 cc:
-	flutter packages pub run build_runner clean
+	dart run build_runner clean
 
 ccfb:
 	make cc

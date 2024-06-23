@@ -69,5 +69,6 @@ ios/fastlane/report.xml
 .fvmrc
 *.mdb
 *.p8
+*.jks
 pubspec_overrides.yaml
 **/failures/*.png

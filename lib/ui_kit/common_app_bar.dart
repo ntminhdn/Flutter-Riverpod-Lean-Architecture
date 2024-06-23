@@ -16,7 +16,7 @@ class CommonAppBar extends ConsumerWidget implements PreferredSizeWidget {
     this.elevation = 0,
     this.actions,
     this.height,
-    this.automaticallyImplyLeading = true,
+    this.automaticallyImplyLeading = false,
     this.flexibleSpace,
     this.bottom,
     this.shadowColor,

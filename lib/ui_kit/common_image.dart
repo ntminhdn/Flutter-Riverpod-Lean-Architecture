@@ -17,7 +17,7 @@ class CommonImage extends StatelessWidget {
   });
 
   CommonImage.svg({
-    required SvgGenImage svgPath,
+    required SvgGenImage path,
     Key? key,
     double? width,
     double? height,
@@ -38,7 +38,7 @@ class CommonImage extends StatelessWidget {
     VoidCallback? onTap,
   }) : this._(
           imageInputType: ImageInputType.svg,
-          source: svgPath,
+          source: path,
           style: _CommonSvgImageStyle(
             width: width,
             height: height,
@@ -62,7 +62,7 @@ class CommonImage extends StatelessWidget {
         );
 
   CommonImage.asset({
-    required AssetGenImage assetPath,
+    required AssetGenImage path,
     Key? key,
     double? width,
     double? height,
@@ -88,7 +88,7 @@ class CommonImage extends StatelessWidget {
     VoidCallback? onTap,
   }) : this._(
           imageInputType: ImageInputType.asset,
-          source: assetPath,
+          source: path,
           style: _CommonAssetImageStyle(
             width: width,
             height: height,

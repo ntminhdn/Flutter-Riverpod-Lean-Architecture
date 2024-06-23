@@ -22,7 +22,7 @@ class LoginPage extends BasePage<LoginState,
           children: [
             Consumer(
               builder: (context, ref, child) => CommonImage.asset(
-                assetPath: ref.watch(backgroundProvider),
+                path: ref.watch(backgroundProvider),
                 width: double.infinity,
                 height: double.infinity,
                 fit: BoxFit.cover,

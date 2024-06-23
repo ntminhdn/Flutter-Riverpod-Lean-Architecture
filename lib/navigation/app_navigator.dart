@@ -211,6 +211,7 @@ class AppNavigator with LogMixin {
     bool barrierDismissible = true,
     bool useSafeArea = false,
     bool useRootNavigator = true,
+    bool canPop = true,
   }) async {
     if (_popups.containsKey(popup.id)) {
       logD('Dialog $popup already shown');
@@ -227,6 +228,7 @@ class AppNavigator with LogMixin {
           logD('Dialog $popup dismissed');
           _popups.remove(popup.id);
         },
+        canPop: canPop,
         child: popup.builder(context, this),
       ),
       useRootNavigator: useRootNavigator,
@@ -248,6 +250,7 @@ class AppNavigator with LogMixin {
     m.Color barrierColor = const m.Color(0x80000000),
     bool barrierDismissible = true,
     bool useRootNavigator = true,
+    bool canPop = true,
   }) {
     if (_popups.containsKey(popup.id)) {
       logD('Dialog $popup already shown');
@@ -271,6 +274,7 @@ class AppNavigator with LogMixin {
           logD('Dialog $popup dismissed');
           _popups.remove(popup.id);
         },
+        canPop: canPop,
         child: popup.builder(context, this),
       ),
       transitionBuilder: transitionBuilder,
@@ -287,6 +291,7 @@ class AppNavigator with LogMixin {
     bool enableDrag = true,
     m.Color barrierColor = m.Colors.black54,
     m.Color? backgroundColor,
+    bool canPop = true,
   }) {
     if (_popups.containsKey(popup.id)) {
       logD('Dialog $popup already shown');
@@ -302,6 +307,7 @@ class AppNavigator with LogMixin {
           logD('Dialog $popup dismissed');
           _popups.remove(popup.id);
         },
+        canPop: canPop,
         child: popup.builder(context, this),
       ),
       isDismissible: isDismissible,

@@ -53,7 +53,6 @@ export 'data_source/api/middleware/refresh_token_interceptor.dart';
 export 'data_source/api/middleware/retry_on_error_interceptor.dart';
 export 'data_source/api/paging/base/load_more_executor.dart';
 export 'data_source/api/paging/load_more_users_executor.dart';
-export 'data_source/api/refresh_token_api_service.dart';
 export 'data_source/database/app_database.dart';
 export 'data_source/firebase/auth/firebase_auth_service.dart';
 export 'data_source/firebase/firestore/firebase_firestore_service.dart';

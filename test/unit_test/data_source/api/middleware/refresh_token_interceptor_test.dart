@@ -10,16 +10,19 @@ import '../../../../common/index.dart';
 
 class _MockNoneAuthAppServerApiClient extends Mock implements NoneAuthAppServerApiClient {}
 
+class _MockRefreshTokenApiClient extends Mock implements RefreshTokenApiClient {}
+
 class _MockErrorInterceptorHandler extends Mock implements ErrorInterceptorHandler {}
 
 void main() {
   late RefreshTokenInterceptor refreshTokenInterceptor;
   final noneAuthAppServerApiClient = _MockNoneAuthAppServerApiClient();
+  final refreshTokenApiClient = _MockRefreshTokenApiClient();
 
   setUp(() {
     refreshTokenInterceptor = RefreshTokenInterceptor(
       appPreferences,
-      refreshTokenApiService,
+      refreshTokenApiClient,
       noneAuthAppServerApiClient,
     );
   });
@@ -40,7 +43,12 @@ void main() {
       refreshTokenInterceptor.onError(dummyError, handler);
 
       verifyNever(
-        () => refreshTokenApiService.refreshToken(any()),
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+          method: RestMethod.post,
+          path: 'v1/auth/refresh',
+          body: any(named: 'body'),
+          decoder: any(named: 'decoder'),
+        ),
       );
       verifyNever(() => noneAuthAppServerApiClient.fetch(any()));
       verifyNever(() => appPreferences.saveAccessToken(any()));
@@ -65,10 +73,16 @@ void main() {
       const refreshToken = 'refreshToken';
       final errorHandler = _MockErrorInterceptorHandler();
 
-      when(() => refreshTokenApiService.refreshToken(any()))
-          .thenAnswer((_) async => const DataResponse(
-                data: ApiRefreshTokenData(accessToken: newAccessToken),
-              ));
+      when(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+          method: RestMethod.post,
+          path: 'v1/auth/refresh',
+          body: any(named: 'body'),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => const DataResponse(
+            data: ApiRefreshTokenData(accessToken: newAccessToken),
+          ));
       when(() => appPreferences.saveAccessToken(any())).thenAnswer((_) async {});
       when(() => appPreferences.refreshToken).thenAnswer((_) async => refreshToken);
       when(() => noneAuthAppServerApiClient.fetch(any())).thenAnswer((_) async => dummyResponse);
@@ -77,7 +91,14 @@ void main() {
       refreshTokenInterceptor.onError(dummyError, errorHandler);
       await Future<dynamic>.delayed(5.milliseconds);
 
-      verify(() => refreshTokenApiService.refreshToken(refreshToken)).called(1);
+      verify(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+          method: RestMethod.post,
+          path: 'v1/auth/refresh',
+          body: any(named: 'body'),
+          decoder: any(named: 'decoder'),
+        ),
+      ).called(1);
       verify(() => noneAuthAppServerApiClient.fetch(dummyOptions)).called(1);
       verify(() => appPreferences.saveAccessToken(newAccessToken)).called(1);
       verify(() => errorHandler.resolve(dummyResponse)).called(1);
@@ -102,13 +123,27 @@ void main() {
       final errorHandler = _MockErrorInterceptorHandler();
 
       when(() => appPreferences.refreshToken).thenAnswer((_) async => 'refreshToken');
-      when(() => refreshTokenApiService.refreshToken(any())).thenThrow(dummyRefreshTokenError);
+      when(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+          method: RestMethod.post,
+          path: 'v1/auth/refresh',
+          body: any(named: 'body'),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenThrow(dummyRefreshTokenError);
 
       // Act
       refreshTokenInterceptor.onError(dummyError, errorHandler);
       await Future<dynamic>.delayed(5.milliseconds);
 
-      verify(() => refreshTokenApiService.refreshToken(any())).called(1);
+      verify(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+          method: RestMethod.post,
+          path: 'v1/auth/refresh',
+          body: any(named: 'body'),
+          decoder: any(named: 'decoder'),
+        ),
+      ).called(1);
       verifyNever(() => noneAuthAppServerApiClient.fetch(any()));
       verifyNever(() => appPreferences.saveAccessToken(any()));
       verify(() => errorHandler.next(any(
@@ -150,10 +185,16 @@ void main() {
       final errorHandler = _MockErrorInterceptorHandler();
       final secondErrorHandler = _MockErrorInterceptorHandler();
 
-      when(() => refreshTokenApiService.refreshToken(any()))
-          .thenAnswer((_) async => const DataResponse(
-                data: ApiRefreshTokenData(accessToken: newAccessToken),
-              ));
+      when(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+          method: RestMethod.post,
+          path: 'v1/auth/refresh',
+          body: any(named: 'body'),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenAnswer((_) async => const DataResponse(
+            data: ApiRefreshTokenData(accessToken: newAccessToken),
+          ));
       when(() => appPreferences.saveAccessToken(any())).thenAnswer((_) async {});
       when(() => appPreferences.refreshToken).thenAnswer((_) async => 'refreshToken');
       when(() => noneAuthAppServerApiClient.fetch(dummyOptions))
@@ -166,7 +207,14 @@ void main() {
       refreshTokenInterceptor.onError(secondDummyError, secondErrorHandler);
       await Future<dynamic>.delayed(5.milliseconds);
 
-      verify(() => refreshTokenApiService.refreshToken(any())).called(1);
+      verify(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+          method: RestMethod.post,
+          path: 'v1/auth/refresh',
+          body: any(named: 'body'),
+          decoder: any(named: 'decoder'),
+        ),
+      ).called(1);
       verify(() => noneAuthAppServerApiClient.fetch(dummyOptions)).called(1);
       verify(() => noneAuthAppServerApiClient.fetch(secondDummyOptions)).called(1);
       verify(() => appPreferences.saveAccessToken(newAccessToken)).called(1);
@@ -202,14 +250,28 @@ void main() {
       final secondErrorHandler = _MockErrorInterceptorHandler();
 
       when(() => appPreferences.refreshToken).thenAnswer((_) async => 'refreshToken');
-      when(() => refreshTokenApiService.refreshToken(any())).thenThrow(dummyRefreshTokenError);
+      when(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+          method: RestMethod.post,
+          path: 'v1/auth/refresh',
+          body: any(named: 'body'),
+          decoder: any(named: 'decoder'),
+        ),
+      ).thenThrow(dummyRefreshTokenError);
 
       // Act
       refreshTokenInterceptor.onError(dummyError, errorHandler);
       refreshTokenInterceptor.onError(secondDummyError, secondErrorHandler);
       await Future<dynamic>.delayed(5.milliseconds);
 
-      verify(() => refreshTokenApiService.refreshToken(any())).called(1);
+      verify(
+        () => refreshTokenApiClient.request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+          method: RestMethod.post,
+          path: 'v1/auth/refresh',
+          body: any(named: 'body'),
+          decoder: any(named: 'decoder'),
+        ),
+      ).called(1);
       verify(() => errorHandler.next(any(
             that: isA<DioException>()
                 .having((e) => e.requestOptions, 'requestOptions', dummyOptions)
