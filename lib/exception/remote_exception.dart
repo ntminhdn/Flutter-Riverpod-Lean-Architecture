@@ -3,14 +3,14 @@ import '../index.dart';
 class RemoteException extends AppException {
   RemoteException({
     required this.kind,
-    this.httpErrorCode,
+    this.dioStatusCode,
     this.serverError,
     super.rootException,
     super.onRetry,
   }) : super();
 
   final RemoteExceptionKind kind;
-  final int? httpErrorCode;
+  final int? dioStatusCode;
   final ServerError? serverError;
 
   @override
@@ -60,7 +60,7 @@ class RemoteException extends AppException {
       kind: $kind,
       message: $message,
       action: $action,
-      httpErrorCode: $httpErrorCode,
+      dioStatusCode: $dioStatusCode,
       serverError: $serverError,
       rootException: $rootException,
       generalServerMessage: $generalServerMessage,

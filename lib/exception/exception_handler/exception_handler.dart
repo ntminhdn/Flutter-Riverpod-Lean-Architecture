@@ -67,7 +67,7 @@ class ExceptionHandler {
     );
     if (forceLogout) {
       try {
-        await _ref.sharedViewModel.logout();
+        await _ref.sharedViewModel.forceLogout();
       } catch (e) {
         Log.e('force logout error: $e');
         await _ref.nav.replaceAll([const LoginRoute()]);

@@ -47,12 +47,12 @@ class CommonAppBar extends ConsumerWidget implements PreferredSizeWidget {
       actions: actions,
       leadingIcon: LeadingIcon.back,
       titleTextStyle: ts(
-        color: cl.black,
+        color: color.black,
         fontSize: 18.rps,
         fontWeight: FontWeight.bold,
       ),
       centerTitle: false,
-      leadingIconColor: cl.black,
+      leadingIconColor: color.black,
     );
   }
 
@@ -115,9 +115,7 @@ class CommonAppBar extends ConsumerWidget implements PreferredSizeWidget {
               child: Padding(
                 padding: EdgeInsets.only(left: 16.rps),
                 child: _buildIcon(
-                  leadingIcon == LeadingIcon.close
-                      ? Assets.images.iconClose
-                      : Assets.images.iconBack,
+                  leadingIcon == LeadingIcon.close ? image.iconClose : image.iconBack,
                 ),
               ),
             ),
@@ -128,7 +126,7 @@ class CommonAppBar extends ConsumerWidget implements PreferredSizeWidget {
         child: titleType == AppBarTitle.text
             ? CommonText(text, style: titleTextStyle)
             : titleType == AppBarTitle.logo
-                ? _buildIcon(Assets.images.appLogo)
+                ? _buildIcon(image.appLogo)
                 : null,
       ),
       actions: actions,

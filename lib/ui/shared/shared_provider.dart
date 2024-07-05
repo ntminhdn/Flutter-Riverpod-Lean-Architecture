@@ -7,7 +7,7 @@ final backgroundProvider = Provider.autoDispose<AssetGenImage>(
   (ref) {
     final isDarkMode = ref.watch(isDarkModeProvider);
 
-    return isDarkMode ? Assets.images.darkBackground : Assets.images.background;
+    return isDarkMode ? image.darkBackground : image.background;
   },
 );
 

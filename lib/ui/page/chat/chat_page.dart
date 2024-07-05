@@ -80,8 +80,8 @@ class ChatPage extends BasePage<ChatState,
           loadingWidget: SizedBox(
             height: 3.rps,
             child: LinearProgressIndicator(
-              backgroundColor: cl.white,
-              color: cl.black,
+              backgroundColor: color.white,
+              color: color.black,
             ),
           ),
           loadMoreData: () => ref.read(provider.notifier).onLoadMore(),
@@ -148,7 +148,7 @@ class ChatPage extends BasePage<ChatState,
             },
             icon: Icon(
               Icons.group_add,
-              color: cl.black,
+              color: color.black,
               size: 24.rps,
             ),
           ),
@@ -173,7 +173,7 @@ class ChatPage extends BasePage<ChatState,
 
   ChatViewStateConfiguration get chatViewStateConfig => ChatViewStateConfiguration(
         loadingWidgetConfig: ChatViewStateWidgetConfiguration(
-          loadingIndicatorColor: cl.black,
+          loadingIndicatorColor: color.black,
         ),
       );
 
@@ -182,13 +182,13 @@ class ChatPage extends BasePage<ChatState,
           bottom: 16.rps,
           top: 16.rps,
         ),
-        backgroundColor: cl.white,
+        backgroundColor: color.white,
       );
 
   SendMessageConfiguration get sendMessageConfig => SendMessageConfiguration(
-        textFieldBackgroundColor: cl.grey2,
-        replyMessageColor: cl.grey1,
-        replyDialogColor: cl.black3,
+        textFieldBackgroundColor: color.grey2,
+        replyMessageColor: color.grey1,
+        replyDialogColor: color.black3,
         // ignore: avoid_hard_coded_colors
         replyTitleColor: Colors.white,
         // ignore: avoid_hard_coded_colors
@@ -201,45 +201,45 @@ class ChatPage extends BasePage<ChatState,
   ChatBubbleConfiguration get chatBubbleConfig => ChatBubbleConfiguration(
         outgoingChatBubbleConfig: ChatBubble(
           linkPreviewConfig: null,
-          repliedBackgroundColor: cl.black,
+          repliedBackgroundColor: color.black,
           receiptsWidgetConfig: const ReceiptsWidgetConfig(showReceiptsIn: ShowReceiptsIn.all),
-          color: cl.black,
-          textStyle: ts(color: cl.white, fontSize: 14.rps),
+          color: color.black,
+          textStyle: ts(color: color.white, fontSize: 14.rps),
         ),
         inComingChatBubbleConfig: ChatBubble(
           linkPreviewConfig: null,
-          repliedBackgroundColor: cl.grey1,
-          textStyle: ts(color: cl.black, fontSize: 14.rps),
-          senderNameTextStyle: ts(color: cl.black, fontSize: 14.rps),
-          color: cl.grey1,
+          repliedBackgroundColor: color.grey1,
+          textStyle: ts(color: color.black, fontSize: 14.rps),
+          senderNameTextStyle: ts(color: color.black, fontSize: 14.rps),
+          color: color.grey1,
         ),
       );
 
   ReplyPopupConfiguration get replyPopupConfig => ReplyPopupConfiguration(
-        backgroundColor: cl.black3,
-        buttonTextStyle: ts(color: cl.white, fontSize: 14.rps),
-        topBorderColor: cl.black2,
+        backgroundColor: color.black3,
+        buttonTextStyle: ts(color: color.white, fontSize: 14.rps),
+        topBorderColor: color.black2,
       );
 
   RepliedMessageConfiguration get repliedMessageConfig => RepliedMessageConfiguration(
-        backgroundColor: cl.black2,
-        verticalBarColor: cl.white,
+        backgroundColor: color.black2,
+        verticalBarColor: color.white,
         repliedMsgAutoScrollConfig: RepliedMsgAutoScrollConfig(
           enableHighlightRepliedMsg: true,
-          highlightColor: cl.red1,
+          highlightColor: color.red1,
           highlightScale: 1.1,
         ),
         textStyle: ts(
-          color: cl.white,
+          color: color.white,
           fontSize: 14.rps,
           fontWeight: FontWeight.bold,
           letterSpacing: 0.25,
         ),
-        replyTitleTextStyle: ts(color: cl.white, fontSize: 14.rps),
+        replyTitleTextStyle: ts(color: color.white, fontSize: 14.rps),
       );
 
   SwipeToReplyConfiguration get swipeToReplyConfig => SwipeToReplyConfiguration(
-        replyIconColor: cl.white,
+        replyIconColor: color.white,
       );
 
   Future<void> _showRenameConversation(WidgetRef ref) async {

@@ -1834,8 +1834,8 @@ void main() {
                     RemoteExceptionKind.serverDefined,
                   )
                   .having(
-                    (e) => e.httpErrorCode,
-                    'httpErrorCode',
+                    (e) => e.dioStatusCode,
+                    'dioStatusCode',
                     400,
                   )
                   .having(
@@ -1930,8 +1930,8 @@ void main() {
                     RemoteExceptionKind.serverDefined,
                   )
                   .having(
-                    (e) => e.httpErrorCode,
-                    'httpErrorCode',
+                    (e) => e.dioStatusCode,
+                    'dioStatusCode',
                     422,
                   )
                   .having(
@@ -2029,8 +2029,8 @@ void main() {
                     RemoteExceptionKind.serverUndefined,
                   )
                   .having(
-                    (e) => e.httpErrorCode,
-                    'httpErrorCode',
+                    (e) => e.dioStatusCode,
+                    'dioStatusCode',
                     500,
                   ),
             ),

@@ -39,7 +39,7 @@ void main() {
             hintText: 'Password',
             controller: TextEditingController(text: ''),
             suffixIcon: CommonImage.svg(
-              path: Assets.images.iconClose,
+              path: image.iconClose,
               foregroundColor: Colors.black,
             ),
           ),

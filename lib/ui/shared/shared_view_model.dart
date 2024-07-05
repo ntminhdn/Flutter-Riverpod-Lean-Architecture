@@ -21,6 +21,16 @@ class SharedViewModel {
     return deviceToken ?? '';
   }
 
+  Future<void> forceLogout() async {
+    try {
+      await _ref.appPreferences.clearCurrentUserData();
+      _ref.update<FirebaseUserData>(currentUserProvider, (state) => const FirebaseUserData());
+      await _ref.nav.replaceAll([const LoginRoute()]);
+    } catch (e) {
+      await _ref.nav.replaceAll([const LoginRoute()]);
+    }
+  }
+
   Future<void> logout() async {
     try {
       final deviceToken = await this.deviceToken;

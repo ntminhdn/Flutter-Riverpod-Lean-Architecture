@@ -25,7 +25,7 @@ class MoreMenuIconButton extends StatelessWidget {
       },
       icon: Icon(
         Icons.more_horiz,
-        color: cl.grey1,
+        color: color.grey1,
       ),
     );
   }
@@ -36,8 +36,8 @@ class MoreMenuIconButton extends StatelessWidget {
     final menu = p.PopupMenu(
       context: context,
       config: p.MenuConfig(
-        backgroundColor: cl.black,
-        lineColor: cl.white,
+        backgroundColor: color.black,
+        lineColor: color.white,
         type: p.MenuType.list,
         itemWidth: 150,
       ),
@@ -46,17 +46,17 @@ class MoreMenuIconButton extends StatelessWidget {
           title: copy,
           image: Icon(
             Icons.copy,
-            color: cl.white,
+            color: color.white,
           ),
-          textStyle: TextStyle(color: cl.white, fontSize: 12),
+          textStyle: TextStyle(color: color.white, fontSize: 12),
         ),
         p.MenuItem(
           title: reply,
           image: Icon(
             Icons.reply,
-            color: cl.white,
+            color: color.white,
           ),
-          textStyle: TextStyle(color: cl.white, fontSize: 12),
+          textStyle: TextStyle(color: color.white, fontSize: 12),
         ),
       ],
       onClickMenu: (item) {

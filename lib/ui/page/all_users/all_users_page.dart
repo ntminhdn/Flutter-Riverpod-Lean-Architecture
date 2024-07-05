@@ -114,7 +114,7 @@ class AllUsersPage extends BasePage<AllUsersState,
                           style: ts(
                             fontSize: 16.rps,
                             fontWeight: FontWeight.bold,
-                            color: cl.black,
+                            color: color.black,
                           ),
                         ),
                       );
@@ -131,7 +131,7 @@ class AllUsersPage extends BasePage<AllUsersState,
                           style: ts(
                             fontSize: 16.rps,
                             fontWeight: FontWeight.bold,
-                            color: cl.black,
+                            color: color.black,
                           ),
                         ),
                       );
@@ -187,7 +187,7 @@ class AllUsersPage extends BasePage<AllUsersState,
                         Size(double.infinity, 48.rps),
                       ),
                       backgroundColor: WidgetStateProperty.all(
-                        cl.black.withOpacity(
+                        color.black.withOpacity(
                           isAddButtonEnabled ? 1 : 0.5,
                         ),
                       ),
@@ -202,7 +202,7 @@ class AllUsersPage extends BasePage<AllUsersState,
                       style: ts(
                         fontSize: 18.rps,
                         fontWeight: FontWeight.bold,
-                        color: cl.white,
+                        color: color.white,
                       ),
                     ),
                   );
@@ -265,7 +265,7 @@ class AllUsersPage extends BasePage<AllUsersState,
                     style: ts(
                       fontSize: 16.rps,
                       fontWeight: FontWeight.w700,
-                      color: cl.black,
+                      color: color.black,
                     ),
                   ),
                 ),
@@ -322,7 +322,7 @@ class AllUsersPage extends BasePage<AllUsersState,
                     style: ts(
                       fontSize: 16.rps,
                       fontWeight: FontWeight.w700,
-                      color: cl.black,
+                      color: color.black,
                     ),
                   ),
                 ),

@@ -52,7 +52,7 @@ class CommonPopup {
         title: CommonText(
           title,
           style: ts(
-            color: cl.black,
+            color: color.black,
             fontSize: 14.rps,
           ),
         ),
@@ -107,7 +107,7 @@ class CommonPopup {
       child: CommonText(
         title,
         style: ts(
-          color: cl.black,
+          color: color.black,
           fontSize: 14.rps,
         ),
       ),
@@ -237,7 +237,7 @@ class CommonPopup {
           style: null,
         ),
         duration: Constant.snackBarDuration,
-        backgroundColor: cl.green1,
+        backgroundColor: color.green1,
       ),
     );
   }
@@ -251,7 +251,7 @@ class CommonPopup {
           style: null,
         ),
         duration: Constant.snackBarDuration,
-        backgroundColor: cl.red1,
+        backgroundColor: color.red1,
       ),
     );
   }
@@ -311,7 +311,7 @@ class CommonPopup {
                     CommonText(
                       l10n.rename,
                       style: ts(
-                        color: cl.black,
+                        color: color.black,
                         fontSize: 18.rps,
                         fontWeight: FontWeight.bold,
                       ),

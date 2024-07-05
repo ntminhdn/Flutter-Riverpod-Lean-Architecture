@@ -40,7 +40,7 @@ class RegisterPage extends BasePage<RegisterState,
                       style: ts(
                         fontSize: 30.rps,
                         fontWeight: FontWeight.w700,
-                        color: cl.black,
+                        color: color.black,
                       ),
                     ),
                     SizedBox(height: 50.rps),
@@ -83,7 +83,7 @@ class RegisterPage extends BasePage<RegisterState,
                               onPageError,
                               style: ts(
                                 fontSize: 14.rps,
-                                color: cl.red1,
+                                color: color.red1,
                               ),
                             ),
                           ),
@@ -100,7 +100,7 @@ class RegisterPage extends BasePage<RegisterState,
                             l10n.alreadyHaveAnAccount,
                             style: ts(
                               fontSize: 18.rps,
-                              color: cl.black,
+                              color: color.black,
                             ),
                           ),
                           CommonText(
@@ -109,7 +109,7 @@ class RegisterPage extends BasePage<RegisterState,
                             style: ts(
                               fontSize: 18.rps,
                               fontWeight: FontWeight.bold,
-                              color: cl.black,
+                              color: color.black,
                               decoration: TextDecoration.underline,
                             ),
                           ),
@@ -132,7 +132,7 @@ class RegisterPage extends BasePage<RegisterState,
                               Size(double.infinity, 48.rps),
                             ),
                             backgroundColor: WidgetStateProperty.all(
-                              cl.black.withOpacity(isRegisterButtonEnabled ? 1 : 0.5),
+                              color.black.withOpacity(isRegisterButtonEnabled ? 1 : 0.5),
                             ),
                             shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
@@ -145,7 +145,7 @@ class RegisterPage extends BasePage<RegisterState,
                             style: ts(
                               fontSize: 18.rps,
                               fontWeight: FontWeight.bold,
-                              color: cl.white,
+                              color: color.white,
                             ),
                           ),
                         );
