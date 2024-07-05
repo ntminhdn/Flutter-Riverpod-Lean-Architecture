@@ -25,15 +25,16 @@ gen_env:
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 sync:
+	make cc
 	make pg
 	make ln
 	make fb
 
 rpg:
-	flutter clean && rm -rf pubspec.lock
-	flutter pub get
+	make cl
+	make pg
 
-ref:
+fix:
 	make cc
 	make cl
 	make sync
@@ -74,7 +75,7 @@ pg:
 fm:
 	find . -name "*.dart" ! -name "*.g.dart" ! -name "*.freezed.dart" ! -name "*.gr.dart" ! -name "*.config.dart" ! -name "*.mocks.dart" ! -path '*/generated/*' ! -path '*/.dart_tool/*' | tr '\n' ' ' | xargs dart format --set-exit-if-changed -l 100
 
-super_lint:
+sl:
 	./tools/super_lint.sh
 
 analyze:
@@ -85,7 +86,7 @@ dart_code_metrics:
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 lint:
-	make super_lint
+	make sl
 	make analyze
 	# make dart_code_metrics
 
@@ -198,7 +199,7 @@ fb:
 	dart run build_runner build --delete-conflicting-outputs --verbose
 
 cc:
-	flutter packages pub run build_runner clean
+	dart run build_runner clean
 
 ccfb:
 	make cc
@@ -318,7 +319,7 @@ comment_unused_l10n:
 remove_dup_l10n:
 	dart run tools/remove_dup_l10n.dart
 
-repod:
+pod:
 	make cl
 	make pg
 	cd ios && rm -rf Pods && rm Podfile.lock && pod install --repo-update
@@ -335,95 +336,35 @@ ci:
 dart_fix:
 	dart fix --apply
 
-cd_stg_tf:
-	cd ios && fastlane increase_version_build_and_up_testflight_staging
-
 cd_dev:
-	cd_dev_fba
-	cd_dev_fbi
+	make cd_dev_android
+	make cd_dev_ios
 
 cd_qa:
-	cd_qa_fba
-	cd_qa_fbi
+	make cd_qa_android
+	make cd_qa_ios
 
 cd_stg:
-	cd_stg_fba
-	cd_stg_tf
+	make cd_stg_android
+	make cd_stg_ios
 
-up_firebase_dev_android:
-	cd android && fastlane firebase_upload_develop
-
-up_firebase_qa_android:
-	cd android && fastlane firebase_upload_qa
-
-up_firebase_stg_android:
-	cd android && fastlane firebase_upload_staging
-
-cd_dev_fba:
+cd_dev_android:
 	cd android && fastlane increase_version_build_and_up_firebase_develop
 
-cd_qa_fba:
+cd_qa_android:
 	cd android && fastlane increase_version_build_and_up_firebase_qa
 
-cd_stg_fba:
+cd_stg_android:
 	cd android && fastlane increase_version_build_and_up_firebase_staging
 
-up_appcenter_dev_android:
-	cd android && fastlane appcenter_upload_develop
+cd_dev_ios:
+	cd ios && fastlane increase_version_build_and_up_testflight_develop
 
-up_appcenter_qa_android:
-	cd android && fastlane appcenter_upload_qa
+cd_qa_ios:
+	cd ios && fastlane increase_version_build_and_up_testflight_qa
 
-up_appcenter_stg_android:
-	cd android && fastlane appcenter_upload_staging
-
-cd_dev_aca:
-	cd android && fastlane increase_version_build_and_up_appcenter_develop
-
-cd_qa_aca:
-	cd android && fastlane increase_version_build_and_up_appcenter_qa
-
-cd_stg_aca:
-	cd android && fastlane increase_version_build_and_up_appcenter_staging
-
-up_firebase_dev_ios:
-	cd ios && fastlane firebase_upload_develop
-
-up_firebase_qa_ios:
-	cd ios && fastlane firebase_upload_qa
-
-up_firebase_stg_ios:
-	cd ios && fastlane firebase_upload_staging
-
-cd_dev_fbi:
-	cd ios && fastlane increase_version_build_and_up_firebase_develop
-
-cd_qa_fbi:
-	cd ios && fastlane increase_version_build_and_up_firebase_qa
-
-cd_stg_fbi:
-	cd ios && fastlane increase_version_build_and_up_firebase_staging
-
-up_appcenter_dev_ios:
-	cd ios && fastlane appcenter_upload_develop
-
-up_appcenter_qa_ios:
-	cd ios && fastlane appcenter_upload_qa
-
-up_appcenter_stg_ios:
-	cd ios && fastlane appcenter_upload_staging
-
-cd_dev_aci:
-	cd ios && fastlane increase_version_build_and_up_appcenter_develop
-
-cd_qa_aci:
-	cd ios && fastlane increase_version_build_and_up_appcenter_qa
-
-cd_stg_aci:
-	cd ios && fastlane increase_version_build_and_up_appcenter_staging
-
-up_testflight_stg_ios:
-	cd ios && fastlane testflight_upload_staging
+cd_stg_ios:
+	cd ios && fastlane increase_version_build_and_up_testflight_staging
 
 fastlane_update_plugins:
 	cd ios && bundle install && fastlane update_plugins

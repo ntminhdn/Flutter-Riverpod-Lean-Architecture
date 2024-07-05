@@ -34,7 +34,7 @@ class PrimaryTextField extends HookWidget {
             title,
             style: ts(
               fontSize: 14.rps,
-              color: cl.black,
+              color: color.black,
             ),
           ),
         ),
@@ -43,12 +43,12 @@ class PrimaryTextField extends HookWidget {
           controller: controller,
           style: ts(
             fontSize: 14.rps,
-            color: cl.black,
+            color: color.black,
           ),
           decoration: InputDecoration(
             hintStyle: ts(
               fontSize: 14.rps,
-              color: cl.grey1,
+              color: color.grey1,
             ),
             hintText: hintText,
             suffixIcon: isPassword

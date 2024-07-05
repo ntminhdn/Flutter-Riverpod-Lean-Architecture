@@ -8,6 +8,8 @@ import '../../../../../common/index.dart';
 
 class _MockNoneAuthAppServerApiClient extends Mock implements NoneAuthAppServerApiClient {}
 
+class _MockRefreshTokenApiClient extends Mock implements RefreshTokenApiClient {}
+
 class _MockRetryOnErrorInterceptorHelper extends Mock implements RetryOnErrorInterceptorHelper {}
 
 class _MockDio extends Mock implements Dio {}
@@ -62,7 +64,7 @@ void main() {
       final connectivityInterceptor = ConnectivityInterceptor(connectivityHelper);
       final refreshTokenInterceptor = RefreshTokenInterceptor(
         appPreferences,
-        refreshTokenApiService,
+        _MockRefreshTokenApiClient(),
         _MockNoneAuthAppServerApiClient(),
       );
       final retryOnErrorInterceptor =

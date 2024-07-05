@@ -37,7 +37,7 @@ class PreferIsEmptyString extends OptionsLintRule<_PreferIsEmptyStringOption> {
     context.registry.addBinaryExpression((node) {
       if (node.operator.type == TokenType.EQ_EQ &&
           (node.leftOperand.toString() == '\'\'' || node.rightOperand.toString() == '\'\'')) {
-        reporter.reportErrorForNode(code, node);
+        reporter.atNode(node, code);
       }
     });
   }

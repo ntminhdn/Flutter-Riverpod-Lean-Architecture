@@ -28,7 +28,7 @@ class AuthAppServerApiClient extends RestApiClient {
               ),
               RefreshTokenInterceptor(
                 getIt.get<AppPreferences>(),
-                getIt.get<RefreshTokenApiService>(),
+                getIt.get<RefreshTokenApiClient>(),
                 getIt.get<NoneAuthAppServerApiClient>(),
               ),
             ],

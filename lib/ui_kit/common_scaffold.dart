@@ -31,7 +31,7 @@ class CommonScaffold extends StatelessWidget {
     final scaffold = Scaffold(
       key: scaffoldKey,
       endDrawer: endDrawer,
-      backgroundColor: backgroundColor ?? cl.white,
+      backgroundColor: backgroundColor ?? color.white,
       body: shimmerEnabled ? Shimmer(child: body) : body,
       appBar: appBar,
       drawer: drawer,

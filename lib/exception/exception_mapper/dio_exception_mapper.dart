@@ -27,7 +27,7 @@ class DioExceptionMapper extends AppExceptionMapper<RemoteException> {
             rootException: exception,
           );
         case DioExceptionType.badResponse:
-          final httpErrorCode = exception.response?.statusCode ?? -1;
+          final dioStatusCode = exception.response?.statusCode ?? -1;
 
           /// server-defined error
           if (exception.response?.data != null) {
@@ -35,14 +35,14 @@ class DioExceptionMapper extends AppExceptionMapper<RemoteException> {
 
             return RemoteException(
               kind: RemoteExceptionKind.serverDefined,
-              httpErrorCode: httpErrorCode,
+              dioStatusCode: dioStatusCode,
               serverError: serverError,
             );
           }
 
           return RemoteException(
             kind: RemoteExceptionKind.serverUndefined,
-            httpErrorCode: httpErrorCode,
+            dioStatusCode: dioStatusCode,
             rootException: exception,
           );
         case DioExceptionType.badCertificate:

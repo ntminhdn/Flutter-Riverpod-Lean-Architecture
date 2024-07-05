@@ -13,4 +13,4 @@ if grep -q " • ERROR" <<< "$cmd"; then
     exit 1
 fi
 
-echo "*** super_lint: Error and Warnings checks passed successfully. ***"
+echo "*** super_lint: Success. ***"

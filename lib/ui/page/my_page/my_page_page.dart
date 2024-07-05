@@ -48,7 +48,7 @@ class MyPagePage extends BasePage<MyPageState,
                                 style: TextStyle(
                                   fontSize: 20.rps,
                                   fontWeight: FontWeight.w500,
-                                  color: cl.black,
+                                  color: color.black,
                                 ),
                               ),
                             ),
@@ -58,7 +58,7 @@ class MyPagePage extends BasePage<MyPageState,
                               child: Icon(
                                 Icons.local_police,
                                 size: 20.rps,
-                                color: cl.green1,
+                                color: color.green1,
                               ),
                             ),
                           ],
@@ -74,7 +74,7 @@ class MyPagePage extends BasePage<MyPageState,
               title: CommonText(
                 l10n.home,
                 style: TextStyle(
-                  color: cl.black,
+                  color: color.black,
                   fontSize: 14.rps,
                 ),
               ),
@@ -87,7 +87,7 @@ class MyPagePage extends BasePage<MyPageState,
               title: CommonText(
                 l10n.settings,
                 style: TextStyle(
-                  color: cl.black,
+                  color: color.black,
                   fontSize: 14.rps,
                 ),
               ),
@@ -100,7 +100,7 @@ class MyPagePage extends BasePage<MyPageState,
               title: CommonText(
                 l10n.logout,
                 style: TextStyle(
-                  color: cl.black,
+                  color: color.black,
                   fontSize: 14.rps,
                 ),
               ),
@@ -116,7 +116,7 @@ class MyPagePage extends BasePage<MyPageState,
               title: CommonText(
                 l10n.deleteAccount,
                 style: TextStyle(
-                  color: cl.black,
+                  color: color.black,
                   fontSize: 14.rps,
                 ),
               ),

@@ -31,7 +31,7 @@ class CommonText extends StatelessWidget {
   Widget build(BuildContext context) {
     final textWidget = enableLinkify
         ? Linkify(
-            text: text ?? (kDebugMode ? 'nil' : ''),
+            text: text ?? (kDebugMode ? '' : ''),
             style: style,
             maxLines: maxLines,
             overflow: overflow ?? TextOverflow.clip,
@@ -41,7 +41,7 @@ class CommonText extends StatelessWidget {
           )
         // ignore: prefer_common_widgets
         : Text(
-            text ?? 'nil',
+            text ?? '',
             style: style,
             maxLines: maxLines,
             overflow: overflow,

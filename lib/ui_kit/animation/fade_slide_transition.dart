@@ -23,7 +23,7 @@ class FadeSlideTransition extends StatelessWidget {
   late final Animatable<Offset> _slideInTransition = Tween<Offset>(
     begin: Offset(_dx, _dy),
     end: Offset.zero,
-  ).chain(CurveTween(curve: decelerateEasing));
+  ).chain(CurveTween(curve: Easing.legacyDecelerate));
 
   static final Animatable<double> _fadeOutTransition = Tween<double>(
     begin: 1.0,

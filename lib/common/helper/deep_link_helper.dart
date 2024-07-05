@@ -27,7 +27,7 @@ class DeepLinkHelper {
   StreamSubscription<String>? _appLinksSubscription;
 
   void listenToDeepLinks() {
-    _appLinksSubscription = appLinks.allStringLinkStream.listen((event) {
+    _appLinksSubscription = appLinks.stringLinkStream.listen((event) {
       if (event == Constant.resetPasswordLink && !_appPreferences.isLoggedIn) {
         _navigator.replaceAll([const LoginRoute()]);
       }

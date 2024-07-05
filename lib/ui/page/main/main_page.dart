@@ -66,10 +66,10 @@ class MainPage extends BasePage<MainState,
           },
           showSelectedLabels: true,
           showUnselectedLabels: true,
-          unselectedItemColor: cl.grey1,
-          selectedItemColor: cl.black,
+          unselectedItemColor: color.grey1,
+          selectedItemColor: color.black,
           type: BottomNavigationBarType.fixed,
-          backgroundColor: cl.white,
+          backgroundColor: color.white,
           items: BottomTab.values
               .map(
                 (tab) => BottomNavigationBarItem(

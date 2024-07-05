@@ -33,11 +33,7 @@ abstract class LoadMoreExecutor<T> with LogMixin {
         _output = LoadMoreOutput<T>(data: <T>[], page: initPage, offset: initOffset);
       }
       logD('LoadMoreInput: page: $page, offset: $offset');
-      final pagedList = await action(
-        page: page,
-        limit: limit,
-        params: params ?? {}
-      );
+      final pagedList = await action(page: page, limit: limit, params: params ?? {});
 
       final newOutput = _oldOutput.copyWith(
         data: pagedList.data,

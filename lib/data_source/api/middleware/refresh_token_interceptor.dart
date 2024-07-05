@@ -9,12 +9,12 @@ class RefreshTokenInterceptor extends BaseInterceptor {
   // ignore: prefer_named_parameters
   RefreshTokenInterceptor(
     this.appPreferences,
-    this.refreshTokenService,
+    this.refreshTokenApiClient,
     this.noneAuthAppServerApiClient,
   ) : super(InterceptorType.refreshToken);
 
   final AppPreferences appPreferences;
-  final RefreshTokenApiService refreshTokenService;
+  final RefreshTokenApiClient refreshTokenApiClient;
   final NoneAuthAppServerApiClient noneAuthAppServerApiClient;
 
   var _isRefreshing = false;
@@ -59,7 +59,7 @@ class RefreshTokenInterceptor extends BaseInterceptor {
   Future<String> _refreshToken() async {
     _isRefreshing = true;
     final refreshToken = await appPreferences.refreshToken;
-    final refreshTokenResponse = await refreshTokenService.refreshToken(refreshToken);
+    final refreshTokenResponse = await _callRefreshTokenApi(refreshToken);
     await appPreferences.saveAccessToken(
       refreshTokenResponse?.data?.accessToken ?? '',
     );
@@ -97,6 +97,31 @@ class RefreshTokenInterceptor extends BaseInterceptor {
       handler.resolve(response);
     } catch (e) {
       handler.next(DioException(requestOptions: options, error: e));
+    }
+  }
+
+  Future<DataResponse<ApiRefreshTokenData>?> _callRefreshTokenApi(String refreshToken) async {
+    try {
+      final respone = await refreshTokenApiClient
+          .request<ApiRefreshTokenData, DataResponse<ApiRefreshTokenData>>(
+        method: RestMethod.post,
+        path: 'v1/auth/refresh',
+        body: {
+          'refresh_token': refreshToken,
+        },
+        decoder: (json) => ApiRefreshTokenData.fromJson(json as Map<String, dynamic>),
+      );
+
+      return respone;
+    } catch (e) {
+      // TODO(minh): fix depend on project #0
+      if (e is RemoteException &&
+          (e.kind == RemoteExceptionKind.serverDefined ||
+              e.kind == RemoteExceptionKind.serverUndefined)) {
+        throw RemoteException(kind: RemoteExceptionKind.refreshTokenFailed);
+      }
+
+      rethrow;
     }
   }
 }

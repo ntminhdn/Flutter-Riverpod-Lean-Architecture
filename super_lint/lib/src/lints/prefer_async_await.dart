@@ -43,7 +43,7 @@ class PreferAsyncAwait extends OptionsLintRule<_PreferAsyncAwaitOption> {
       final methodName = node.methodName.name;
       if (methodName != 'then') return;
 
-      reporter.reportErrorForNode(code, node.methodName);
+      reporter.atNode(node.methodName, code);
     });
   }
 }

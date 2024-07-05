@@ -26,7 +26,6 @@ extension RefExt on Ref {
 
   // api
   AppApiService get appApiService => read(appApiServiceProvider);
-  RefreshTokenApiService get refreshTokenApiService => read(refreshTokenApiServiceProvider);
   LoadMoreUsersExecutor get loadMoreUsersExecutor => read(loadMoreUsersExecutorProvider);
 
   // firebase

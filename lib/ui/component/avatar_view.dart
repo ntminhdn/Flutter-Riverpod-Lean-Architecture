@@ -28,7 +28,7 @@ class AvatarView extends StatelessWidget {
     return CommonContainer(
       height: height,
       width: width,
-      color: backgroundColor ?? cl.black,
+      color: backgroundColor ?? color.black,
       border: SolidBorder.allRadius(radius: width / 2),
       child: Stack(
         children: [
@@ -39,7 +39,7 @@ class AvatarView extends StatelessWidget {
                   ts(
                     fontSize: 24.rps,
                     fontWeight: FontWeight.w700,
-                    color: cl.white,
+                    color: color.white,
                   ),
             ),
           ),
@@ -50,8 +50,8 @@ class AvatarView extends StatelessWidget {
               child: CommonContainer(
                 width: 14.rps,
                 height: 14.rps,
-                color: cl.green1,
-                border: SolidBorder.allRadius(radius: 7.rps, borderColor: cl.white),
+                color: color.green1,
+                border: SolidBorder.allRadius(radius: 7.rps, borderColor: color.white),
               ),
             ),
           ),

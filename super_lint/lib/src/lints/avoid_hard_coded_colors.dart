@@ -39,36 +39,36 @@ class AvoidHardCodedColors extends OptionsLintRule<_AvoidHardCodedColorsOption> 
                 for (var element in node.argumentList.arguments) {
                   if (element is NamedExpression) {
                     if (_isHardCoded(element.expression.toString())) {
-                      reporter.reportErrorForNode(code, element.expression);
+                      reporter.atNode(element.expression, code);
                     }
                   } else if (_isHardCoded(element.toString())) {
-                    reporter.reportErrorForNode(code, element);
+                    reporter.atNode(element, code);
                   }
                 }
               },
               onVisitVariableDeclaration: (VariableDeclaration node) {
                 if (node.initializer != null && _isHardCoded(node.initializer.toString())) {
-                  reporter.reportErrorForNode(code, node.initializer!);
+                  reporter.atNode(node.initializer!, code);
                 }
               },
               onVisitAssignmentExpression: (AssignmentExpression node) {
                 if (_isHardCoded(node.rightHandSide.toString())) {
-                  reporter.reportErrorForNode(code, node.rightHandSide);
+                  reporter.atNode(node.rightHandSide, code);
                 }
               },
               onVisitConstructorFieldInitializer: (ConstructorFieldInitializer node) {
                 if (_isHardCoded(node.expression.toString())) {
-                  reporter.reportErrorForNode(code, node.expression);
+                  reporter.atNode(node.expression, code);
                 }
               },
               onVisitSuperConstructorInvocation: (SuperConstructorInvocation node) {
                 for (var element in node.argumentList.arguments) {
                   if (element is NamedExpression) {
                     if (_isHardCoded(element.expression.toString())) {
-                      reporter.reportErrorForNode(code, element.expression);
+                      reporter.atNode(element.expression, code);
                     }
                   } else if (_isHardCoded(element.toString())) {
-                    reporter.reportErrorForNode(code, element);
+                    reporter.atNode(element, code);
                   }
                 }
               },
@@ -77,11 +77,11 @@ class AvoidHardCodedColors extends OptionsLintRule<_AvoidHardCodedColorsOption> 
                   if (element?.defaultValueCode != null &&
                       _isHardCoded(element!.defaultValueCode!)) {
                     if (element is DefaultFieldFormalParameterElementImpl) {
-                      reporter.reportErrorForNode(code, element.constantInitializer!);
+                      reporter.atNode(element.constantInitializer!, code);
                     } else if (element is DefaultParameterElementImpl) {
-                      reporter.reportErrorForNode(code, element.constantInitializer!);
+                      reporter.atNode(element.constantInitializer!, code);
                     } else {
-                      reporter.reportErrorForNode(code, node);
+                      reporter.atNode(node, code);
                     }
                   }
                 }
@@ -90,10 +90,10 @@ class AvoidHardCodedColors extends OptionsLintRule<_AvoidHardCodedColorsOption> 
                 for (var element in node.arguments) {
                   if (element is NamedExpression) {
                     if (_isHardCoded(element.expression.toString())) {
-                      reporter.reportErrorForNode(code, element.expression);
+                      reporter.atNode(element.expression, code);
                     }
                   } else if (_isHardCoded(element.toString())) {
-                    reporter.reportErrorForNode(code, element);
+                    reporter.atNode(element, code);
                   }
                 }
               },

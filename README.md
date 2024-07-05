@@ -56,11 +56,6 @@ Including Unit Tests, Widget Tests, Golden Tests, and Integration Tests
 
 ### 1. Config multi-flavors and Firebase
 
-- Current Project Settings:
-    - min Android OS: 26 (android 8)
-    - min iOS OS: 13.0
-    - Production Bundle id (application id): jp.flutter.app
-
 - Change flavor settings:
     - Replace all `jp.flutter.app` by your project bundle id (application id)
     - Config flavors for Android at [build.gradle](android/build.gradle)

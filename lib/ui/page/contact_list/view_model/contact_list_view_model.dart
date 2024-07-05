@@ -68,7 +68,7 @@ class ContactListViewModel extends BaseViewModel<ContactListState> {
       action: () async {
         await _ref.sharedViewModel.deleteConversation(conversation);
       },
-      doBeforeHandlingError: (e) async {
+      doOnError: (e) async {
         data = data.copyWith(
           conversationList: data.conversationList.plus(conversation),
         );

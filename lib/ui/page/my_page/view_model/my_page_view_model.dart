@@ -34,7 +34,7 @@ class MyPageViewModel extends BaseViewModel<MyPageState> {
         await _ref.nav.replaceAll([const LoginRoute()]);
       },
       handleErrorWhen: (_) => false,
-      doBeforeHandlingError: (e) async {
+      doOnError: (e) async {
         await _ref.nav.replaceAll([const LoginRoute()]);
       },
     );

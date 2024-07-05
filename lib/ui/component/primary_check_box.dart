@@ -45,8 +45,8 @@ class PrimaryCheckBox extends StatelessWidget {
               width: 36.rps,
               height: 36.rps,
               child: Checkbox(
-                checkColor: cl.white,
-                activeColor: cl.black,
+                checkColor: color.white,
+                activeColor: color.black,
                 value: _checked,
                 onChanged: isEnabled
                     ? (value) {

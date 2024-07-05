@@ -68,7 +68,7 @@ class RenameConversationPage extends BasePage<
                                 child: CommonText(
                                   members[index].email,
                                   style: ts(
-                                    color: cl.black,
+                                    color: color.black,
                                     fontSize: 16.rps,
                                   ),
                                 ),
@@ -77,7 +77,7 @@ class RenameConversationPage extends BasePage<
                                 child: Icon(
                                   Icons.edit,
                                   size: 20.rps,
-                                  color: cl.black,
+                                  color: color.black,
                                 ),
                                 onTap: () async {
                                   await ref.read(appNavigatorProvider).showDialog(

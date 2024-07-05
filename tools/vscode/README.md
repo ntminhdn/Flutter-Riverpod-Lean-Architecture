@@ -357,7 +357,7 @@ Future<XXX> get() {
 * `fr` - Freezed model class
 * `am` - API data model class
 * `fm` - Firebase data model class
-* `im` - Isar data model class
+* `ism` - Isar data model class
 * `om` - ObjectBox data model class
 
 ## 3.2. Mapper
@@ -374,14 +374,15 @@ Future<XXX> get() {
 * `fi`: `https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067_1280.png`
 * `po`: `EdgeInsets.only(xx: yy.rps)`
 * `di`: `xx.rps`
-* `cl`: `cl.xx`
+* `co`: `color.xx`
+* `im`: `image.xx`
 * `ts`: `ts(fontSize: xx.rps, color: cl.yy,)`
 * `ln`: `l10n.xx`
 * `ue`: `useEffect(() {Future.microtask(() {})...`
 
 ## 3.4. ViewModel
 
-- `rc` - `Future<void> get() async { await runCatching(action: () async {}...` in ViewModel classes
+- `rc` - `await runCatching(action: () async {}...` in ViewModel classes
 
 ## 3.5. Shared Preferences
 
