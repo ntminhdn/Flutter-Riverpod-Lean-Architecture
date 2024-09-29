@@ -63,7 +63,7 @@ class ChatViewModel extends BaseViewModel<ChatState> with LogMixin {
       conversationId: data.conversation.id,
     );
 
-    Log.d('load more firestore messages: $messages');
+    Log.d('load more firestore messages: $messages'.hardcoded);
 
     final isLastPage = messages.length < Constant.itemsPerPage;
 
@@ -76,11 +76,11 @@ class ChatViewModel extends BaseViewModel<ChatState> with LogMixin {
     _messagesSubscription?.cancel();
     _messagesSubscription = _ref.appDatabase.getMessagesStream(data.conversation.id).listen(
       (event) {
-        logD('new local message event: $event');
+        logD('new local message event: $event'.hardcoded);
         data = data.copyWith(messages: event);
       },
       onError: (e) {
-        Log.d('getNewLocalMessageStream error by $e');
+        Log.d('getNewLocalMessageStream error by $e'.hardcoded);
       },
     );
   }
@@ -106,7 +106,7 @@ class ChatViewModel extends BaseViewModel<ChatState> with LogMixin {
     ).listen(
       (event) {},
       onError: (e) {
-        Log.d('listenTomessagesFromFirestore error by $e');
+        Log.d('listenTomessagesFromFirestore error by $e'.hardcoded);
       },
     );
   }
@@ -116,7 +116,7 @@ class ChatViewModel extends BaseViewModel<ChatState> with LogMixin {
     _conversationSubscription =
         _ref.firebaseFirestoreService.getConversationDetailStream(data.conversation.id).listen(
       (event) {
-        Log.d('getConversationDetailStream event: $event');
+        Log.d('getConversationDetailStream event: $event'.hardcoded);
         if (event != null) {
           data = data.copyWith(
             conversation: event,
@@ -125,7 +125,7 @@ class ChatViewModel extends BaseViewModel<ChatState> with LogMixin {
         }
       },
       onError: (e) {
-        Log.d('listenToConversationDetail error by $e');
+        Log.d('listenToConversationDetail error by $e'.hardcoded);
       },
     );
   }

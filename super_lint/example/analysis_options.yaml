@@ -34,3 +34,15 @@ custom_lint:
       test_folder_paths:
         - "lib/test_folder_must_mirror_lib_folder_test/test/ut"
         - "lib/test_folder_must_mirror_lib_folder_test/it"
+    - incorrect_parent_class:
+      severity: warning
+      class_post_fixes:
+        - 'Page'
+        - 'Screen'
+      parent_class_pre_fixes:
+        - 'Base'
+        - 'Abstract'
+    - prefer_importing_index_file:
+      severity: warning
+    - missing_expanded_or_flexible:
+      severity: warning

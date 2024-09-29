@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../index.dart';
+import '../../index.dart';
 
 class CommonPopup {
   const CommonPopup._({
@@ -21,7 +21,7 @@ class CommonPopup {
     String message,
   ) {
     return CommonPopup._(
-      id: 'errorDialog_$message',
+      id: 'errorDialog_$message'.hardcoded,
       builder: (context, navigator) => AlertDialog.adaptive(
         actions: [
           TextButton(
@@ -48,7 +48,7 @@ class CommonPopup {
     String? cancelButtonText,
   }) {
     return CommonPopup._(
-      id: 'confirmDialog_$message',
+      id: 'confirmDialog_$message'.hardcoded,
       builder: (context, navigator) => AlertDialog.adaptive(
         title: CommonText(
           message,
@@ -82,7 +82,7 @@ class CommonPopup {
     required VoidCallback onRetryPressed,
   }) {
     return CommonPopup._(
-      id: 'errorWithRetryDialog_$message',
+      id: 'errorWithRetryDialog_$message'.hardcoded,
       builder: (context, navigator) => AlertDialog.adaptive(
         actions: [
           TextButton(
@@ -115,7 +115,7 @@ class CommonPopup {
     String message,
   ) {
     return CommonPopup._(
-      id: 'infoDialog_$message',
+      id: 'infoDialog_$message'.hardcoded,
       builder: (context, navigator) => AlertDialog.adaptive(
         actions: [
           TextButton(
@@ -227,7 +227,7 @@ class CommonPopup {
 
   static CommonPopup changeImageOptionsBottomSheet() {
     return CommonPopup._(
-      id: 'changeImageOptionsBottomSheet',
+      id: 'changeImageOptionsBottomSheet'.hardcoded,
       builder: (context, navigator) => CupertinoAlertDialog(
         actions: [
           CupertinoDialogAction(
@@ -251,7 +251,7 @@ class CommonPopup {
 
   static CommonPopup successSnackBar(String message) {
     return CommonPopup._(
-      id: 'successSnackBar_$message',
+      id: 'successSnackBar_$message'.hardcoded,
       builder: (context, navigator) => SnackBar(
         content: CommonText(
           message,
@@ -265,7 +265,7 @@ class CommonPopup {
 
   static CommonPopup errorSnackBar(String message) {
     return CommonPopup._(
-      id: 'errorSnackBar_$message',
+      id: 'errorSnackBar_$message'.hardcoded,
       builder: (context, navigator) => SnackBar(
         content: CommonText(
           message,
@@ -282,7 +282,7 @@ class CommonPopup {
     required Function(String nameChanged) onSubmit,
   }) {
     return CommonPopup._(
-      id: 'renameConversationDialog_$email',
+      id: 'renameConversationDialog_$email'.hardcoded,
       builder: (context, navigator) {
         String nickname = '';
 

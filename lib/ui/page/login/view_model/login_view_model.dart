@@ -50,7 +50,7 @@ class LoginViewModel extends BaseViewModel<LoginState> {
 
         final deviceToken = await _ref.sharedViewModel.deviceToken;
 
-        Log.d('deviceToken: $deviceToken');
+        Log.d('deviceToken: $deviceToken'.hardcoded);
 
         await Future.wait([
           _ref.appPreferences.saveUserId(userId),
