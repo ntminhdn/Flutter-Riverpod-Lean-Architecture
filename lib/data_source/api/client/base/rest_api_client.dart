@@ -15,12 +15,12 @@ class RestApiClient {
   final ErrorResponseDecoderType errorResponseDecoderType;
   final Dio dio;
 
-  Future<T?> request<D extends Object, T extends Object>({
+  Future<FinalOutput?> request<FirstOutput extends Object, FinalOutput extends Object>({
     required RestMethod method,
     required String path,
     Map<String, dynamic>? queryParameters,
     Object? body,
-    Decoder<D>? decoder,
+    Decoder<FirstOutput>? decoder,
     SuccessResponseDecoderType? successResponseDecoderType,
     ErrorResponseDecoderType? errorResponseDecoderType,
     Options? options,
@@ -52,7 +52,16 @@ class RestApiClient {
         return null;
       }
 
-      return BaseSuccessResponseDecoder<D, T>.fromType(
+      // There are 2 steps to decode response:
+      // Step 1: decoder: covert BE's response (Object?) to FirstOutput
+      // Step 2: BaseSuccessResponseDecoder<FirstOutput, FinalOutput>.fromType(): convert FirstOutput to FinalOutput
+      // Ex:
+      // Future<DataResponse<ApiUserData>?> getMe() {
+      //   return _apiClient.request<ApiUserData, DataResponse<ApiUserData>>(
+      //     decoder: (json) => ApiUserData.fromJson(json as Map<String, dynamic>),
+      //   );
+      // }
+      return BaseSuccessResponseDecoder<FirstOutput, FinalOutput>.fromType(
         successResponseDecoderType ?? this.successResponseDecoderType,
       ).map(response: response.data, decoder: decoder);
     } catch (error) {

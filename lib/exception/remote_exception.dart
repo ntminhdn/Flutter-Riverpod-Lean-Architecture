@@ -19,19 +19,20 @@ class RemoteException extends AppException {
         RemoteExceptionKind.noInternet => l10n.noInternetException,
         RemoteExceptionKind.network => l10n.canNotConnectToHost,
         RemoteExceptionKind.serverDefined => generalServerMessage ?? l10n.unknownException('UE-02'),
-        RemoteExceptionKind.serverUndefined =>
-          generalServerMessage ?? l10n.unknownException('UE-03'),
+        RemoteExceptionKind.serverUndefined => l10n.unknownException('UE-03'),
         RemoteExceptionKind.timeout => l10n.timeoutException,
         RemoteExceptionKind.cancellation => l10n.unknownException('UE-04'),
         RemoteExceptionKind.unknown => l10n.unknownException('UE-05'),
         RemoteExceptionKind.refreshTokenFailed => l10n.tokenExpired,
         RemoteExceptionKind.decodeError => l10n.unknownException('UE-06'),
+        RemoteExceptionKind.serverMaintenance => l10n.maintenanceTitle,
       };
 
   @override
   AppExceptionAction get action {
     return switch (kind) {
-      RemoteExceptionKind.refreshTokenFailed => AppExceptionAction.showDialogForceLogout,
+      RemoteExceptionKind.refreshTokenFailed => AppExceptionAction.showForceLogoutDialog,
+      RemoteExceptionKind.serverMaintenance => AppExceptionAction.showMaintenanceDialog,
       RemoteExceptionKind.serverDefined ||
       RemoteExceptionKind.serverUndefined =>
         AppExceptionAction.showDialog,
@@ -39,9 +40,18 @@ class RemoteException extends AppException {
       RemoteExceptionKind.network ||
       RemoteExceptionKind.timeout =>
         AppExceptionAction.showDialogWithRetry,
-      _ => AppExceptionAction.doNothing,
+      RemoteExceptionKind.badCertificate ||
+      RemoteExceptionKind.decodeError ||
+      RemoteExceptionKind.cancellation ||
+      RemoteExceptionKind.unknown =>
+        AppExceptionAction.doNothing,
     };
   }
+
+  @override
+  bool get isForcedErrorToHandle =>
+      kind == RemoteExceptionKind.refreshTokenFailed ||
+      kind == RemoteExceptionKind.serverMaintenance;
 
   int get generalServerStatusCode =>
       serverError?.generalServerStatusCode ??
@@ -66,21 +76,26 @@ class RemoteException extends AppException {
       generalServerMessage: $generalServerMessage,
       generalServerStatusCode: $generalServerStatusCode,
       generalServerErrorId: $generalServerErrorId,
+      isForcedErrorToHandle: $isForcedErrorToHandle,
       stackTrace: ${rootException is Error ? (rootException as Error).stackTrace : ''}
 )''';
   }
 }
 
 enum RemoteExceptionKind {
+  /// errors that can retry
   noInternet,
+  timeout,
+  network, // host not found, cannot connect to host, SocketException
 
-  /// host not found, cannot connect to host, SocketException
-  network,
-
-  /// server has defined response
+  /// server has defined response like 4xx errors
   serverDefined,
 
-  /// server has not defined response
+  /// specific serverDefined errors need to be handled in separate ways
+  refreshTokenFailed,
+  serverMaintenance,
+
+  /// server has not defined response like 5xx errors
   serverUndefined,
 
   /// Caused by an incorrect certificate as configured by [ValidateCertificate]
@@ -89,8 +104,7 @@ enum RemoteExceptionKind {
   /// error occurs when passing JSON
   decodeError,
 
-  refreshTokenFailed,
-  timeout,
+  // other errors
   cancellation,
   unknown,
 }

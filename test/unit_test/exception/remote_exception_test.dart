@@ -87,7 +87,7 @@ void main() {
     test('when kind is RemoteExceptionKind.refreshTokenFailed', () async {
       expect(
         RemoteException(kind: RemoteExceptionKind.refreshTokenFailed).action,
-        AppExceptionAction.showDialogForceLogout,
+        AppExceptionAction.showForceLogoutDialog,
       );
     });
 
