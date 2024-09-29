@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../decoration/slide_anim_direction.dart';
+import '../../index.dart';
 
 class FadeSlideTransition extends StatelessWidget {
   FadeSlideTransition({

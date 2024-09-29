@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../index.dart';
@@ -29,58 +28,55 @@ class ExceptionHandler {
 
     switch (appException.action) {
       case AppExceptionAction.showSnackBar:
-        _showErrorSnackBar(appException.message);
+        _ref.nav.showSnackBar(CommonPopup.errorSnackBar(appException.message));
         break;
       case AppExceptionAction.showDialog:
-        await _showErrorDialog(message: appException.message);
-        break;
-      case AppExceptionAction.showDialogWithRetry:
-        await _showErrorDialogWithRetry(
-          message: appException.message,
-          onRetryPressed: () async {
-            await _ref.nav.pop();
-            await appException.onRetry?.call();
-          },
+        await _ref.nav.showDialog(
+          CommonPopup.errorDialog(appException.message),
         );
         break;
-      case AppExceptionAction.showDialogForceLogout:
-        await _showErrorDialog(
-          message: appException.message,
-          forceLogout: true,
+      case AppExceptionAction.showDialogWithRetry:
+        await _ref.nav.showDialog(
+          CommonPopup.errorWithRetryDialog(
+            message: appException.message,
+            onRetryPressed: () async {
+              await appException.onRetry?.call();
+            },
+          ),
+        );
+        break;
+      case AppExceptionAction.showForceLogoutDialog:
+        await _ref.nav.showDialog(
+          CommonPopup.errorDialog(appException.message),
+        );
+        try {
+          await _ref.sharedViewModel.forceLogout();
+        } catch (e) {
+          Log.e('force logout error: $e');
+          await _ref.nav.replaceAll([const LoginRoute()]);
+        }
+        break;
+      case AppExceptionAction.showNonCancelableDialog:
+        await _ref.nav.showDialog(
+          CommonPopup.errorDialog(
+            appException.message,
+          ),
+          barrierDismissible: false,
+          canPop: false,
+        );
+        break;
+      case AppExceptionAction.showMaintenanceDialog:
+        await _ref.nav.showDialog(
+          CommonPopup.maintenanceModeDialog(
+            message: appException.message,
+            time: appException.message,
+          ),
+          barrierDismissible: false,
+          canPop: false,
         );
         break;
       case AppExceptionAction.doNothing:
         break;
     }
-  }
-
-  void _showErrorSnackBar(String message) {
-    _ref.nav.showSnackBar(CommonPopup.errorSnackBar(message));
-  }
-
-  Future<void> _showErrorDialog({
-    required String message,
-    bool forceLogout = false,
-  }) async {
-    await _ref.nav.showDialog(
-      CommonPopup.errorDialog(message),
-    );
-    if (forceLogout) {
-      try {
-        await _ref.sharedViewModel.forceLogout();
-      } catch (e) {
-        Log.e('force logout error: $e');
-        await _ref.nav.replaceAll([const LoginRoute()]);
-      }
-    }
-  }
-
-  Future<void> _showErrorDialogWithRetry({
-    required String message,
-    required VoidCallback? onRetryPressed,
-  }) async {
-    await _ref.nav.showDialog(
-      CommonPopup.errorWithRetryDialog(message: message, onRetryPressed: onRetryPressed),
-    );
   }
 }

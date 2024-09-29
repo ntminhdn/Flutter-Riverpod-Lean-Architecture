@@ -99,8 +99,7 @@ abstract class BaseViewModel<S extends BaseState> extends StateNotifier<CommonSt
       await doOnSuccessOrError?.call();
       await doOnError?.call(appException);
 
-      if (handleErrorWhen?.call(appException) != false ||
-          appException.action == AppExceptionAction.showDialogForceLogout) {
+      if (handleErrorWhen?.call(appException) != false || appException.isForcedErrorToHandle) {
         final shouldRetryAutomatically = handleRetryWhen?.call(appException) != false &&
             (maxRetries == null || maxRetries - 1 >= 0);
         final shouldDoBeforeRetrying = doOnRetry != null;

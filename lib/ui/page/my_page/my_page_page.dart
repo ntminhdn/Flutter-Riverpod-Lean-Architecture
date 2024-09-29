@@ -105,9 +105,9 @@ class MyPagePage extends BasePage<MyPageState,
                 ),
               ),
               onTap: () {
-                ref.read(appNavigatorProvider).showDialog(CommonPopup.yesNoDialog(
+                ref.read(appNavigatorProvider).showDialog(CommonPopup.confirmDialog(
                       message: l10n.logoutConfirm,
-                      onPressed: () => ref.read(provider.notifier).logout(),
+                      onConfirm: () => ref.read(provider.notifier).logout(),
                     ));
               },
             ),
@@ -121,9 +121,9 @@ class MyPagePage extends BasePage<MyPageState,
                 ),
               ),
               onTap: () {
-                ref.read(appNavigatorProvider).showDialog(CommonPopup.yesNoDialog(
+                ref.read(appNavigatorProvider).showDialog(CommonPopup.confirmDialog(
                       message: l10n.deleteAccountConfirm,
-                      onPressed: () {
+                      onConfirm: () {
                         ref.read(provider.notifier).deleteAccount();
                       },
                     ));

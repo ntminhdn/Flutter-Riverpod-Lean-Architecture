@@ -1,4 +1,4 @@
-import '../app_exception.dart';
+import '../../index.dart';
 
 abstract class AppExceptionMapper<T extends AppException> {
   T map(Object? exception);

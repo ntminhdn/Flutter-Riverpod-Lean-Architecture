@@ -13,6 +13,8 @@ abstract class AppException implements Exception {
 
   bool get recordError => false;
 
+  bool get isForcedErrorToHandle => false;
+
   @override
   String toString() {
     return 'rootException: $rootException, message: $message, action: $action';
@@ -23,6 +25,8 @@ enum AppExceptionAction {
   showSnackBar,
   showDialog,
   showDialogWithRetry,
-  showDialogForceLogout,
+  showForceLogoutDialog,
+  showNonCancelableDialog,
+  showMaintenanceDialog,
   doNothing,
 }

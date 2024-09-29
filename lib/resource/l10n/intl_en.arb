@@ -29,6 +29,8 @@
   "login": "Login",
   "logout": "Logout",
   "logoutConfirm": "Are you sure you want to log out?",
+  "maintenanceTimeTitle": "メンテナンス期間",
+  "maintenanceTitle": "Server is under maintenance.",
   "members": "Members",
   "myPage": "My Page",
   "no": "No",

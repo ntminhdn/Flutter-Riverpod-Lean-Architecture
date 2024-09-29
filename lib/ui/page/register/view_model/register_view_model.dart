@@ -65,7 +65,7 @@ class RegisterViewModel extends BaseViewModel<RegisterState> {
 
         final deviceToken = await _ref.sharedViewModel.deviceToken;
         final deviceId = await _ref.deviceHelper.deviceId;
-        Log.d('deviceToken: $deviceToken');
+        Log.d('deviceToken: $deviceToken'.hardcoded);
 
         await Future.wait([
           _ref.appPreferences.saveUserId(userId),
