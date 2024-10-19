@@ -322,7 +322,7 @@ remove_dup_l10n:
 pod:
 	make cl
 	make pg
-	cd ios && rm -rf Pods && rm Podfile.lock && pod install --repo-update
+	cd ios && rm -rf Pods && rm -f Podfile.lock && pod install --repo-update
 
 pu:
 	flutter pub upgrade

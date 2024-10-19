@@ -166,27 +166,16 @@ Input:
 ```
 Output:
 ```
-@Default(Readme.defaultId)  @JsonKey(name: 'id') int id,
-@Default(Readme.defaultEmail)  @JsonKey(name: 'email') String email,
-@Default(Readme.defaultCreatedAt)  @JsonKey(name: 'created_at') String createdAt,
-@Default(Readme.defaultAverageMark)  @JsonKey(name: 'average_mark') double averageMark,
-@Default(Readme.defaultRoles)  @JsonKey(name: 'roles') List<String> roles,
-@Default(Readme.defaultIsVip)  @JsonKey(name: 'isVIP') bool isVip,
-@Default(Readme.defaultMarks)  @JsonKey(name: 'marks') List<double> marks,
-@Default(Readme.defaultFriendIds)  @JsonKey(name: 'friend_ids') List<int> friendIds,
-@Default(Readme.defaultName)  @JsonKey(name: 'name') dynamic name,
-@Default(Readme.defaultClassifies)  @JsonKey(name: 'classifies') String classifies,
-
-static const int defaultId = 0;
-static const String defaultEmail = '';
-static const String defaultCreatedAt = '';
-static const double defaultAverageMark = 0.0;
-static const List<String> defaultRoles = <String>[];
-static const bool defaultIsVip = false;
-static const List<double> defaultMarks = <double>[];
-static const List<int> defaultFriendIds = <int>[];
-static const dynamic defaultName = null;
-static const String defaultClassifies = '';
+@Default(0)  @JsonKey(name: 'id') int id,
+@Default('')  @JsonKey(name: 'email') String email,
+@Default('')  @JsonKey(name: 'created_at') String createdAt,
+@Default(0.0)  @JsonKey(name: 'average_mark') double averageMark,
+@Default(<String>[])  @JsonKey(name: 'roles') List<String> roles,
+@Default(false)  @JsonKey(name: 'isVIP') bool isVip,
+@Default(<double>[])  @JsonKey(name: 'marks') List<double> marks,
+@Default(<int>[])  @JsonKey(name: 'friend_ids') List<int> friendIds,
+@Default(null)  @JsonKey(name: 'name') dynamic name,
+@Default('')  @JsonKey(name: 'classifies') String classifies,
 ```
 
 ### 2.5. nals:[API] Json to Params
@@ -357,8 +346,7 @@ Future<XXX> get() {
 * `fr` - Freezed model class
 * `am` - API data model class
 * `fm` - Firebase data model class
-* `ism` - Isar data model class
-* `om` - ObjectBox data model class
+* `im` - Isar data model class
 
 ## 3.2. Mapper
 
@@ -375,8 +363,8 @@ Future<XXX> get() {
 * `po`: `EdgeInsets.only(xx: yy.rps)`
 * `di`: `xx.rps`
 * `co`: `color.xx`
-* `im`: `image.xx`
-* `ts`: `ts(fontSize: xx.rps, color: cl.yy,)`
+* `img`: `image.xx`
+* `ts`: `ts(fontSize: xx.rps, color: color.yy,)`
 * `ln`: `l10n.xx`
 * `ue`: `useEffect(() {Future.microtask(() {})...`
 
@@ -400,5 +388,5 @@ Future<XXX> get() {
 
 ## 3.7. Others
 
-- `dl` - `Future<dynamic>.delayed(const Duration(milliseconds: xx))`
+- `dl` - `await Future<dynamic>.delayed(const Duration(milliseconds: xx))`
 - `pr` - Riverpod provider `Provider.autoDispose<...>((ref) => ...)`

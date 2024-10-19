@@ -22,7 +22,7 @@ dependencies:
   chatview:
     git:
       url: https://github.com/minhnt3/flutter_chatview.git
-      ref: improve
+      ref: main
   clock: 1.1.1
   cloud_firestore: 4.14.0
   connectivity_plus: 5.0.2
