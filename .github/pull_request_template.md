@@ -3,7 +3,7 @@
 ## Checklist
 * [ ] Self test
 * [ ] Self review PR
-* [ ] Checked on small screens
+* [ ] Checked UI on small screens
 
 ## Notes (optional)
 

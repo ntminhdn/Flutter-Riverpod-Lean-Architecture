@@ -72,7 +72,6 @@ custom_lint:
         - "lib/navigation/routes/app_router.dart"
         - "lib/ui/base/*.dart"
     - missing_expanded_or_flexible:
-      severity: info
     - prefer_importing_index_file:
       excludes:
         - "test/*.dart"
