@@ -29,6 +29,14 @@ class DioExceptionMapper extends AppExceptionMapper<RemoteException> {
         case DioExceptionType.badResponse:
           final dioStatusCode = exception.response?.statusCode ?? -1;
 
+          if (dioStatusCode == HttpStatus.serviceUnavailable) {
+            return RemoteException(
+              kind: RemoteExceptionKind.serverMaintenance,
+              dioStatusCode: dioStatusCode,
+              rootException: exception,
+            );
+          }
+
           /// server-defined error
           if (exception.response?.data != null) {
             final serverError = _errorResponseDecoder.map(exception.response!.data!);
@@ -47,6 +55,7 @@ class DioExceptionMapper extends AppExceptionMapper<RemoteException> {
             };
           }
 
+          /// other server errors that doesn't have response data like 5xx errors
           return RemoteException(
             kind: RemoteExceptionKind.serverUndefined,
             dioStatusCode: dioStatusCode,

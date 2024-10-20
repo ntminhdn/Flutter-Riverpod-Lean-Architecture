@@ -62,8 +62,23 @@ custom_lint:
         - "test/widget_test"
     - avoid_hard_coded_strings:
       includes:
+        - "lib/ui/component/**/*.dart"
         - "lib/ui/component/*.dart"
         - "lib/ui/page/**/*_page.dart"
+        - "lib/ui/page/**/view_model/*.dart"
+        - "lib/ui/page/**/*_dialog.dart"
+    - incorrect_parent_class:
+      excludes:
+        - "lib/navigation/routes/app_router.dart"
+        - "lib/ui/base/*.dart"
+    - missing_expanded_or_flexible:
+      severity: info
+    - prefer_importing_index_file:
+      excludes:
+        - "test/*.dart"
+        - "test/**/*.dart"
+        - "integration_test/*.dart"
+        - "integration_test/**/*.dart"
 
 dart_code_metrics:
   metrics:

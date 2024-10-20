@@ -17,6 +17,9 @@ class _SuperLintPlugin extends PluginBase {
       AvoidHardCodedColors(configs),
       PreferCommonWidgets(configs),
       AvoidHardCodedStrings(configs),
+      IncorrectParentClass(configs),
+      MissingExpandedOrFlexible(configs),
+      PreferImportingIndexFile(configs),
     ];
   }
 }

@@ -48,20 +48,22 @@ class MainViewModel extends BaseViewModel<MainState> {
   void listenToCurrentUser() {
     currentUserSubscription?.cancel();
     final userId = _ref.appPreferences.userId;
-    currentUserSubscription =
-        _ref.firebaseFirestoreService.getUserDetailStream(userId).listen((user) async {
-      // user deleted - force logout
-      if (user.id.isEmpty) {
-        await _ref.nav.showDialog(
-          CommonPopup.forceLogout(l10n.forceLogout),
-        );
-        await _ref.appPreferences.clearCurrentUserData();
-        _updateCurrentUser(const FirebaseUserData());
-        await _ref.nav.replaceAll([const LoginRoute()]);
-      } else {
-        _updateCurrentUser(user);
-      }
-    });
+    if (userId.isNotEmpty) {
+      currentUserSubscription =
+          _ref.firebaseFirestoreService.getUserDetailStream(userId).listen((user) async {
+        // user deleted - force logout
+        if (user.id.isEmpty) {
+          await _ref.nav.showDialog(
+            CommonPopup.infoDialog(l10n.forceLogout),
+          );
+          await _ref.appPreferences.clearCurrentUserData();
+          _updateCurrentUser(const FirebaseUserData());
+          await _ref.nav.replaceAll([const LoginRoute()]);
+        } else {
+          _updateCurrentUser(user);
+        }
+      });
+    }
   }
 
   Future<void> initLocalPushNotification() async {

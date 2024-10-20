@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: prefer_importing_index_file
 import 'di.config.dart';
 import 'index.dart';
 

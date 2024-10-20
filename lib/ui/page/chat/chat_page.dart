@@ -106,7 +106,9 @@ class ChatPage extends BasePage<ChatState,
               text: l10n.deleteThisConversation,
               action: () async {
                 final isConfirm = await ref.read(appNavigatorProvider).showDialog(
-                      CommonPopup.confirmDialog(l10n.doYouWantToDeleteThisConversation),
+                      CommonPopup.confirmDialog(
+                        message: l10n.doYouWantToDeleteThisConversation,
+                      ),
                     );
                 if (isConfirm == true) {
                   unawaited(ref.read(provider.notifier).deleteConversation());

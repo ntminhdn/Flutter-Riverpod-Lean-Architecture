@@ -151,7 +151,9 @@ class ContactListPage extends BasePage<ContactListState,
                           },
                           confirmDismiss: (direction) async {
                             return await ref.read(appNavigatorProvider).showDialog(
-                                  CommonPopup.confirmDialog(l10n.deleteConversationConfirm),
+                                  CommonPopup.confirmDialog(
+                                    message: l10n.deleteConversationConfirm,
+                                  ),
                                 );
                           },
                           child: Padding(

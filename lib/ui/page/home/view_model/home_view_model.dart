@@ -42,7 +42,7 @@ class HomeViewModel extends BaseViewModel<HomeState> {
         data = data.copyWith(isShimmerLoading: false);
       },
       handleLoading: false,
-      handleErrorWhen: (e) => false,
+      handleErrorWhen: (_) => false,
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'server_error_detail.dart';
+import '../../index.dart';
 
 part 'server_error.freezed.dart';
 
