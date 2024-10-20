@@ -1,3 +1,4 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
 export 'app_initializer.dart';
 export 'common/config.dart';
 export 'common/constant.dart';
