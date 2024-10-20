@@ -23,12 +23,17 @@ A VSCode extension used for this code base.
 
 - [3. Snippets](#3-snippets)
     - [3.1. Data model](#31-data-model)
-    - [3.2. Mapper](#32-mapper)
-    - [3.3. UI](#33-ui)
+    - [3.2. UI](#32-ui)
+    - [3.3. Shared Preferences](#33-shared-preferences)
     - [3.4. ViewModel](#34-viewmodel)
-    - [3.5. Shared Preferences](#35-shared-preferences)
-    - [3.6. Testing](#36-testing)
-    - [3.7. Others](#37-others)
+    - [3.5. Mapper](#35-mapper)
+    - [3.6. Load More Executor](#36-load-more-executor)
+    - [3.7. Testing](#37-testing)
+    - [3.8. Others](#38-others)
+    
+- [4. Quick Fix](#4-quick-fix)
+    - [4.1. Wrap with Widget](#41-wrap-with-widget)
+    - [4.2. Convert to Widget](#42-convert-to-widget)
 
 ## Installation guide
 [Installation guide](https://www.alphr.com/vs-code-how-to-install-extensions/#:~:text=Open%20the%20%E2%80%9CExtensions%E2%80%9D%20sidebar%20(you%20can%20use%20%E2%80%9CCtrl%2BShift%2BX%E2%80%9D))
@@ -341,19 +346,22 @@ Future<XXX> get() {
 
 ## 3. Snippets
 
-## 3.1. Data model
+### 3.1. Data model
 
 * `fr` - Freezed model class
 * `am` - API data model class
 * `fm` - Firebase data model class
 * `im` - Isar data model class
 
-## 3.2. Mapper
+### 3.2. UI
 
-* `mp` - API data to Local data mapper class
-
-## 3.3. UI
-
+* `sl`: A widget that extends `StatelessWidget`
+* `sf`: A widget that extends `StatefulWidget`
+* `hk`: A widget that extends `HookWidget`
+* `hc`: A widget that extends `HookConsumerWidget`
+* `hs`: A widget that extends `StatefulHookConsumerWidget`
+* `bp`: A widget that extends `BasePage`
+* `bs`: A widget that extends `StatefulHookConsumerWidget` and a class that extends `BaseStatefulPageState`
 * `pa`: `EdgeInsets.all(xx.rps)`
 * `pv`: `EdgeInsets.symmetric(vertical: xx.rps,)`
 * `ph`: `EdgeInsets.symmetric(horizontal: xx.rps,)`
@@ -364,29 +372,59 @@ Future<XXX> get() {
 * `di`: `xx.rps`
 * `co`: `color.xx`
 * `img`: `image.xx`
-* `ts`: `ts(fontSize: xx.rps, color: color.yy,)`
+* `st`: `style(fontSize: xx.rps, color: color.yy,)`
 * `ln`: `l10n.xx`
 * `ue`: `useEffect(() {Future.microtask(() {})...`
+* `sd`: `await ref.nav.showDialog(CommonPopup.xxx());`
+* `ssb`: `ref.nav.showSnackBar(CommonPopup.xxx());`
+* `sbs`: `await ref.nav.showModalBottomSheet(CommonPopup.xxx());`
+* `sb`: `SchedulerBinding.instance.addPostFrameCallback...`
 
-## 3.4. ViewModel
-
-- `rc` - `await runCatching(action: () async {}...` in ViewModel classes
-
-## 3.5. Shared Preferences
+### 3.3. Shared Preferences
 
 - `spb` - setter and getter for `bool` value in Shared Preferences
 - `spi` - setter and getter for `int` value in Shared Preferences
 - `spd` - setter and getter for `double` value in Shared Preferences
 - `sps` - setter and getter for `String` value in Shared Preferences
 
-## 3.6. Testing
+### 3.4. ViewModel
+
+- `rc` - `await runCatching(action: () async {}...` in ViewModel classes
+
+### 3.5. Mapper
+
+* `mp` - generate a mapper class that converts API data to Local data
+
+### 3.6. Load More Executor
+
+- `lm` - generate a class that extends `LoadMoreExecutor`
+
+### 3.7. Testing
 
 - `nt` - `stateNotifierTest(...)`
 - `gt` - `testGoldens(...)` used for Pages using non-family Providers (`StateNotifierProvider.autoDispose`)
 - `gtf` - `testGoldens(...)` used for Pages using family Providers (`StateNotifierProvider.autoDispose
     .family`)
 
-## 3.7. Others
+### 3.8. Others
 
 - `dl` - `await Future<dynamic>.delayed(const Duration(milliseconds: xx))`
 - `pr` - Riverpod provider `Provider.autoDispose<...>((ref) => ...)`
+
+## 4. Quick Fix
+
+### 4.1. Wrap with Widget
+- Wrap with Consumer
+- Wrap with CommonContainer
+- Wrap with Stack
+- Wrap with Expanded
+- Wrap with Flexible
+- Wrap with SingleChildScrollView
+- Wrap with Horizontal Padding: `Padding(padding: EdgeInsets.symmetric(horizontal: 16.rps))`
+- Wrap with Vertical Padding: `Padding(padding: EdgeInsets.symmetric(vertical: 16.rps))`
+- Wrap with InkWell
+- Wrap with GestureDetector
+
+### 4.2. Convert to Widget
+- Convert from `BasePage` to `StatefulHookConsumerWidget` & `BaseStatefulPageState`
+- Convert from `StatefulHookConsumerWidget` to `BasePage`
