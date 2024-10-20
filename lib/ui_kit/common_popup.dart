@@ -51,7 +51,7 @@ class CommonPopup {
       builder: (context, navigator) => AlertDialog.adaptive(
         title: CommonText(
           title,
-          style: ts(
+          style: style(
             color: color.black,
             fontSize: 14.rps,
           ),
@@ -106,7 +106,7 @@ class CommonPopup {
       onTap: onTap,
       child: CommonText(
         title,
-        style: ts(
+        style: style(
           color: color.black,
           fontSize: 14.rps,
         ),
@@ -310,7 +310,7 @@ class CommonPopup {
                   children: [
                     CommonText(
                       l10n.rename,
-                      style: ts(
+                      style: style(
                         color: color.black,
                         fontSize: 18.rps,
                         fontWeight: FontWeight.bold,

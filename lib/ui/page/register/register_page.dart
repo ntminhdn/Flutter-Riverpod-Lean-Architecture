@@ -37,7 +37,7 @@ class RegisterPage extends BasePage<RegisterState,
                     SizedBox(height: 100.rps),
                     CommonText(
                       l10n.createAnAccount,
-                      style: ts(
+                      style: style(
                         fontSize: 30.rps,
                         fontWeight: FontWeight.w700,
                         color: color.black,
@@ -81,7 +81,7 @@ class RegisterPage extends BasePage<RegisterState,
                             padding: EdgeInsets.only(top: 16.rps),
                             child: CommonText(
                               onPageError,
-                              style: ts(
+                              style: style(
                                 fontSize: 14.rps,
                                 color: color.red1,
                               ),
@@ -98,7 +98,7 @@ class RegisterPage extends BasePage<RegisterState,
                           CommonText(
                             onTap: () => ref.read(appNavigatorProvider).pop(),
                             l10n.alreadyHaveAnAccount,
-                            style: ts(
+                            style: style(
                               fontSize: 18.rps,
                               color: color.black,
                             ),
@@ -106,7 +106,7 @@ class RegisterPage extends BasePage<RegisterState,
                           CommonText(
                             onTap: () => ref.read(appNavigatorProvider).pop(),
                             l10n.login,
-                            style: ts(
+                            style: style(
                               fontSize: 18.rps,
                               fontWeight: FontWeight.bold,
                               color: color.black,
@@ -142,7 +142,7 @@ class RegisterPage extends BasePage<RegisterState,
                           ),
                           child: CommonText(
                             l10n.createAnAccount,
-                            style: ts(
+                            style: style(
                               fontSize: 18.rps,
                               fontWeight: FontWeight.bold,
                               color: color.white,

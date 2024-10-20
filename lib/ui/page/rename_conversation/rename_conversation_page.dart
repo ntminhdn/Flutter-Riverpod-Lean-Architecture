@@ -67,7 +67,7 @@ class RenameConversationPage extends BasePage<
                               Expanded(
                                 child: CommonText(
                                   members[index].email,
-                                  style: ts(
+                                  style: style(
                                     color: color.black,
                                     fontSize: 16.rps,
                                   ),

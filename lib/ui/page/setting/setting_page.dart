@@ -28,7 +28,7 @@ class SettingPage extends BasePage<SettingState,
                   return SwitchListTile.adaptive(
                     title: CommonText(
                       l10n.darkTheme,
-                      style: ts(
+                      style: style(
                         fontSize: 14.rps,
                         color: color.black,
                       ),
@@ -46,7 +46,7 @@ class SettingPage extends BasePage<SettingState,
                   return SwitchListTile.adaptive(
                     title: CommonText(
                       l10n.japanese,
-                      style: ts(
+                      style: style(
                         fontSize: 14.rps,
                         color: color.black,
                       ),

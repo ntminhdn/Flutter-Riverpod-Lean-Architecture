@@ -7,7 +7,7 @@ const _baseTextStyle = TextStyle(
   // height: 1.0,
 );
 
-TextStyle ts({
+TextStyle style({
   required Color? color,
   required double? fontSize,
   Color? backgroundColor,

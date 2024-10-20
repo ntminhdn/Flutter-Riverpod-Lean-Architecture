@@ -96,7 +96,7 @@ class HomePage extends BasePage<HomeState,
                                     child: CommonText(
                                       '${user.email}\n${user.gender}\n${user.birthday?.toIso8601String()}'
                                           .hardcoded,
-                                      style: ts(
+                                      style: style(
                                         color: color.black,
                                         fontSize: 14.rps,
                                       ),

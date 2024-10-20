@@ -32,7 +32,7 @@ class PrimaryTextField extends HookWidget {
           alignment: Alignment.centerLeft,
           child: CommonText(
             title,
-            style: ts(
+            style: style(
               fontSize: 14.rps,
               color: color.black,
             ),
@@ -41,12 +41,12 @@ class PrimaryTextField extends HookWidget {
         TextField(
           onChanged: onChanged,
           controller: controller,
-          style: ts(
+          style: style(
             fontSize: 14.rps,
             color: color.black,
           ),
           decoration: InputDecoration(
-            hintStyle: ts(
+            hintStyle: style(
               fontSize: 14.rps,
               color: color.grey1,
             ),

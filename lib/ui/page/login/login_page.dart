@@ -37,7 +37,7 @@ class LoginPage extends BasePage<LoginState,
                     SizedBox(height: 100.rps),
                     CommonText(
                       l10n.login,
-                      style: ts(
+                      style: style(
                         fontSize: 30.rps,
                         fontWeight: FontWeight.w700,
                         color: color.black,
@@ -70,7 +70,7 @@ class LoginPage extends BasePage<LoginState,
                             padding: EdgeInsets.only(top: 16.rps),
                             child: CommonText(
                               onPageError,
-                              style: ts(
+                              style: style(
                                 fontSize: 14.rps,
                                 color: color.red1,
                               ),
@@ -107,7 +107,7 @@ class LoginPage extends BasePage<LoginState,
                           ),
                           child: CommonText(
                             l10n.login,
-                            style: ts(
+                            style: style(
                               fontSize: 18.rps,
                               fontWeight: FontWeight.bold,
                               color: color.white,
@@ -122,7 +122,7 @@ class LoginPage extends BasePage<LoginState,
                       child: CommonText(
                         onTap: () => ref.read(appNavigatorProvider).push(const RegisterRoute()),
                         l10n.createAnAccount,
-                        style: ts(
+                        style: style(
                           fontSize: 18.rps,
                           fontWeight: FontWeight.bold,
                           color: color.black,
