@@ -27,7 +27,7 @@ void main() {
     test('when kind is RemoteExceptionKind.serverDefined', () async {
       expect(
         RemoteException(
-          kind: RemoteExceptionKind.serverDefined,
+          kind: RemoteExceptionKind.otherServerDefined,
           serverError: const ServerError(
             errors: [ServerErrorDetail(message: 'error')],
             generalMessage: 'general message',
@@ -93,7 +93,7 @@ void main() {
 
     test('when kind is RemoteExceptionKind.serverDefined', () async {
       expect(
-        RemoteException(kind: RemoteExceptionKind.serverDefined).action,
+        RemoteException(kind: RemoteExceptionKind.otherServerDefined).action,
         AppExceptionAction.showDialog,
       );
     });
@@ -129,14 +129,14 @@ void main() {
     test('when kind is RemoteExceptionKind.cancellation', () async {
       expect(
         RemoteException(kind: RemoteExceptionKind.cancellation).action,
-        AppExceptionAction.doNothing,
+        AppExceptionAction.showDialog,
       );
     });
 
     test('when kind is RemoteExceptionKind.unknown', () async {
       expect(
         RemoteException(kind: RemoteExceptionKind.unknown).action,
-        AppExceptionAction.doNothing,
+        AppExceptionAction.showDialog,
       );
     });
   });

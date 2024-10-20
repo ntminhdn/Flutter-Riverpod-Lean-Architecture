@@ -1,3 +1,36 @@
 {
-    "dart.lineLength": 100
+  // Dart
+  "dart.lineLength": 100,
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": "off",
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "editor.formatOnPaste": true,
+    "editor.rulers": [100]
+  },
+  // NALS VSCode Extension
+  "nalsMobileBrain.appName": "nalsflutter",
+  "nalsMobileBrain.autoExportBarrier": "// GENERATED CODE - DO NOT MODIFY BY HAND",
+  "nalsMobileBrain.autoExportOnSave": false,
+  "nalsMobileBrain.dataModelPath": "lib/model/api",
+  "nalsMobileBrain.uiFolderPath": "lib/ui/pages",
+  "nalsMobileBrain.excludeFilesWhenAutoExport": [
+    "g.dart",
+    "config.dart",
+    "freezed.dart",
+    "mapper.dart"
+  ],
+  // fvm (optional)
+  "dart.flutterSdkPath": ".fvm/flutter_sdk",
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  "files.watcherExclude": {
+    "**/.fvm": true
+  }
 }

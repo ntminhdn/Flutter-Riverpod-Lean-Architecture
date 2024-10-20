@@ -115,9 +115,7 @@ class RefreshTokenInterceptor extends BaseInterceptor {
       return respone;
     } catch (e) {
       // TODO(minh): fix depend on project #0
-      if (e is RemoteException &&
-          (e.kind == RemoteExceptionKind.serverDefined ||
-              e.kind == RemoteExceptionKind.serverUndefined)) {
+      if (e is RemoteException && e.generalServerErrorId == Constant.refreshTokenFailedErrorId) {
         throw RemoteException(kind: RemoteExceptionKind.refreshTokenFailed);
       }
 

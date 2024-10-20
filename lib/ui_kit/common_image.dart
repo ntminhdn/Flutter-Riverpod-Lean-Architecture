@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -311,10 +312,12 @@ class CommonImage extends StatelessWidget {
     CommonShape shape = CommonShape.rectangle,
     VoidCallback? onTap,
     BoxFit? fit = BoxFit.cover,
+    bool enableCache = false,
   }) : this._(
           imageInputType: ImageInputType.network,
           source: url,
           style: _CommonNetworkImageStyle(
+            useCachedNetworkImage: enableCache,
             fit: fit,
             width: width,
             height: height,
@@ -407,47 +410,83 @@ class CommonImage extends StatelessWidget {
         break;
       case ImageInputType.network:
         final _style = style as _CommonNetworkImageStyle;
-        // ignore: prefer_common_widgets
-        image = CachedNetworkImage(
-          imageUrl: (source as String?) ?? '',
-          width: _style.width,
-          height: _style.height,
-          color: _style.foregroundColor,
-          errorWidget: _style.errorBuilder != null
-              // ignore:avoid-dynamic
-              ? (context, url, dynamic error) => _style.errorBuilder!.call(context, error)
-              : null,
-          colorBlendMode: _style.colorBlendMode,
-          fit: _style.fit,
-          alignment: _style.alignment ?? Alignment.center,
-          repeat: _style.repeat ?? ImageRepeat.noRepeat,
-          matchTextDirection: _style.matchTextDirection ?? false,
-          filterQuality: _style.filterQuality ?? FilterQuality.low,
-          cacheKey: _style.cacheKey,
-          fadeInCurve: _style.fadeInCurve ?? Curves.easeIn,
-          fadeInDuration: _style.fadeInDuration ?? const Duration(milliseconds: 500),
-          fadeOutCurve: _style.fadeOutCurve ?? Curves.easeOut,
-          fadeOutDuration: _style.fadeOutDuration,
-          imageBuilder: _style.imageBuilder,
-          maxWidthDiskCache: _style.maxWidthDiskCache ??
-              _style.width?.times(AppDimen.current.devicePixelRatio).toInt(),
-          maxHeightDiskCache: _style.maxHeightDiskCache ??
-              _style.height?.times(AppDimen.current.devicePixelRatio).toInt(),
-          memCacheWidth: _style.memCacheWidth ??
-              _style.width?.times(AppDimen.current.devicePixelRatio).toInt(),
-          memCacheHeight: _style.memCacheHeight ??
-              _style.height?.times(AppDimen.current.devicePixelRatio).toInt(),
-          placeholder: _style.placeholderBuilder != null
-              ? (context, url) => _style.placeholderBuilder!(context)
-              : null,
-          placeholderFadeInDuration: _style.placeholderFadeInDuration,
-          progressIndicatorBuilder: _style.progressIndicatorBuilder,
-          useOldImageOnUrlChange: _style.useOldImageOnUrlChange ?? false,
-          httpHeaders: _style.httpHeaders,
-          imageRenderMethodForWeb:
-              _style.imageRenderMethodForWeb ?? ImageRenderMethodForWeb.HtmlImage,
-          cacheManager: _style.cacheManager,
-        );
+        if (_style.useCachedNetworkImage) {
+          final maxWidth =
+              min(AppDimen.current.screenWidth, _style.width ?? AppDimen.current.screenWidth);
+          final maxHeight =
+              min(AppDimen.current.screenHeight, _style.height ?? AppDimen.current.screenHeight);
+          final memCacheWidth = _style.memCacheWidth ??
+              (_style.width != null
+                  ? maxWidth.times(AppDimen.current.devicePixelRatio).toInt()
+                  : null);
+          final memCacheHeight = _style.memCacheHeight ??
+              (_style.height != null
+                  ? maxHeight.times(AppDimen.current.devicePixelRatio).toInt()
+                  : null);
+          Log.d('memCacheWidth: $memCacheWidth, memCacheHeight: $memCacheHeight');
+          // ignore: prefer_common_widgets
+          image = CachedNetworkImage(
+            imageUrl: (source as String?) ?? '',
+            width: _style.width,
+            height: _style.height,
+            color: _style.foregroundColor,
+            errorWidget: _style.errorBuilder != null
+                // ignore:avoid-dynamic
+                ? (context, url, dynamic error) => _style.errorBuilder!.call(context, error)
+                : null,
+            colorBlendMode: _style.colorBlendMode,
+            fit: _style.fit,
+            alignment: _style.alignment ?? Alignment.center,
+            repeat: _style.repeat ?? ImageRepeat.noRepeat,
+            matchTextDirection: _style.matchTextDirection ?? false,
+            filterQuality: _style.filterQuality ?? FilterQuality.low,
+            cacheKey: _style.cacheKey,
+            fadeInCurve: _style.fadeInCurve ?? Curves.easeIn,
+            fadeInDuration: _style.fadeInDuration ?? const Duration(milliseconds: 500),
+            fadeOutCurve: _style.fadeOutCurve ?? Curves.easeOut,
+            fadeOutDuration: _style.fadeOutDuration,
+            imageBuilder: _style.imageBuilder,
+            maxWidthDiskCache: _style.maxWidthDiskCache,
+            maxHeightDiskCache: _style.maxHeightDiskCache,
+            memCacheWidth: memCacheWidth,
+            memCacheHeight: memCacheHeight,
+            placeholder: _style.placeholderBuilder != null
+                ? (context, url) => _style.placeholderBuilder!(context)
+                : null,
+            placeholderFadeInDuration: _style.placeholderFadeInDuration,
+            progressIndicatorBuilder: _style.progressIndicatorBuilder,
+            useOldImageOnUrlChange: _style.useOldImageOnUrlChange ?? false,
+            httpHeaders: _style.httpHeaders,
+            imageRenderMethodForWeb:
+                _style.imageRenderMethodForWeb ?? ImageRenderMethodForWeb.HtmlImage,
+            cacheManager: _style.cacheManager,
+          );
+        } else {
+          // ignore: prefer_common_widgets
+          image = Image.network(
+            (source as String?) ?? '',
+            width: _style.width,
+            height: _style.height,
+            color: _style.foregroundColor,
+            errorBuilder: _style.errorBuilder != null
+                // ignore:avoid-dynamic
+                ? (context, error, stackTrace) => _style.errorBuilder!.call(context, error)
+                : null,
+            loadingBuilder: _style.placeholderBuilder != null
+                ? (context, child, loadingProgress) => _style.placeholderBuilder!(context)
+                : null,
+            colorBlendMode: _style.colorBlendMode,
+            fit: _style.fit,
+            alignment: _style.alignment ?? Alignment.center,
+            repeat: _style.repeat ?? ImageRepeat.noRepeat,
+            matchTextDirection: _style.matchTextDirection ?? false,
+            filterQuality: _style.filterQuality ?? FilterQuality.low,
+            cacheWidth: _style.width?.isInfinite == false && _style.width?.isNaN == false
+                ? _style.width?.times(AppDimen.current.devicePixelRatio).toInt()
+                : AppDimen.current.screenWidth.times(AppDimen.current.devicePixelRatio).toInt(),
+          );
+        }
+
         break;
       case ImageInputType.iconData:
         final _style = style as _CommonIconDataImageStyle;
@@ -769,6 +808,7 @@ class _CommonMemoryImageStyle extends _CommonImageStyle {
 
 class _CommonNetworkImageStyle extends _CommonImageStyle {
   const _CommonNetworkImageStyle({
+    required this.useCachedNetworkImage,
     required this.width,
     required this.height,
     required this.foregroundColor,
@@ -806,6 +846,7 @@ class _CommonNetworkImageStyle extends _CommonImageStyle {
     required super.onTap,
   });
 
+  final bool useCachedNetworkImage;
   final double? width;
   final double? height;
   final Color? foregroundColor;

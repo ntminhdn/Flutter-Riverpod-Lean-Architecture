@@ -206,20 +206,20 @@ class ChatPage extends BasePage<ChatState,
           repliedBackgroundColor: color.black,
           receiptsWidgetConfig: const ReceiptsWidgetConfig(showReceiptsIn: ShowReceiptsIn.all),
           color: color.black,
-          textStyle: ts(color: color.white, fontSize: 14.rps),
+          textStyle: style(color: color.white, fontSize: 14.rps),
         ),
         inComingChatBubbleConfig: ChatBubble(
           linkPreviewConfig: null,
           repliedBackgroundColor: color.grey1,
-          textStyle: ts(color: color.black, fontSize: 14.rps),
-          senderNameTextStyle: ts(color: color.black, fontSize: 14.rps),
+          textStyle: style(color: color.black, fontSize: 14.rps),
+          senderNameTextStyle: style(color: color.black, fontSize: 14.rps),
           color: color.grey1,
         ),
       );
 
   ReplyPopupConfiguration get replyPopupConfig => ReplyPopupConfiguration(
         backgroundColor: color.black3,
-        buttonTextStyle: ts(color: color.white, fontSize: 14.rps),
+        buttonTextStyle: style(color: color.white, fontSize: 14.rps),
         topBorderColor: color.black2,
       );
 
@@ -231,13 +231,13 @@ class ChatPage extends BasePage<ChatState,
           highlightColor: color.red1,
           highlightScale: 1.1,
         ),
-        textStyle: ts(
+        textStyle: style(
           color: color.white,
           fontSize: 14.rps,
           fontWeight: FontWeight.bold,
           letterSpacing: 0.25,
         ),
-        replyTitleTextStyle: ts(color: color.white, fontSize: 14.rps),
+        replyTitleTextStyle: style(color: color.white, fontSize: 14.rps),
       );
 
   SwipeToReplyConfiguration get swipeToReplyConfig => SwipeToReplyConfiguration(

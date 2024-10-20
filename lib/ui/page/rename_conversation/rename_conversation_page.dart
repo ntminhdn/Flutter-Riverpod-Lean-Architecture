@@ -53,6 +53,7 @@ class RenameConversationPage extends BasePage<
                         left: 16.rps,
                         right: 16.rps,
                       ),
+                      // ignore: missing_expanded_or_flexible
                       child: Column(
                         children: [
                           SizedBox(height: 16.rps),
@@ -67,7 +68,7 @@ class RenameConversationPage extends BasePage<
                               Expanded(
                                 child: CommonText(
                                   members[index].email,
-                                  style: ts(
+                                  style: style(
                                     color: color.black,
                                     fontSize: 16.rps,
                                   ),

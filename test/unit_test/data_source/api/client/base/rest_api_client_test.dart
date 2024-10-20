@@ -1831,7 +1831,7 @@ void main() {
                   .having(
                     (e) => e.kind,
                     'kind',
-                    RemoteExceptionKind.serverDefined,
+                    RemoteExceptionKind.otherServerDefined,
                   )
                   .having(
                     (e) => e.dioStatusCode,
@@ -1927,7 +1927,7 @@ void main() {
                   .having(
                     (e) => e.kind,
                     'kind',
-                    RemoteExceptionKind.serverDefined,
+                    RemoteExceptionKind.otherServerDefined,
                   )
                   .having(
                     (e) => e.dioStatusCode,

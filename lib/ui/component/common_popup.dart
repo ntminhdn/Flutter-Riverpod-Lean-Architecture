@@ -52,7 +52,7 @@ class CommonPopup {
       builder: (context, navigator) => AlertDialog.adaptive(
         title: CommonText(
           message,
-          style: ts(
+          style: style(
             color: color.black,
             fontSize: 14.rps,
           ),
@@ -147,6 +147,7 @@ class CommonPopup {
         body: CommonContainer(
           color: color.white,
           padding: EdgeInsets.all(24.rps),
+          // ignore: missing_expanded_or_flexible
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -162,7 +163,7 @@ class CommonPopup {
               SizedBox(height: 32.rps),
               CommonText(
                 l10n.maintenanceTitle,
-                style: ts(
+                style: style(
                   height: 1.18,
                   color: color.black,
                   fontSize: 16.rps,
@@ -176,7 +177,7 @@ class CommonPopup {
                 padding: EdgeInsets.all(12.rps),
                 child: CommonText(
                   message,
-                  style: ts(
+                  style: style(
                     height: 1.5,
                     color: color.black,
                     fontSize: 14.rps,
@@ -186,6 +187,7 @@ class CommonPopup {
               ),
               Visibility(
                 visible: time.isNotEmpty,
+                // ignore: missing_expanded_or_flexible
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
@@ -193,7 +195,7 @@ class CommonPopup {
                     SizedBox(height: 16.rps),
                     CommonText(
                       l10n.maintenanceTimeTitle,
-                      style: ts(
+                      style: style(
                         height: 1.18,
                         color: color.black,
                         fontSize: 16.rps,
@@ -207,7 +209,7 @@ class CommonPopup {
                       padding: EdgeInsets.all(12.rps),
                       child: CommonText(
                         time,
-                        style: ts(
+                        style: style(
                           height: 1.5,
                           color: color.black,
                           fontSize: 14.rps,
@@ -291,12 +293,13 @@ class CommonPopup {
             builder: (context, setState) {
               return CommonContainer(
                 padding: EdgeInsets.symmetric(horizontal: 16.rps, vertical: 32.rps),
+                // ignore: missing_expanded_or_flexible
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     CommonText(
                       l10n.rename,
-                      style: ts(
+                      style: style(
                         color: color.black,
                         fontSize: 18.rps,
                         fontWeight: FontWeight.bold,

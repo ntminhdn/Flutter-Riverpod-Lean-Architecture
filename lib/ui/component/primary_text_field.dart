@@ -26,13 +26,14 @@ class PrimaryTextField extends HookWidget {
     final _obscureText = useState(true);
     final isPassword = keyboardType == TextInputType.visiblePassword;
 
+    // ignore: missing_expanded_or_flexible
     return Column(
       children: [
         Align(
           alignment: Alignment.centerLeft,
           child: CommonText(
             title,
-            style: ts(
+            style: style(
               fontSize: 14.rps,
               color: color.black,
             ),
@@ -41,12 +42,12 @@ class PrimaryTextField extends HookWidget {
         TextField(
           onChanged: onChanged,
           controller: controller,
-          style: ts(
+          style: style(
             fontSize: 14.rps,
             color: color.black,
           ),
           decoration: InputDecoration(
-            hintStyle: ts(
+            hintStyle: style(
               fontSize: 14.rps,
               color: color.grey1,
             ),

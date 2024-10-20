@@ -10,16 +10,11 @@ class ApiUserData with _$ApiUserData {
   const ApiUserData._();
 
   const factory ApiUserData({
-    @Default(ApiUserData.defaultId) @JsonKey(name: 'uid') int id,
-    @Default(ApiUserData.defaultEmail) @JsonKey(name: 'email') String email,
+    @Default(0) @JsonKey(name: 'uid') int id,
+    @Default('') @JsonKey(name: 'email') String email,
     @ApiDateTimeConverter() @JsonKey(name: 'dob') DateTime? birthday,
-    @Default(ApiUserData.defaultGender) @JsonKey(name: 'gender') Gender gender,
+    @Default(Gender.other) @JsonKey(name: 'gender') Gender gender,
   }) = _ApiUserData;
-
-  static const defaultId = 0;
-  static const defaultEmail = '';
-  static const defaultBirthday = '';
-  static const defaultGender = Gender.other;
 
   factory ApiUserData.fromJson(Map<String, dynamic> json) => _$ApiUserDataFromJson(json);
 }

@@ -36,7 +36,7 @@ class AvatarView extends StatelessWidget {
             child: CommonText(
               text.trim().firstOrNull?.toUpperCase(),
               style: textStyle ??
-                  ts(
+                  style(
                     fontSize: 24.rps,
                     fontWeight: FontWeight.w700,
                     color: color.white,

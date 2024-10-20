@@ -6,7 +6,7 @@ on:
 
 env:
   JAVA_VERSION: "12.x"
-  FLUTTER_VERSION: "3.19.1"
+  FLUTTER_VERSION: "3.24.3"
   TESTER_GROUPS: "testers"
 
   # Android

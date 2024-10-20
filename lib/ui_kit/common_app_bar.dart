@@ -46,7 +46,7 @@ class CommonAppBar extends ConsumerWidget implements PreferredSizeWidget {
       text: text,
       actions: actions,
       leadingIcon: LeadingIcon.back,
-      titleTextStyle: ts(
+      titleTextStyle: style(
         color: color.black,
         fontSize: 18.rps,
         fontWeight: FontWeight.bold,
@@ -91,6 +91,7 @@ class CommonAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 // ignore: prefer_common_widgets
     return AppBar(
+      notificationPredicate: (notification) => false,
       toolbarHeight: preferredSize.height,
       automaticallyImplyLeading: automaticallyImplyLeading,
       flexibleSpace: flexibleSpace,

@@ -40,9 +40,9 @@ Including Unit Tests, Widget Tests, Golden Tests, and Integration Tests
 
 ### Requirements
 
-- Dart: 3.3.0
-- Flutter SDK: 3.19.1
-- CocoaPods: 1.14.3
+- Dart: 3.5.3
+- Flutter SDK: 3.24.3
+- CocoaPods: 1.15.0
 
 ### How to run app
 

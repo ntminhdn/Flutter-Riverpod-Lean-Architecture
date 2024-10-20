@@ -5,12 +5,15 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 environment:
   sdk: ">=3.1.5 <4.0.0"
 
+dependency_overrides:
+  analyzer: 6.7.0
+
 dependencies:
   flutter:
     sdk: flutter
 
 dev_dependencies:
-  custom_lint: 0.6.4
+  custom_lint: 0.6.8
   super_lint:
     path: ../
 flutter:

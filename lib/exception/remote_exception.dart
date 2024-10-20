@@ -18,7 +18,9 @@ class RemoteException extends AppException {
         RemoteExceptionKind.badCertificate => l10n.unknownException('UE-01'),
         RemoteExceptionKind.noInternet => l10n.noInternetException,
         RemoteExceptionKind.network => l10n.canNotConnectToHost,
-        RemoteExceptionKind.serverDefined => generalServerMessage ?? l10n.unknownException('UE-02'),
+        RemoteExceptionKind.userNotFound ||
+        RemoteExceptionKind.otherServerDefined =>
+          generalServerMessage ?? l10n.unknownException('UE-02'),
         RemoteExceptionKind.serverUndefined => l10n.unknownException('UE-03'),
         RemoteExceptionKind.timeout => l10n.timeoutException,
         RemoteExceptionKind.cancellation => l10n.unknownException('UE-04'),
@@ -31,20 +33,21 @@ class RemoteException extends AppException {
   @override
   AppExceptionAction get action {
     return switch (kind) {
-      RemoteExceptionKind.refreshTokenFailed => AppExceptionAction.showForceLogoutDialog,
       RemoteExceptionKind.serverMaintenance => AppExceptionAction.showMaintenanceDialog,
-      RemoteExceptionKind.serverDefined ||
-      RemoteExceptionKind.serverUndefined =>
+      RemoteExceptionKind.refreshTokenFailed ||
+      RemoteExceptionKind.userNotFound =>
+        AppExceptionAction.showForceLogoutDialog,
+      RemoteExceptionKind.otherServerDefined ||
+      RemoteExceptionKind.serverUndefined ||
+      RemoteExceptionKind.badCertificate ||
+      RemoteExceptionKind.decodeError ||
+      RemoteExceptionKind.cancellation ||
+      RemoteExceptionKind.unknown =>
         AppExceptionAction.showDialog,
       RemoteExceptionKind.noInternet ||
       RemoteExceptionKind.network ||
       RemoteExceptionKind.timeout =>
         AppExceptionAction.showDialogWithRetry,
-      RemoteExceptionKind.badCertificate ||
-      RemoteExceptionKind.decodeError ||
-      RemoteExceptionKind.cancellation ||
-      RemoteExceptionKind.unknown =>
-        AppExceptionAction.doNothing,
     };
   }
 
@@ -89,11 +92,12 @@ enum RemoteExceptionKind {
   network, // host not found, cannot connect to host, SocketException
 
   /// server has defined response like 4xx errors
-  serverDefined,
+  otherServerDefined,
 
   /// specific serverDefined errors need to be handled in separate ways
   refreshTokenFailed,
   serverMaintenance,
+  userNotFound,
 
   /// server has not defined response like 5xx errors
   serverUndefined,

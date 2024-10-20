@@ -19,6 +19,7 @@ class MyPagePage extends BasePage<MyPageState,
 
     return CommonScaffold(
       body: SafeArea(
+        // ignore: missing_expanded_or_flexible
         child: Column(
           children: [
             Padding(
