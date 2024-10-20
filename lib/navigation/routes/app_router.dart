@@ -13,7 +13,7 @@ final appRouterProvider = Provider<AppRouter>(
   replaceInRouteName: 'Page,Route',
 )
 @LazySingleton()
-class AppRouter extends $AppRouter {
+class AppRouter extends RootStackRouter {
   @override
   RouteType get defaultRouteType => const RouteType.adaptive();
 

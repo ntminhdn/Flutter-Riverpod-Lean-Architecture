@@ -20,7 +20,7 @@ pipeline {
         when { anyOf { branch 'PR-*'} }
           agent {
             docker {
-              image 'ghcr.io/cirruslabs/flutter:3.19.1'
+              image 'ghcr.io/cirruslabs/flutter:3.24.3'
               reuseNode true
               args '-u root'
             }

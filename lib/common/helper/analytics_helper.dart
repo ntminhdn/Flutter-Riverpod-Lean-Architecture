@@ -12,13 +12,16 @@ final analyticsHelperProvider = Provider<AnalyticsHelper>(
 class AnalyticsHelper {
   Future<void> logEvent({
     required String name,
-    required Map<String, Object?> parameters,
+    Map<String, Object>? parameters,
   }) {
     return FirebaseAnalytics.instance.logEvent(name: name, parameters: parameters);
   }
 
-  Future<void> trackScreen(String screenName) {
-    return FirebaseAnalytics.instance.setCurrentScreen(screenName: screenName);
+  Future<void> logScreenView({
+    required String screenName,
+    Map<String, Object>? parameters,
+  }) {
+    return FirebaseAnalytics.instance.logScreenView(screenName: screenName, parameters: parameters);
   }
 
   Future<void> setUserId(String userId) {

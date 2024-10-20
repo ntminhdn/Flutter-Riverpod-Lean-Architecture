@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_udid/flutter_udid.dart';
@@ -18,15 +17,7 @@ enum DeviceType { mobile, tablet }
 @LazySingleton()
 class DeviceHelper {
   Future<String> get deviceId async {
-    if (Platform.isIOS) {
-      return await FlutterUdid.udid; // unique ID on iOS
-    } else {
-      const _androidIdPlugin = AndroidId();
-
-      final androidID = await _androidIdPlugin.getId();
-
-      return androidID ?? ''; // unique ID on Android
-    }
+    return await FlutterUdid.udid;
   }
 
   Future<String> get deviceModelName async {

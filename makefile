@@ -25,17 +25,16 @@ gen_env:
 
 # It is used in CI/CD, so if you rename it, you need to update the CI/CD script
 sync:
-	make cc
 	make pg
 	make ln
+	make cc
 	make fb
 
 rpg:
 	make cl
 	make pg
 
-fix:
-	make cc
+ref:
 	make cl
 	make sync
 

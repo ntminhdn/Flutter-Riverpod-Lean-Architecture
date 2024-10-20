@@ -124,8 +124,8 @@ class AppNavigator with LogMixin {
     }
 
     return useRootNavigator
-        ? _appRouter.pop<T>(result)
-        : _currentTabRouterOrRootRouter.pop<T>(result);
+        ? _appRouter.maybePop<T>(result)
+        : _currentTabRouterOrRootRouter.maybePop<T>(result);
   }
 
   // ignore: prefer_named_parameters
@@ -224,8 +224,8 @@ class AppNavigator with LogMixin {
     return m.showDialog<T>(
       context: useRootNavigator ? _rootRouterContext : _currentTabContextOrRootContext,
       builder: (context) => m.PopScope(
-        onPopInvoked: (didPop) async {
-          logD('Dialog $popup dismissed');
+        onPopInvokedWithResult: (didPop, result) async {
+          logD('Dialog $popup dismissed with result = $result');
           _popups.remove(popup.id);
         },
         canPop: canPop,
@@ -253,7 +253,7 @@ class AppNavigator with LogMixin {
     bool canPop = true,
   }) {
     if (_popups.containsKey(popup.id)) {
-      logD('Dialog $popup already shown');
+      logD('GeneralDialog $popup already shown');
 
       return _popups[popup.id]!.future as Future<T?>;
     }
@@ -270,8 +270,8 @@ class AppNavigator with LogMixin {
         m.Animation<double> animation2,
       ) =>
           m.PopScope(
-        onPopInvoked: (didPop) async {
-          logD('Dialog $popup dismissed');
+        onPopInvokedWithResult: (didPop, result) async {
+          logD('GeneralDialog $popup dismissed with result = $result');
           _popups.remove(popup.id);
         },
         canPop: canPop,
@@ -294,7 +294,7 @@ class AppNavigator with LogMixin {
     bool canPop = true,
   }) {
     if (_popups.containsKey(popup.id)) {
-      logD('Dialog $popup already shown');
+      logD('BottomSheet $popup already shown');
 
       return _popups[popup.id]!.future as Future<T?>;
     }
@@ -303,8 +303,8 @@ class AppNavigator with LogMixin {
     return m.showModalBottomSheet<T>(
       context: useRootNavigator ? _rootRouterContext : _currentTabContextOrRootContext,
       builder: (context) => m.PopScope(
-        onPopInvoked: (didPop) async {
-          logD('Dialog $popup dismissed');
+        onPopInvokedWithResult: (didPop, result) async {
+          logD('BottomSheet $popup dismissed with result = $result');
           _popups.remove(popup.id);
         },
         canPop: canPop,
