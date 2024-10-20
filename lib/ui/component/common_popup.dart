@@ -147,6 +147,7 @@ class CommonPopup {
         body: CommonContainer(
           color: color.white,
           padding: EdgeInsets.all(24.rps),
+          // ignore: missing_expanded_or_flexible
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -186,6 +187,7 @@ class CommonPopup {
               ),
               Visibility(
                 visible: time.isNotEmpty,
+                // ignore: missing_expanded_or_flexible
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
@@ -291,6 +293,7 @@ class CommonPopup {
             builder: (context, setState) {
               return CommonContainer(
                 padding: EdgeInsets.symmetric(horizontal: 16.rps, vertical: 32.rps),
+                // ignore: missing_expanded_or_flexible
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

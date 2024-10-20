@@ -6,14 +6,14 @@ environment:
   sdk: ">=3.1.5 <4.0.0"
 
 dependency_overrides:
-  analyzer: ^6.5.0
+  analyzer: 6.7.0
 
 dependencies:
   flutter:
     sdk: flutter
 
 dev_dependencies:
-  custom_lint: 0.6.10
+  custom_lint: 0.6.8
   super_lint:
     path: ../
 flutter:

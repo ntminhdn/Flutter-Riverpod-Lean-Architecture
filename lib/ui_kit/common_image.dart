@@ -317,7 +317,7 @@ class CommonImage extends StatelessWidget {
           imageInputType: ImageInputType.network,
           source: url,
           style: _CommonNetworkImageStyle(
-            enableCache: enableCache,
+            useCachedNetworkImage: enableCache,
             fit: fit,
             width: width,
             height: height,
@@ -410,7 +410,7 @@ class CommonImage extends StatelessWidget {
         break;
       case ImageInputType.network:
         final _style = style as _CommonNetworkImageStyle;
-        if (_style.enableCache) {
+        if (_style.useCachedNetworkImage) {
           final maxWidth =
               min(AppDimen.current.screenWidth, _style.width ?? AppDimen.current.screenWidth);
           final maxHeight =
@@ -462,6 +462,7 @@ class CommonImage extends StatelessWidget {
             cacheManager: _style.cacheManager,
           );
         } else {
+          // ignore: prefer_common_widgets
           image = Image.network(
             (source as String?) ?? '',
             width: _style.width,
@@ -807,7 +808,7 @@ class _CommonMemoryImageStyle extends _CommonImageStyle {
 
 class _CommonNetworkImageStyle extends _CommonImageStyle {
   const _CommonNetworkImageStyle({
-    required this.enableCache,
+    required this.useCachedNetworkImage,
     required this.width,
     required this.height,
     required this.foregroundColor,
@@ -845,7 +846,7 @@ class _CommonNetworkImageStyle extends _CommonImageStyle {
     required super.onTap,
   });
 
-  final bool enableCache;
+  final bool useCachedNetworkImage;
   final double? width;
   final double? height;
   final Color? foregroundColor;

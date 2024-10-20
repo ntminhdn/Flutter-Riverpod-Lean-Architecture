@@ -238,6 +238,7 @@ class AllUsersPage extends BasePage<AllUsersState,
           left: 16.rps,
           right: 16.rps,
         ),
+        // ignore: missing_expanded_or_flexible
         child: Column(
           children: [
             SizedBox(height: 16.rps),
@@ -296,6 +297,7 @@ class AllUsersPage extends BasePage<AllUsersState,
           left: 16.rps,
           right: 16.rps,
         ),
+        // ignore: missing_expanded_or_flexible
         child: Column(
           children: [
             SizedBox(height: 16.rps),

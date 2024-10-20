@@ -26,6 +26,7 @@ class PrimaryTextField extends HookWidget {
     final _obscureText = useState(true);
     final isPassword = keyboardType == TextInputType.visiblePassword;
 
+    // ignore: missing_expanded_or_flexible
     return Column(
       children: [
         Align(

@@ -7,11 +7,11 @@ environment:
   sdk: ">=3.1.5 <4.0.0"
 
 dependency_overrides:
-  analyzer: ^6.5.0
+  analyzer: 6.7.0
   
 dependencies:
   collection: 1.18.0
-  custom_lint_builder: 0.6.10
+  custom_lint_builder: 0.6.8
   flutter_lints: 5.0.0
   glob: 2.1.2
   path: 1.9.0

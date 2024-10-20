@@ -92,15 +92,16 @@ class ContactListPage extends BasePage<ContactListState,
               child: Row(
                 children: [
                   SizedBox(width: 12.rps),
-                  CommonText(
-                    l10n.conversations,
-                    style: TextStyle(
-                      fontSize: 20.rps,
-                      fontWeight: FontWeight.w500,
-                      color: color.black,
+                  Expanded(
+                    child: CommonText(
+                      l10n.conversations,
+                      style: TextStyle(
+                        fontSize: 20.rps,
+                        fontWeight: FontWeight.w500,
+                        color: color.black,
+                      ),
                     ),
                   ),
-                  const Spacer(),
                   IconButton(
                     onPressed: () => ref.read(appNavigatorProvider).push(AllUsersRoute(
                           action: AllUsersPageAction.createNewConversation,
@@ -161,6 +162,7 @@ class ContactListPage extends BasePage<ContactListState,
                               left: 16.rps,
                               right: 16.rps,
                             ),
+                            // ignore: missing_expanded_or_flexible
                             child: Column(
                               children: [
                                 SizedBox(height: 16.rps),
@@ -173,6 +175,7 @@ class ContactListPage extends BasePage<ContactListState,
                                     ),
                                     SizedBox(width: 20.rps),
                                     Expanded(
+                                      // ignore: missing_expanded_or_flexible
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
