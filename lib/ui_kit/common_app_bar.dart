@@ -91,6 +91,7 @@ class CommonAppBar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 // ignore: prefer_common_widgets
     return AppBar(
+      notificationPredicate: (notification) => false,
       toolbarHeight: preferredSize.height,
       automaticallyImplyLeading: automaticallyImplyLeading,
       flexibleSpace: flexibleSpace,

@@ -112,9 +112,8 @@ class Constant {
   static const pageNotFound = 1051;
 
   // error id
-  static const badUserInput = 'BAD_USER_INPUT';
-  static const unAuthenticated = 'UNAUTHENTICATED';
-  static const forbidden = 'FORBIDDEN';
+  static const userNotFoundErrorId = 'ERR-0001';
+  static const refreshTokenFailedErrorId = 'ERR-0002';
 
   // header
   static const basicAuthorization = 'Authorization';

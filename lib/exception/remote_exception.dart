@@ -18,7 +18,9 @@ class RemoteException extends AppException {
         RemoteExceptionKind.badCertificate => l10n.unknownException('UE-01'),
         RemoteExceptionKind.noInternet => l10n.noInternetException,
         RemoteExceptionKind.network => l10n.canNotConnectToHost,
-        RemoteExceptionKind.serverDefined => generalServerMessage ?? l10n.unknownException('UE-02'),
+        RemoteExceptionKind.userNotFound ||
+        RemoteExceptionKind.otherServerDefined =>
+          generalServerMessage ?? l10n.unknownException('UE-02'),
         RemoteExceptionKind.serverUndefined =>
           generalServerMessage ?? l10n.unknownException('UE-03'),
         RemoteExceptionKind.timeout => l10n.timeoutException,
@@ -31,15 +33,20 @@ class RemoteException extends AppException {
   @override
   AppExceptionAction get action {
     return switch (kind) {
-      RemoteExceptionKind.refreshTokenFailed => AppExceptionAction.showDialogForceLogout,
-      RemoteExceptionKind.serverDefined ||
-      RemoteExceptionKind.serverUndefined =>
+      RemoteExceptionKind.refreshTokenFailed ||
+      RemoteExceptionKind.userNotFound =>
+        AppExceptionAction.showDialogForceLogout,
+      RemoteExceptionKind.otherServerDefined ||
+      RemoteExceptionKind.serverUndefined ||
+      RemoteExceptionKind.badCertificate ||
+      RemoteExceptionKind.decodeError ||
+      RemoteExceptionKind.cancellation ||
+      RemoteExceptionKind.unknown =>
         AppExceptionAction.showDialog,
       RemoteExceptionKind.noInternet ||
       RemoteExceptionKind.network ||
       RemoteExceptionKind.timeout =>
         AppExceptionAction.showDialogWithRetry,
-      _ => AppExceptionAction.doNothing,
     };
   }
 
@@ -78,7 +85,8 @@ enum RemoteExceptionKind {
   network,
 
   /// server has defined response
-  serverDefined,
+  userNotFound,
+  otherServerDefined,
 
   /// server has not defined response
   serverUndefined,

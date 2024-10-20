@@ -33,11 +33,18 @@ class DioExceptionMapper extends AppExceptionMapper<RemoteException> {
           if (exception.response?.data != null) {
             final serverError = _errorResponseDecoder.map(exception.response!.data!);
 
-            return RemoteException(
-              kind: RemoteExceptionKind.serverDefined,
-              dioStatusCode: dioStatusCode,
-              serverError: serverError,
-            );
+            return switch (serverError.generalServerErrorId) {
+              Constant.userNotFoundErrorId => RemoteException(
+                  kind: RemoteExceptionKind.userNotFound,
+                  dioStatusCode: dioStatusCode,
+                  serverError: serverError,
+                ),
+              _ => RemoteException(
+                  kind: RemoteExceptionKind.otherServerDefined,
+                  dioStatusCode: dioStatusCode,
+                  serverError: serverError,
+                ),
+            };
           }
 
           return RemoteException(
