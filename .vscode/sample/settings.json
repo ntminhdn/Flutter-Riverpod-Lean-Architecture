@@ -18,7 +18,7 @@
   "nalsMobileBrain.autoExportBarrier": "// GENERATED CODE - DO NOT MODIFY BY HAND",
   "nalsMobileBrain.autoExportOnSave": false,
   "nalsMobileBrain.dataModelPath": "lib/model/api",
-  "nalsMobileBrain.uiFolderPath": "lib/ui/pages",
+  "nalsMobileBrain.uiFolderPath": "lib/ui/page",
   "nalsMobileBrain.excludeFilesWhenAutoExport": [
     "g.dart",
     "config.dart",
