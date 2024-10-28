@@ -751,9 +751,9 @@ void main() {
         replyMessage: LocalReplyMessageData(
           conversationId: '1',
           userId: userId,
-          repplyToMessageId: '1',
+          replyToMessageId: '1',
           type: MessageType.text,
-          repplyToMessage: 'message',
+          replyToMessage: 'message',
           replyByUserId: userId,
           replyToUserId: '2',
         ),

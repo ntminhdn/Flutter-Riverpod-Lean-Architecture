@@ -38,9 +38,9 @@ class MessageDataMapper extends BaseDataMapper<FirebaseMessageData, LocalMessage
           ? null
           : LocalReplyMessageData(
               userId: _appPreferences.userId,
-              repplyToMessageId: data?.replyMessage?.replyToMessageId ?? '',
+              replyToMessageId: data?.replyMessage?.replyToMessageId ?? '',
               type: data?.replyMessage?.type ?? MessageType.text,
-              repplyToMessage: data?.replyMessage?.replyToMessage ?? '',
+              replyToMessage: data?.replyMessage?.replyToMessage ?? '',
               replyByUserId: data?.replyMessage?.replyByUserId ?? '',
               replyToUserId: data?.replyMessage?.replyToUserId ?? '',
             ),
@@ -57,9 +57,9 @@ class MessageDataMapper extends BaseDataMapper<FirebaseMessageData, LocalMessage
       replyMessage: data.replyMessage == null
           ? null
           : FirebaseReplyMessageData(
-              replyToMessageId: data.replyMessage!.repplyToMessageId,
+              replyToMessageId: data.replyMessage!.replyToMessageId,
               type: data.replyMessage!.type,
-              replyToMessage: data.replyMessage!.repplyToMessage,
+              replyToMessage: data.replyMessage!.replyToMessage,
               replyByUserId: data.replyMessage!.replyByUserId,
               replyToUserId: data.replyMessage!.replyToUserId,
             ),

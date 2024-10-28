@@ -10,25 +10,25 @@ class LocalReplyMessageData {
   LocalReplyMessageData({
     this.userId = '',
     this.conversationId = '',
-    this.repplyToMessageId = '',
+    this.replyToMessageId = '',
     this.type = MessageType.text,
-    this.repplyToMessage = '',
+    this.replyToMessage = '',
     this.replyByUserId = '',
     this.replyToUserId = '',
   });
 
   String userId;
   String conversationId;
-  String repplyToMessageId;
+  String replyToMessageId;
   @Enumerated(EnumType.value, 'code')
   MessageType type;
-  String repplyToMessage;
+  String replyToMessage;
   String replyByUserId;
   String replyToUserId;
 
   @override
   String toString() {
-    return 'LocalReplyMessageData{userId: $userId, conversationId: $conversationId, repplyToMessageId: $repplyToMessageId, type: $type, repplyToMessage: $repplyToMessage, replyByUserId: $replyByUserId, replyToUserId: $replyToUserId}';
+    return 'LocalReplyMessageData{userId: $userId, conversationId: $conversationId, replyToMessageId: $replyToMessageId, type: $type, replyToMessage: $replyToMessage, replyByUserId: $replyByUserId, replyToUserId: $replyToUserId}';
   }
 
   @override
@@ -38,9 +38,9 @@ class LocalReplyMessageData {
           runtimeType == other.runtimeType &&
           userId == other.userId &&
           conversationId == other.conversationId &&
-          repplyToMessageId == other.repplyToMessageId &&
+          replyToMessageId == other.replyToMessageId &&
           type == other.type &&
-          repplyToMessage == other.repplyToMessage &&
+          replyToMessage == other.replyToMessage &&
           replyByUserId == other.replyByUserId &&
           replyToUserId == other.replyToUserId;
 
@@ -48,17 +48,17 @@ class LocalReplyMessageData {
   int get hashCode =>
       userId.hashCode ^
       conversationId.hashCode ^
-      repplyToMessageId.hashCode ^
+      replyToMessageId.hashCode ^
       type.hashCode ^
-      repplyToMessage.hashCode ^
+      replyToMessage.hashCode ^
       replyByUserId.hashCode ^
       replyToUserId.hashCode;
 
   cv.ReplyMessage toReplyMessage() {
     return cv.ReplyMessage(
-      message: repplyToMessage,
+      message: replyToMessage,
       messageType: type.toChatViewMessageType(),
-      messageId: repplyToMessageId,
+      messageId: replyToMessageId,
       replyTo: replyToUserId,
       replyBy: replyByUserId,
     );
