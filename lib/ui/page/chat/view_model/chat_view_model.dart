@@ -169,9 +169,9 @@ class ChatViewModel extends BaseViewModel<ChatState> with LogMixin {
           replyMessage: replyMessage != null
               ? LocalReplyMessageData(
                   userId: currentUserId,
-                  repplyToMessageId: replyMessage.messageId,
+                  replyToMessageId: replyMessage.messageId,
                   type: MessageType.fromChatViewMessageType(replyMessage.messageType),
-                  repplyToMessage: replyMessage.message,
+                  replyToMessage: replyMessage.message,
                   replyByUserId: currentUserId,
                   replyToUserId: replyMessage.replyTo,
                   conversationId: conversationId,

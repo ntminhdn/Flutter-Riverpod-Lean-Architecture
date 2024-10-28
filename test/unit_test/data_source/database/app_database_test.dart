@@ -41,8 +41,8 @@ void main() {
           conversationId: '1',
           replyByUserId: '3',
           replyToUserId: '4',
-          repplyToMessage: 'Hi',
-          repplyToMessageId: '5',
+          replyToMessage: 'Hi',
+          replyToMessageId: '5',
           type: MessageType.text,
         ),
         type: MessageType.text,
@@ -71,8 +71,8 @@ void main() {
               e.replyMessage!.conversationId == '1' &&
               e.replyMessage!.replyByUserId == '3' &&
               e.replyMessage!.replyToUserId == '4' &&
-              e.replyMessage!.repplyToMessage == 'Hi' &&
-              e.replyMessage!.repplyToMessageId == '5' &&
+              e.replyMessage!.replyToMessage == 'Hi' &&
+              e.replyMessage!.replyToMessageId == '5' &&
               e.replyMessage!.type == MessageType.text,
           'properties',
           true,
@@ -135,8 +135,8 @@ void main() {
             conversationId: '1',
             replyByUserId: '3',
             replyToUserId: '4',
-            repplyToMessage: 'Hi',
-            repplyToMessageId: '5',
+            replyToMessage: 'Hi',
+            replyToMessageId: '5',
             type: MessageType.text,
           ),
           type: MessageType.text,
@@ -154,8 +154,8 @@ void main() {
             conversationId: '1',
             replyByUserId: '3',
             replyToUserId: '4',
-            repplyToMessage: 'Hi',
-            repplyToMessageId: '5',
+            replyToMessage: 'Hi',
+            replyToMessageId: '5',
             type: MessageType.text,
           ),
           type: MessageType.text,
@@ -185,8 +185,8 @@ void main() {
               e.replyMessage!.conversationId == '1' &&
               e.replyMessage!.replyByUserId == '3' &&
               e.replyMessage!.replyToUserId == '4' &&
-              e.replyMessage!.repplyToMessage == 'Hi' &&
-              e.replyMessage!.repplyToMessageId == '5' &&
+              e.replyMessage!.replyToMessage == 'Hi' &&
+              e.replyMessage!.replyToMessageId == '5' &&
               e.replyMessage!.type == MessageType.text,
           'properties',
           true,

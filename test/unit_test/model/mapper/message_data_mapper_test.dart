@@ -74,9 +74,9 @@ void main() {
           updatedAt: DateTime(2023, 1, 18).millisecondsSinceEpoch,
           replyMessage: LocalReplyMessageData(
             userId: '2',
-            repplyToMessageId: '1',
+            replyToMessageId: '1',
             type: MessageType.text,
-            repplyToMessage: 'replyToMessage',
+            replyToMessage: 'replyToMessage',
             replyByUserId: '2',
             replyToUserId: '1',
           ),
@@ -127,9 +127,9 @@ void main() {
         updatedAt: DateTime(2023, 1, 18).millisecondsSinceEpoch,
         replyMessage: LocalReplyMessageData(
           userId: '2',
-          repplyToMessageId: '1',
+          replyToMessageId: '1',
           type: MessageType.text,
-          repplyToMessage: 'replyToMessage',
+          replyToMessage: 'replyToMessage',
           replyByUserId: '2',
           replyToUserId: '1',
         ),
