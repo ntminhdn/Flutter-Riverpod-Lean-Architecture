@@ -26,7 +26,7 @@ class AnalyticsHelper {
     Map<String, Object>? parameters,
   }) {
     Log.d(
-      'logScreenView: $screenName, parameters: $parameters',
+      'logScreenView: ${screenName.screenName}, parameters: $parameters',
       color: LogColor.cyan,
     );
     return FirebaseAnalytics.instance.logScreenView(
