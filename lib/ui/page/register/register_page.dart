@@ -4,10 +4,38 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../index.dart';
 
+extension AnalyticsHelperOnRegisterPage on AnalyticsHelper {
+  void _logRegisterButtonClickEvent() {
+    logEvent(
+      RegisterButtonClickEvent(screenName: ScreenName.register),
+    );
+  }
+
+  void _logLoginButtonClickEvent() {
+    logEvent(
+      LoginButtonClickEvent(screenName: ScreenName.register),
+    );
+  }
+
+  void _logEyeIconClickEvent({
+    required bool obscureText,
+  }) {
+    logEvent(
+      EyeIconClickEvent(
+        screenName: ScreenName.register,
+        obscureText: obscureText,
+      ),
+    );
+  }
+}
+
 @RoutePage()
 class RegisterPage extends BasePage<RegisterState,
     AutoDisposeStateNotifierProvider<RegisterViewModel, CommonState<RegisterState>>> {
   const RegisterPage({super.key});
+
+  @override
+  ScreenName get screenName => ScreenName.register;
 
   @override
   AutoDisposeStateNotifierProvider<RegisterViewModel, CommonState<RegisterState>> get provider =>
@@ -58,6 +86,9 @@ class RegisterPage extends BasePage<RegisterState,
                     onChanged: (password) =>
                         ref.read(provider.notifier).setPassword(password.trim()),
                     keyboardType: TextInputType.visiblePassword,
+                    onEyeIconPressed: (obscureText) {
+                      ref.analyticsHelper._logEyeIconClickEvent(obscureText: obscureText);
+                    },
                   ),
                   SizedBox(height: 24.rps),
                   PrimaryTextField(
@@ -66,6 +97,9 @@ class RegisterPage extends BasePage<RegisterState,
                     onChanged: (password) =>
                         ref.read(provider.notifier).setConfirmPassword(password.trim()),
                     keyboardType: TextInputType.visiblePassword,
+                    onEyeIconPressed: (obscureText) {
+                      ref.analyticsHelper._logEyeIconClickEvent(obscureText: obscureText);
+                    },
                   ),
                   Consumer(
                     builder: (context, ref, child) {
@@ -105,7 +139,10 @@ class RegisterPage extends BasePage<RegisterState,
                           ),
                         ),
                         CommonText(
-                          onTap: () => ref.read(appNavigatorProvider).pop(),
+                          onTap: () {
+                            ref.analyticsHelper._logLoginButtonClickEvent();
+                            ref.read(appNavigatorProvider).pop();
+                          },
                           l10n.login,
                           style: style(
                             fontSize: 18.rps,
@@ -126,7 +163,10 @@ class RegisterPage extends BasePage<RegisterState,
 
                       return ElevatedButton(
                         onPressed: isRegisterButtonEnabled
-                            ? () => ref.read(provider.notifier).register()
+                            ? () {
+                                ref.analyticsHelper._logRegisterButtonClickEvent();
+                                ref.read(provider.notifier).register();
+                              }
                             : null,
                         style: ButtonStyle(
                           minimumSize: WidgetStateProperty.all(

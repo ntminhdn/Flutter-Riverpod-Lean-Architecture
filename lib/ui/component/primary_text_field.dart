@@ -7,6 +7,7 @@ class PrimaryTextField extends HookWidget {
   const PrimaryTextField({
     required this.title,
     required this.hintText,
+    this.onEyeIconPressed,
     this.suffixIcon,
     this.controller,
     this.onChanged,
@@ -20,6 +21,7 @@ class PrimaryTextField extends HookWidget {
   final void Function(String)? onChanged;
   final TextInputType keyboardType;
   final TextEditingController? controller;
+  final void Function(bool)? onEyeIconPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,10 @@ class PrimaryTextField extends HookWidget {
             suffixIcon: isPassword
                 ? GestureDetector(
                     behavior: HitTestBehavior.translucent,
-                    onTap: () => _obscureText.value = !_obscureText.value,
+                    onTap: () {
+                      _obscureText.value = !_obscureText.value;
+                      onEyeIconPressed?.call(_obscureText.value);
+                    },
                     child: _obscureText.value
                         ? CommonImage.iconData(iconData: Icons.visibility_off)
                         : CommonImage.iconData(iconData: Icons.visibility),

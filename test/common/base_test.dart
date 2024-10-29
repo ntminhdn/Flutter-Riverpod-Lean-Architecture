@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:nalsflutter/index.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import 'index.dart';
 
@@ -15,6 +16,8 @@ Future<void> main() async {
   l10n = await AppString.delegate.load(TestConfig.l10nTestLocale);
 
   setUpAll(() async {
+    VisibilityDetectorController.instance.updateInterval = Duration.zero;
+
     // ViewModels
     registerFallbackValue(_MockConversationMembersMapStateController());
     registerFallbackValue(_MockCurrentUserStateController());
@@ -32,6 +35,8 @@ Future<void> main() async {
     registerFallbackValue(const RemoteMessage());
     registerFallbackValue(DioException(requestOptions: RequestOptions()));
     registerFallbackValue(RestMethod.get);
+    registerFallbackValue(_FakeAnalyticEvent());
+    registerFallbackValue(ScreenName.main);
   });
 
   setUp(() {
@@ -62,6 +67,15 @@ Future<void> main() async {
     when(() => ref.read(conversationMembersMapProvider.notifier))
         .thenReturn(conversationMembersMapStateController);
     when(() => ref.read(currentUserProvider.notifier)).thenReturn(currentUserStateController);
+
+    when(() => analyticsHelper.logEvent(any())).thenAnswer((_) => Future.value());
+    when(() => analyticsHelper.logScreenView(
+          screenName: any(named: 'screenName'),
+          parameters: any(named: 'parameters'),
+        )).thenAnswer((_) => Future.value());
+    when(() => analyticsHelper.setUserId(any())).thenAnswer((_) => Future.value());
+    when(() => analyticsHelper.setUserProperties(any())).thenAnswer((_) => Future.value());
+    when(() => analyticsHelper.reset()).thenAnswer((_) => Future.value());
   });
 
   tearDown(() {
@@ -71,6 +85,8 @@ Future<void> main() async {
 
 // Fakes
 class _FakeCommonPopup extends Fake implements CommonPopup {}
+
+class _FakeAnalyticEvent extends Fake implements AnalyticEvent {}
 
 // Mocks
 class MockCacheManager extends Mock implements BaseCacheManager {

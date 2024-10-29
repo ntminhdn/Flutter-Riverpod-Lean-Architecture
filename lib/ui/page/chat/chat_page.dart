@@ -21,6 +21,9 @@ class ChatPage extends BasePage<ChatState,
   final FirebaseConversationData conversation;
 
   @override
+  ScreenName get screenName => ScreenName.chat;
+
+  @override
   AutoDisposeStateNotifierProvider<ChatViewModel, CommonState<ChatState>> get provider =>
       chatViewModelProvider(conversation);
 

@@ -10,6 +10,9 @@ class MyPagePage extends BasePage<MyPageState,
   const MyPagePage({super.key});
 
   @override
+  ScreenName get screenName => ScreenName.myPage;
+
+  @override
   AutoDisposeStateNotifierProvider<MyPageViewModel, CommonState<MyPageState>> get provider =>
       myPageViewModelProvider;
 

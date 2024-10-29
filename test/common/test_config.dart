@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:nalsflutter/index.dart';
+
+import 'index.dart';
 
 class TestConfig {
   const TestConfig._();
@@ -16,5 +19,11 @@ class TestConfig {
     Device.phone,
     Device.iphone11,
     Device.tabletPortrait,
+  ];
+
+  static final baseOverrides = [
+    analyticsHelperProvider.overrideWith(
+      (_) => analyticsHelper,
+    ),
   ];
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../index.dart';
 
@@ -8,6 +9,7 @@ abstract class BasePage<S extends BaseState, P extends ProviderListenable<Common
   const BasePage({super.key});
 
   P get provider;
+  ScreenName get screenName;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,17 +26,28 @@ abstract class BasePage<S extends BaseState, P extends ProviderListenable<Common
       },
     );
 
-    return Stack(
-      children: [
-        buildPage(context, ref),
-        Consumer(
-          builder: (BuildContext context, WidgetRef ref, Widget? child) => Visibility(
-            visible: ref.watch(provider.select((value) => value.isLoading)),
-            child: buildPageLoading(),
+    return VisibilityDetector(
+      key: Key(runtimeType.toString()),
+      onVisibilityChanged: (info) => onVisibilityChanged(info.visibleFraction, ref),
+      child: Stack(
+        children: [
+          buildPage(context, ref),
+          Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? child) => Visibility(
+              visible: ref.watch(provider.select((value) => value.isLoading)),
+              child: buildPageLoading(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
+  }
+
+  // ignore: prefer_named_parameters
+  void onVisibilityChanged(double visibleFraction, WidgetRef ref) {
+    if (visibleFraction == 1) {
+      ref.analyticsHelper.logScreenView(screenName: screenName);
+    }
   }
 
   Widget buildPageLoading() => const CommonProgressIndicator();

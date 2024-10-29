@@ -146,15 +146,16 @@ extension WidgetTesterExt on WidgetTester {
     bool runAsynchronous = true,
     Future<void> Function(WidgetTester)? customPump,
   }) async {
+    final fullOverrides = [...TestConfig.baseOverrides, ...overrides];
     if (runAsynchronous) {
       await runAsync(() async => await _pumpWidgetBuilder(
             widget: widget,
-            overrides: overrides,
+            overrides: fullOverrides,
           ));
     } else {
       await _pumpWidgetBuilder(
         widget: widget,
-        overrides: overrides,
+        overrides: fullOverrides,
       );
     }
 
@@ -182,18 +183,19 @@ extension WidgetTesterExt on WidgetTester {
         widget: widget,
         onCreate: onCreate == null ? null : (key) => onCreate.call(this, key),
       );
+    final fullOverrides = [...TestConfig.baseOverrides, ...overrides];
 
     if (runAsynchronous) {
       await runAsync(
         () async => await _pumpDeviceBuilder(
           builder: builder,
-          overrides: overrides,
+          overrides: fullOverrides,
         ),
       );
     } else {
       await _pumpDeviceBuilder(
         builder: builder,
-        overrides: overrides,
+        overrides: fullOverrides,
       );
     }
 
