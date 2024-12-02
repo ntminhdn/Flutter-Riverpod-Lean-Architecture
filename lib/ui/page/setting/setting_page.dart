@@ -10,7 +10,7 @@ class SettingPage extends BasePage<SettingState,
   const SettingPage({super.key});
 
   @override
-  ScreenName get screenName => ScreenName.setting;
+  ScreenViewEvent get screenViewEvent => ScreenViewEvent(screenName: ScreenName.setting);
 
   @override
   AutoDisposeStateNotifierProvider<SettingViewModel, CommonState<SettingState>> get provider =>

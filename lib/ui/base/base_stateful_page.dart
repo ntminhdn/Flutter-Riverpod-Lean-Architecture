@@ -10,7 +10,7 @@ abstract class BaseStatefulPageState<
     P extends ProviderListenable<CommonState<S>>,
     W extends StatefulHookConsumerWidget> extends ConsumerState<W> with LogMixin {
   P get provider;
-  ScreenName get screenName;
+  ScreenViewEvent get screenViewEvent;
 
   AppNavigator get nav => ref.read(appNavigatorProvider);
 
@@ -34,7 +34,7 @@ abstract class BaseStatefulPageState<
     );
 
     return VisibilityDetector(
-      key: Key(runtimeType.toString()),
+      key: Key(screenViewEvent.fullKey),
       onVisibilityChanged: (info) => onVisibilityChanged(info.visibleFraction),
       child: Stack(
         children: [
@@ -52,7 +52,7 @@ abstract class BaseStatefulPageState<
 
   void onVisibilityChanged(double visibleFraction) {
     if (visibleFraction == 1) {
-      ref.analyticsHelper.logScreenView(screenName: screenName);
+      ref.analyticsHelper.logScreenView(screenViewEvent);
     }
   }
 

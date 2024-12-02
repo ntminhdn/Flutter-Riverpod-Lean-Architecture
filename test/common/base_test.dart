@@ -35,7 +35,8 @@ Future<void> main() async {
     registerFallbackValue(const RemoteMessage());
     registerFallbackValue(DioException(requestOptions: RequestOptions()));
     registerFallbackValue(RestMethod.get);
-    registerFallbackValue(_FakeAnalyticEvent());
+    registerFallbackValue(_FakeNormalEvent());
+    registerFallbackValue(_FakeScreenViewEvent());
     registerFallbackValue(ScreenName.main);
   });
 
@@ -69,10 +70,7 @@ Future<void> main() async {
     when(() => ref.read(currentUserProvider.notifier)).thenReturn(currentUserStateController);
 
     when(() => analyticsHelper.logEvent(any())).thenAnswer((_) => Future.value());
-    when(() => analyticsHelper.logScreenView(
-          screenName: any(named: 'screenName'),
-          parameters: any(named: 'parameters'),
-        )).thenAnswer((_) => Future.value());
+    when(() => analyticsHelper.logScreenView(any())).thenAnswer((_) => Future.value());
     when(() => analyticsHelper.setUserId(any())).thenAnswer((_) => Future.value());
     when(() => analyticsHelper.setUserProperties(any())).thenAnswer((_) => Future.value());
     when(() => analyticsHelper.reset()).thenAnswer((_) => Future.value());
@@ -86,7 +84,9 @@ Future<void> main() async {
 // Fakes
 class _FakeCommonPopup extends Fake implements CommonPopup {}
 
-class _FakeAnalyticEvent extends Fake implements AnalyticEvent {}
+class _FakeNormalEvent extends Fake implements NormalEvent {}
+
+class _FakeScreenViewEvent extends Fake implements ScreenViewEvent {}
 
 // Mocks
 class MockCacheManager extends Mock implements BaseCacheManager {

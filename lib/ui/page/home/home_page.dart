@@ -12,7 +12,7 @@ class HomePage extends BasePage<HomeState,
   const HomePage({this.cacheManager, super.key});
 
   @override
-  ScreenName get screenName => ScreenName.home;
+  ScreenViewEvent get screenViewEvent => ScreenViewEvent(screenName: ScreenName.home);
 
   @override
   AutoDisposeStateNotifierProvider<HomeViewModel, CommonState<HomeState>> get provider =>

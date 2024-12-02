@@ -7,13 +7,19 @@ import '../../../../index.dart';
 extension AnalyticsHelperOnLoginPage on AnalyticsHelper {
   void _logRegisterButtonClickEvent() {
     logEvent(
-      RegisterButtonClickEvent(screenName: ScreenName.login),
+      NormalEvent(
+        screenName: ScreenName.login,
+        eventName: EventConstants.registerButtonClick,
+      ),
     );
   }
 
   void _logLoginButtonClickEvent() {
     logEvent(
-      LoginButtonClickEvent(screenName: ScreenName.login),
+      NormalEvent(
+        screenName: ScreenName.login,
+        eventName: EventConstants.loginButtonClick,
+      ),
     );
   }
 
@@ -21,9 +27,12 @@ extension AnalyticsHelperOnLoginPage on AnalyticsHelper {
     required bool obscureText,
   }) {
     logEvent(
-      EyeIconClickEvent(
+      NormalEvent(
         screenName: ScreenName.login,
-        obscureText: obscureText,
+        eventName: EventConstants.eyeIconClick,
+        parameter: ObscureTextParameter(
+          obscureText: obscureText,
+        ),
       ),
     );
   }
@@ -35,7 +44,7 @@ class LoginPage extends BasePage<LoginState,
   const LoginPage({super.key});
 
   @override
-  ScreenName get screenName => ScreenName.login;
+  ScreenViewEvent get screenViewEvent => ScreenViewEvent(screenName: ScreenName.login);
 
   @override
   AutoDisposeStateNotifierProvider<LoginViewModel, CommonState<LoginState>> get provider =>

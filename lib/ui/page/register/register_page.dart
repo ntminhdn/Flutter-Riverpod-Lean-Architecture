@@ -7,13 +7,19 @@ import '../../../../index.dart';
 extension AnalyticsHelperOnRegisterPage on AnalyticsHelper {
   void _logRegisterButtonClickEvent() {
     logEvent(
-      RegisterButtonClickEvent(screenName: ScreenName.register),
+      NormalEvent(
+        screenName: ScreenName.register,
+        eventName: EventConstants.registerButtonClick,
+      ),
     );
   }
 
   void _logLoginButtonClickEvent() {
     logEvent(
-      LoginButtonClickEvent(screenName: ScreenName.register),
+      NormalEvent(
+        screenName: ScreenName.register,
+        eventName: EventConstants.loginButtonClick,
+      ),
     );
   }
 
@@ -21,9 +27,12 @@ extension AnalyticsHelperOnRegisterPage on AnalyticsHelper {
     required bool obscureText,
   }) {
     logEvent(
-      EyeIconClickEvent(
+      NormalEvent(
         screenName: ScreenName.register,
-        obscureText: obscureText,
+        eventName: EventConstants.eyeIconClick,
+        parameter: ObscureTextParameter(
+          obscureText: obscureText,
+        ),
       ),
     );
   }
@@ -35,7 +44,7 @@ class RegisterPage extends BasePage<RegisterState,
   const RegisterPage({super.key});
 
   @override
-  ScreenName get screenName => ScreenName.register;
+  ScreenViewEvent get screenViewEvent => ScreenViewEvent(screenName: ScreenName.register);
 
   @override
   AutoDisposeStateNotifierProvider<RegisterViewModel, CommonState<RegisterState>> get provider =>

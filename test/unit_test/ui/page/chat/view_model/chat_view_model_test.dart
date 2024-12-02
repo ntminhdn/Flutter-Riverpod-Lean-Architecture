@@ -681,7 +681,6 @@ void main() {
           when(() => messageDataMapper.mapToRemote(newLocalMessage)).thenReturn(newRemoteMessage);
           when(() => appDatabase.putMessage(newLocalMessage)).thenAnswer((_) async => {});
           when(() => firebaseFirestoreService.createMessage(
-                currentUserId: userId,
                 conversationId: initialConversation.id,
                 message: newRemoteMessage,
               )).thenAnswer((_) async => {});
@@ -692,7 +691,6 @@ void main() {
         verify: (vm) {
           verify(() => appDatabase.putMessage(newLocalMessage)).called(1);
           verify(() => firebaseFirestoreService.createMessage(
-                currentUserId: userId,
                 conversationId: initialConversation.id,
                 message: newRemoteMessage,
               )).called(1);
@@ -783,7 +781,6 @@ void main() {
           when(() => messageDataMapper.mapToRemote(newLocalMessage)).thenReturn(newRemoteMessage);
           when(() => appDatabase.putMessage(newLocalMessage)).thenAnswer((_) async => {});
           when(() => firebaseFirestoreService.createMessage(
-                currentUserId: userId,
                 conversationId: initialConversation.id,
                 message: newRemoteMessage,
               )).thenAnswer((_) async => {});
@@ -802,7 +799,6 @@ void main() {
         verify: (vm) {
           verify(() => appDatabase.putMessage(newLocalMessage)).called(1);
           verify(() => firebaseFirestoreService.createMessage(
-                currentUserId: userId,
                 conversationId: initialConversation.id,
                 message: newRemoteMessage,
               )).called(1);

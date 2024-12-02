@@ -9,7 +9,7 @@ abstract class BasePage<S extends BaseState, P extends ProviderListenable<Common
   const BasePage({super.key});
 
   P get provider;
-  ScreenName get screenName;
+  ScreenViewEvent get screenViewEvent;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,7 +27,7 @@ abstract class BasePage<S extends BaseState, P extends ProviderListenable<Common
     );
 
     return VisibilityDetector(
-      key: Key(runtimeType.toString()),
+      key: Key(screenViewEvent.fullKey),
       onVisibilityChanged: (info) => onVisibilityChanged(info.visibleFraction, ref),
       child: Stack(
         children: [
@@ -46,7 +46,7 @@ abstract class BasePage<S extends BaseState, P extends ProviderListenable<Common
   // ignore: prefer_named_parameters
   void onVisibilityChanged(double visibleFraction, WidgetRef ref) {
     if (visibleFraction == 1) {
-      ref.analyticsHelper.logScreenView(screenName: screenName);
+      ref.analyticsHelper.logScreenView(screenViewEvent);
     }
   }
 
