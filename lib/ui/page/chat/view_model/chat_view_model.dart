@@ -182,7 +182,6 @@ class ChatViewModel extends BaseViewModel<ChatState> with LogMixin {
         await _ref.appDatabase.putMessage(localMessage);
 
         await _ref.firebaseFirestoreService.createMessage(
-          currentUserId: _ref.appPreferences.userId,
           conversationId: data.conversation.id,
           message: _messageDataMapper.mapToRemote(localMessage),
         );

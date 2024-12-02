@@ -11,6 +11,9 @@ class ContactListPage extends BasePage<ContactListState,
   const ContactListPage({super.key});
 
   @override
+  ScreenViewEvent get screenViewEvent => ScreenViewEvent(screenName: ScreenName.contactList);
+
+  @override
   AutoDisposeStateNotifierProvider<ContactListViewModel, CommonState<ContactListState>>
       get provider => contactListViewModelProvider;
 

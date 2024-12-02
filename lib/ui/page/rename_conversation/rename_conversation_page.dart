@@ -13,6 +13,9 @@ class RenameConversationPage extends BasePage<
   const RenameConversationPage({required this.conversation, super.key});
 
   @override
+  ScreenViewEvent get screenViewEvent => ScreenViewEvent(screenName: ScreenName.renameConversation);
+
+  @override
   AutoDisposeStateNotifierProvider<RenameConversationViewModel,
           CommonState<RenameConversationState>>
       get provider => renameConversationViewModelProvider(conversation);

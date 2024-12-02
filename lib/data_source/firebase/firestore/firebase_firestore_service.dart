@@ -181,7 +181,6 @@ class FirebaseFirestoreService {
   }
 
   Future<void> createMessage({
-    required String currentUserId,
     required String conversationId,
     required FirebaseMessageData message,
   }) async {

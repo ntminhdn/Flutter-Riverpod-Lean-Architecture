@@ -3,6 +3,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer' as dev;
 
+import 'package:flutter/foundation.dart';
+
 import '../../index.dart';
 
 enum LogColor {
@@ -19,28 +21,39 @@ enum LogColor {
   final String code;
 }
 
+enum LogMode { all, apiOnly, logEventOnly, normalLogOnly, none }
+
 class Log {
   const Log._();
 
   static const _enableLog = Config.enableGeneralLog;
+  static const generalLogMode = LogMode.logEventOnly;
 
   static void d(
     Object? message, {
     LogColor color = LogColor.green,
+    LogMode mode = LogMode.normalLogOnly,
     String? name,
     DateTime? time,
   }) {
+    if (!kDebugMode ||
+        generalLogMode == LogMode.none ||
+        (generalLogMode != LogMode.all && generalLogMode != mode)) return;
     _log('$message', color: color, name: name ?? '', time: time);
   }
 
   static void e(
     Object? errorMessage, {
     LogColor color = LogColor.red,
+    LogMode mode = LogMode.normalLogOnly,
     String? name,
     Object? errorObject,
     StackTrace? stackTrace,
     DateTime? time,
   }) {
+    if (!kDebugMode ||
+        generalLogMode == LogMode.none ||
+        (generalLogMode != LogMode.all && generalLogMode != mode)) return;
     _log(
       '$errorMessage',
       color: color,
@@ -51,7 +64,7 @@ class Log {
     );
   }
 
-  static String prettyJson(Map<String, dynamic> json) {
+  static String prettyJson(dynamic json) {
     if (!Config.isPrettyJson) {
       return json.toString();
     }
@@ -117,5 +130,16 @@ mixin LogMixin on Object {
       time: time,
       color: color,
     );
+  }
+
+  static String prettyResponse(dynamic data) {
+    if (data is Map) {
+      final indent = '  ' * 2;
+      final encoder = JsonEncoder.withIndent(indent);
+
+      return encoder.convert(data as Map<String, dynamic>);
+    }
+
+    return data.toString();
   }
 }

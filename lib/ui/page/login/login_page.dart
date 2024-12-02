@@ -4,10 +4,47 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../index.dart';
 
+extension AnalyticsHelperOnLoginPage on AnalyticsHelper {
+  void _logRegisterButtonClickEvent() {
+    logEvent(
+      NormalEvent(
+        screenName: ScreenName.login,
+        eventName: EventConstants.registerButtonClick,
+      ),
+    );
+  }
+
+  void _logLoginButtonClickEvent() {
+    logEvent(
+      NormalEvent(
+        screenName: ScreenName.login,
+        eventName: EventConstants.loginButtonClick,
+      ),
+    );
+  }
+
+  void _logEyeIconClickEvent({
+    required bool obscureText,
+  }) {
+    logEvent(
+      NormalEvent(
+        screenName: ScreenName.login,
+        eventName: EventConstants.eyeIconClick,
+        parameter: ObscureTextParameter(
+          obscureText: obscureText,
+        ),
+      ),
+    );
+  }
+}
+
 @RoutePage()
 class LoginPage extends BasePage<LoginState,
     AutoDisposeStateNotifierProvider<LoginViewModel, CommonState<LoginState>>> {
   const LoginPage({super.key});
+
+  @override
+  ScreenViewEvent get screenViewEvent => ScreenViewEvent(screenName: ScreenName.login);
 
   @override
   AutoDisposeStateNotifierProvider<LoginViewModel, CommonState<LoginState>> get provider =>
@@ -57,6 +94,9 @@ class LoginPage extends BasePage<LoginState,
                     hintText: l10n.password,
                     onChanged: (password) => ref.read(provider.notifier).setPassword(password),
                     keyboardType: TextInputType.visiblePassword,
+                    onEyeIconPressed: (obscureText) {
+                      ref.analyticsHelper._logEyeIconClickEvent(obscureText: obscureText);
+                    },
                   ),
                   Consumer(
                     builder: (context, ref, child) {
@@ -87,8 +127,12 @@ class LoginPage extends BasePage<LoginState,
                       ));
 
                       return ElevatedButton(
-                        onPressed:
-                            isLoginButtonEnabled ? () => ref.read(provider.notifier).login() : null,
+                        onPressed: isLoginButtonEnabled
+                            ? () {
+                                ref.analyticsHelper._logLoginButtonClickEvent();
+                                ref.read(provider.notifier).login();
+                              }
+                            : null,
                         style: ButtonStyle(
                           minimumSize: WidgetStateProperty.all(
                             Size(double.infinity, 48.rps),
@@ -119,7 +163,10 @@ class LoginPage extends BasePage<LoginState,
                   Align(
                     alignment: Alignment.center,
                     child: CommonText(
-                      onTap: () => ref.read(appNavigatorProvider).push(const RegisterRoute()),
+                      onTap: () {
+                        ref.analyticsHelper._logRegisterButtonClickEvent();
+                        ref.read(appNavigatorProvider).push(const RegisterRoute());
+                      },
                       l10n.createAnAccount,
                       style: style(
                         fontSize: 18.rps,

@@ -86,10 +86,6 @@ class CustomLogInterceptor extends BaseInterceptor {
 
   // ignore: avoid-dynamic
   String _prettyResponse(dynamic data) {
-    if (data is Map) {
-      return Log.prettyJson(data as Map<String, dynamic>);
-    }
-
-    return data.toString();
+    return Log.prettyJson(data);
   }
 }

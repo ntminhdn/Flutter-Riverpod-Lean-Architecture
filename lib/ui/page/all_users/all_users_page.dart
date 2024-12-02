@@ -25,6 +25,9 @@ class AllUsersPage extends BasePage<AllUsersState,
   const AllUsersPage({required this.action, this.conversation, super.key});
 
   @override
+  ScreenViewEvent get screenViewEvent => ScreenViewEvent(screenName: ScreenName.allUsers);
+
+  @override
   AutoDisposeStateNotifierProvider<AllUsersViewModel, CommonState<AllUsersState>> get provider =>
       allUsersViewModelProvider(conversation);
 

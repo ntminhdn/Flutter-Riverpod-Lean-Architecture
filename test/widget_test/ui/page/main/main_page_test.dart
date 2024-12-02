@@ -50,6 +50,7 @@ void main() {
                 ),
               ),
               appNavigatorProvider.overrideWith((ref) => navigator),
+              analyticsHelperProvider.overrideWith((ref) => analyticsHelper),
             ],
             child: TestUtil.buildRouterMaterialApp(
               initialRoute: MainRoute(),
@@ -93,6 +94,7 @@ void main() {
                 ),
               ),
               appNavigatorProvider.overrideWith((ref) => navigator),
+              analyticsHelperProvider.overrideWith((ref) => analyticsHelper),
             ],
             child: TestUtil.buildRouterMaterialApp(
               initialRoute: MainRoute(),
